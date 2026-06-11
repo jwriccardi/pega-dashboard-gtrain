@@ -107,116 +107,236 @@ fun MainDashboardContent(
     val nbMin1 = northboundTrains.getOrNull(0)?.toString() ?: "--"
     val nbMin2 = northboundTrains.getOrNull(1)?.toString() ?: "--"
 
-    Box(modifier = Modifier.fillMaxSize()) {
-        Row(
-            modifier = Modifier
-                .fillMaxSize()
-                .background(Color.Black)
-                .padding(16.dp),
-            verticalAlignment = Alignment.CenterVertically,
-            horizontalArrangement = Arrangement.SpaceEvenly
-        ) {
-            // Left Column
-            Column(
-                modifier = Modifier.weight(1f),
-                horizontalAlignment = Alignment.CenterHorizontally,
-                verticalArrangement = Arrangement.Center
+    BoxWithConstraints(modifier = Modifier.fillMaxSize()) {
+        val isLandscape = maxWidth > maxHeight
+
+        if (isLandscape) {
+            Row(
+                modifier = Modifier
+                    .fillMaxSize()
+                    .background(Color.Black)
+                    .padding(16.dp),
+                verticalAlignment = Alignment.CenterVertically,
+                horizontalArrangement = Arrangement.SpaceEvenly
             ) {
+                // Left Column
+                Column(
+                    modifier = Modifier.weight(1f),
+                    horizontalAlignment = Alignment.CenterHorizontally,
+                    verticalArrangement = Arrangement.Center
+                ) {
+                    Box(
+                        modifier = Modifier
+                            .size(200.dp)
+                            .clip(CircleShape)
+                            .background(Color(0xFF6CBE45)),
+                        contentAlignment = Alignment.Center
+                    ) {
+                        Text(
+                            text = "G",
+                            color = Color.White,
+                            fontSize = 130.sp,
+                            fontWeight = FontWeight.Bold,
+                            fontFamily = oswaldFontFamily
+                        )
+                    }
+                    Spacer(modifier = Modifier.height(32.dp))
+                    Text(
+                        text = "MYRTLE\nWILLOUGHBY",
+                        color = Color.White,
+                        fontSize = 48.sp,
+                        fontWeight = FontWeight.Bold,
+                        textAlign = TextAlign.Center,
+                        fontFamily = oswaldFontFamily,
+                        lineHeight = 64.sp
+                    )
+                }
+
+                // Vertical Divider
                 Box(
                     modifier = Modifier
-                        .size(200.dp)
-                        .clip(CircleShape)
-                        .background(Color(0xFF6CBE45)),
-                    contentAlignment = Alignment.Center
-                ) {
-                    Text(
-                        text = "G",
-                        color = Color.White,
-                        fontSize = 130.sp,
-                        fontWeight = FontWeight.Bold,
-                        fontFamily = oswaldFontFamily
-                    )
-                }
-                Spacer(modifier = Modifier.height(32.dp))
-                Text(
-                    text = "MYRTLE\nWILLOUGHBY",
-                    color = Color.White,
-                    fontSize = 48.sp,
-                    fontWeight = FontWeight.Bold,
-                    textAlign = TextAlign.Center,
-                    fontFamily = oswaldFontFamily,
-                    lineHeight = 64.sp
+                        .width(3.dp)
+                        .fillMaxHeight(0.8f)
+                        .background(Color(0xFF2A2A2A))
                 )
+
+                // Right Column
+                Column(
+                    modifier = Modifier
+                        .weight(1.5f)
+                        .padding(start = 32.dp),
+                    verticalArrangement = Arrangement.Center
+                ) {
+                    // Top Row: Church Ave
+                    Row(
+                        modifier = Modifier.fillMaxWidth(),
+                        verticalAlignment = Alignment.CenterVertically
+                    ) {
+                        Text(
+                            text = "CHURCH\nAVE",
+                            color = Color.White,
+                            fontSize = 48.sp,
+                            fontWeight = FontWeight.Bold,
+                            modifier = Modifier.weight(1f),
+                            fontFamily = oswaldFontFamily,
+                            lineHeight = 64.sp
+                        )
+                        
+                        Column(horizontalAlignment = Alignment.CenterHorizontally, modifier = Modifier.weight(1f)) {
+                            Text(text = sbMin1, color = Color.White, fontSize = 96.sp, fontWeight = FontWeight.Normal, fontFamily = oswaldFontFamily)
+                            Text(text = "MINS", color = Color.White, fontSize = 28.sp, fontWeight = FontWeight.Bold, fontFamily = oswaldFontFamily)
+                        }
+                        
+                        Column(horizontalAlignment = Alignment.CenterHorizontally, modifier = Modifier.weight(1f)) {
+                            Text(text = sbMin2, color = Color.White, fontSize = 96.sp, fontWeight = FontWeight.Normal, fontFamily = oswaldFontFamily)
+                            Text(text = "MINS", color = Color.White, fontSize = 28.sp, fontWeight = FontWeight.Bold, fontFamily = oswaldFontFamily)
+                        }
+                    }
+                    
+                    Spacer(modifier = Modifier.height(32.dp))
+                    Box(modifier = Modifier.fillMaxWidth().height(3.dp).background(Color(0xFF2A2A2A)))
+                    Spacer(modifier = Modifier.height(32.dp))
+
+                    // Bottom Row: Court Square
+                    Row(
+                        modifier = Modifier.fillMaxWidth(),
+                        verticalAlignment = Alignment.CenterVertically
+                    ) {
+                        Text(
+                            text = "COURT\nSQUARE",
+                            color = Color.White,
+                            fontSize = 48.sp,
+                            fontWeight = FontWeight.Bold,
+                            modifier = Modifier.weight(1f),
+                            fontFamily = oswaldFontFamily,
+                            lineHeight = 64.sp
+                        )
+                        
+                        Column(horizontalAlignment = Alignment.CenterHorizontally, modifier = Modifier.weight(1f)) {
+                            Text(text = nbMin1, color = Color.White, fontSize = 96.sp, fontWeight = FontWeight.Normal, fontFamily = oswaldFontFamily)
+                            Text(text = "MINS", color = Color.White, fontSize = 28.sp, fontWeight = FontWeight.Bold, fontFamily = oswaldFontFamily)
+                        }
+                        
+                        Column(horizontalAlignment = Alignment.CenterHorizontally, modifier = Modifier.weight(1f)) {
+                            Text(text = nbMin2, color = Color.White, fontSize = 96.sp, fontWeight = FontWeight.Normal, fontFamily = oswaldFontFamily)
+                            Text(text = "MIN", color = Color.White, fontSize = 28.sp, fontWeight = FontWeight.Bold, fontFamily = oswaldFontFamily)
+                        }
+                    }
+                }
             }
-
-            // Vertical Divider
-            Box(
-                modifier = Modifier
-                    .width(3.dp)
-                    .fillMaxHeight(0.8f)
-                    .background(Color(0xFF2A2A2A))
-            )
-
-            // Right Column
+        } else {
+            // Portrait / Phone Layout (Pixel 9 Pro XL optimized)
             Column(
                 modifier = Modifier
-                    .weight(1.5f)
-                    .padding(start = 32.dp),
-                verticalArrangement = Arrangement.Center
+                    .fillMaxSize()
+                    .background(Color.Black)
+                    .padding(horizontal = 16.dp, vertical = 32.dp),
+                horizontalAlignment = Alignment.CenterHorizontally,
+                verticalArrangement = Arrangement.SpaceEvenly
             ) {
-                // Top Row: Church Ave
-                Row(
-                    modifier = Modifier.fillMaxWidth(),
-                    verticalAlignment = Alignment.CenterVertically
+                // Top Section (Station Name)
+                Column(
+                    horizontalAlignment = Alignment.CenterHorizontally,
+                    verticalArrangement = Arrangement.Center
                 ) {
+                    Box(
+                        modifier = Modifier
+                            .size(160.dp)
+                            .clip(CircleShape)
+                            .background(Color(0xFF6CBE45)),
+                        contentAlignment = Alignment.Center
+                    ) {
+                        Text(
+                            text = "G",
+                            color = Color.White,
+                            fontSize = 100.sp,
+                            fontWeight = FontWeight.Bold,
+                            fontFamily = oswaldFontFamily
+                        )
+                    }
+                    Spacer(modifier = Modifier.height(24.dp))
                     Text(
-                        text = "CHURCH\nAVE",
+                        text = "MYRTLE\nWILLOUGHBY",
                         color = Color.White,
-                        fontSize = 48.sp,
+                        fontSize = 40.sp,
                         fontWeight = FontWeight.Bold,
-                        modifier = Modifier.weight(1f),
+                        textAlign = TextAlign.Center,
                         fontFamily = oswaldFontFamily,
-                        lineHeight = 64.sp
+                        lineHeight = 52.sp
                     )
-                    
-                    Column(horizontalAlignment = Alignment.CenterHorizontally, modifier = Modifier.weight(1f)) {
-                        Text(text = sbMin1, color = Color.White, fontSize = 96.sp, fontWeight = FontWeight.Normal, fontFamily = oswaldFontFamily)
-                        Text(text = "MINS", color = Color.White, fontSize = 28.sp, fontWeight = FontWeight.Bold, fontFamily = oswaldFontFamily)
-                    }
-                    
-                    Column(horizontalAlignment = Alignment.CenterHorizontally, modifier = Modifier.weight(1f)) {
-                        Text(text = sbMin2, color = Color.White, fontSize = 96.sp, fontWeight = FontWeight.Normal, fontFamily = oswaldFontFamily)
-                        Text(text = "MINS", color = Color.White, fontSize = 28.sp, fontWeight = FontWeight.Bold, fontFamily = oswaldFontFamily)
-                    }
                 }
-                
-                Spacer(modifier = Modifier.height(32.dp))
-                Box(modifier = Modifier.fillMaxWidth().height(3.dp).background(Color(0xFF2A2A2A)))
-                Spacer(modifier = Modifier.height(32.dp))
 
-                // Bottom Row: Court Square
-                Row(
+                // Horizontal Divider
+                Box(
+                    modifier = Modifier
+                        .fillMaxWidth(0.8f)
+                        .height(3.dp)
+                        .background(Color(0xFF2A2A2A))
+                )
+
+                // Bottom Section (Destinations & Times)
+                Column(
                     modifier = Modifier.fillMaxWidth(),
-                    verticalAlignment = Alignment.CenterVertically
+                    verticalArrangement = Arrangement.Center
                 ) {
-                    Text(
-                        text = "COURT\nSQUARE",
-                        color = Color.White,
-                        fontSize = 48.sp,
-                        fontWeight = FontWeight.Bold,
-                        modifier = Modifier.weight(1f),
-                        fontFamily = oswaldFontFamily,
-                        lineHeight = 64.sp
-                    )
-                    
-                    Column(horizontalAlignment = Alignment.CenterHorizontally, modifier = Modifier.weight(1f)) {
-                        Text(text = nbMin1, color = Color.White, fontSize = 96.sp, fontWeight = FontWeight.Normal, fontFamily = oswaldFontFamily)
-                        Text(text = "MINS", color = Color.White, fontSize = 28.sp, fontWeight = FontWeight.Bold, fontFamily = oswaldFontFamily)
+                    // Top Destination: Church Ave
+                    Column(
+                        horizontalAlignment = Alignment.CenterHorizontally,
+                        modifier = Modifier.fillMaxWidth()
+                    ) {
+                        Text(
+                            text = "CHURCH AVE",
+                            color = Color.White,
+                            fontSize = 40.sp,
+                            fontWeight = FontWeight.Bold,
+                            fontFamily = oswaldFontFamily
+                        )
+                        Spacer(modifier = Modifier.height(16.dp))
+                        Row(
+                            modifier = Modifier.fillMaxWidth(),
+                            horizontalArrangement = Arrangement.SpaceEvenly
+                        ) {
+                            Column(horizontalAlignment = Alignment.CenterHorizontally) {
+                                Text(text = sbMin1, color = Color.White, fontSize = 80.sp, fontWeight = FontWeight.Normal, fontFamily = oswaldFontFamily)
+                                Text(text = "MINS", color = Color.White, fontSize = 24.sp, fontWeight = FontWeight.Bold, fontFamily = oswaldFontFamily)
+                            }
+                            Column(horizontalAlignment = Alignment.CenterHorizontally) {
+                                Text(text = sbMin2, color = Color.White, fontSize = 80.sp, fontWeight = FontWeight.Normal, fontFamily = oswaldFontFamily)
+                                Text(text = "MINS", color = Color.White, fontSize = 24.sp, fontWeight = FontWeight.Bold, fontFamily = oswaldFontFamily)
+                            }
+                        }
                     }
                     
-                    Column(horizontalAlignment = Alignment.CenterHorizontally, modifier = Modifier.weight(1f)) {
-                        Text(text = nbMin2, color = Color.White, fontSize = 96.sp, fontWeight = FontWeight.Normal, fontFamily = oswaldFontFamily)
-                        Text(text = "MIN", color = Color.White, fontSize = 28.sp, fontWeight = FontWeight.Bold, fontFamily = oswaldFontFamily)
+                    Spacer(modifier = Modifier.height(24.dp))
+                    Box(modifier = Modifier.fillMaxWidth().height(3.dp).background(Color(0xFF2A2A2A)))
+                    Spacer(modifier = Modifier.height(24.dp))
+
+                    // Bottom Destination: Court Square
+                    Column(
+                        horizontalAlignment = Alignment.CenterHorizontally,
+                        modifier = Modifier.fillMaxWidth()
+                    ) {
+                        Text(
+                            text = "COURT SQUARE",
+                            color = Color.White,
+                            fontSize = 40.sp,
+                            fontWeight = FontWeight.Bold,
+                            fontFamily = oswaldFontFamily
+                        )
+                        Spacer(modifier = Modifier.height(16.dp))
+                        Row(
+                            modifier = Modifier.fillMaxWidth(),
+                            horizontalArrangement = Arrangement.SpaceEvenly
+                        ) {
+                            Column(horizontalAlignment = Alignment.CenterHorizontally) {
+                                Text(text = nbMin1, color = Color.White, fontSize = 80.sp, fontWeight = FontWeight.Normal, fontFamily = oswaldFontFamily)
+                                Text(text = "MINS", color = Color.White, fontSize = 24.sp, fontWeight = FontWeight.Bold, fontFamily = oswaldFontFamily)
+                            }
+                            Column(horizontalAlignment = Alignment.CenterHorizontally) {
+                                Text(text = nbMin2, color = Color.White, fontSize = 80.sp, fontWeight = FontWeight.Normal, fontFamily = oswaldFontFamily)
+                                Text(text = "MIN", color = Color.White, fontSize = 24.sp, fontWeight = FontWeight.Bold, fontFamily = oswaldFontFamily)
+                            }
+                        }
                     }
                 }
             }
