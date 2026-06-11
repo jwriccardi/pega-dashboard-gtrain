@@ -15,6 +15,7 @@ import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.layout.*
 import androidx.compose.ui.draw.alpha
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.draw.shadow
@@ -90,45 +91,23 @@ fun MainDashboardContent(
     currentTimeSeconds: Long,
     onRefresh: () -> Unit
 ) {
-    Column(
-        modifier = Modifier
-            .fillMaxSize()
-            .padding(16.dp)
+    Box(
+        modifier = Modifier.fillMaxSize()
     ) {
-        // Header Row
-        HeaderBar(
-            lastUpdatedEpoch = lastUpdatedEpoch,
-            currentTimeSeconds = currentTimeSeconds,
-            isRefreshing = isRefreshing,
-            hasError = false,
-            onRefresh = onRefresh
+        TrackCanvas(
+            northbound = arrivals.northbound,
+            southbound = arrivals.southbound,
+            currentTimeSeconds = currentTimeSeconds
         )
-
-        Spacer(modifier = Modifier.height(16.dp))
-
-        // Split view for Northbound and Southbound
-        Row(
-            modifier = Modifier
-                .fillMaxWidth()
-                .weight(1f),
-            horizontalArrangement = Arrangement.spacedBy(16.dp)
-        ) {
-            // Left Column - Northbound (Queens-bound / to Court Sq)
-            DirectionColumn(
-                title = "NORTHBOUND",
-                destination = "To Court Sq",
-                trains = arrivals.northbound,
-                currentTimeSeconds = currentTimeSeconds,
-                modifier = Modifier.weight(1f)
-            )
-
-            // Right Column - Southbound (Brooklyn-bound / to Church Ave)
-            DirectionColumn(
-                title = "SOUTHBOUND",
-                destination = "To Church Av",
-                trains = arrivals.southbound,
-                currentTimeSeconds = currentTimeSeconds,
-                modifier = Modifier.weight(1f)
+        
+        if (isRefreshing) {
+            Text(
+                text = "Refreshing...",
+                color = WarningOrange,
+                fontSize = 12.sp,
+                modifier = Modifier
+                    .align(Alignment.BottomEnd)
+                    .padding(16.dp)
             )
         }
     }
@@ -394,24 +373,27 @@ fun ArrivalCard(
 ) {
     val minutes = train.getMinutesRemaining(currentTimeSeconds)
     
-    val borderAlpha = if (isNextTrain) {
-        val infiniteTransition = rememberInfiniteTransition(label = "glow")
-        val alpha by infiniteTransition.animateFloat(
-            initialValue = 0.2f,
-            targetValue = 0.6f,
-            animationSpec = infiniteRepeatable(
-                animation = tween(1500, easing = EaseInOutSine),
-                repeatMode = RepeatMode.Reverse
-            ),
-            label = "glowAlpha"
-        )
-        alpha
-    } else {
-        0.1f
+    // Ambient Pulse Concept Logic
+    val pulseDuration = when {
+        minutes <= 1 -> 600 // Fast heartbeat (kinetic energy)
+        minutes <= 5 -> 1200 // Faster breathing
+        else -> 2500 // Slow resting pulse
     }
 
+    val infiniteTransition = rememberInfiniteTransition(label = "ambientPulse")
+    val pulseAlpha by infiniteTransition.animateFloat(
+        initialValue = if (isNextTrain) 0.3f else 0.1f,
+        targetValue = if (isNextTrain) 1.0f else 0.3f,
+        animationSpec = infiniteRepeatable(
+            animation = tween(pulseDuration, easing = EaseInOutSine),
+            repeatMode = RepeatMode.Reverse
+        ),
+        label = "ambientPulseAlpha"
+    )
+
+    // Dynamic background that breathes with the pulse
     val cardBg = if (isNextTrain) {
-        Color(0x2A1C2C1C) // Slightly greener background for next train
+        Color(0x2A1C2C1C).copy(alpha = 0.2f + (pulseAlpha * 0.4f))
     } else {
         CardBackground
     }
@@ -427,9 +409,19 @@ fun ArrivalCard(
 
     Box(
         modifier = modifier
-            .clip(RoundedCornerShape(16.dp))
+            .shadow(
+                elevation = if (isNextTrain) (pulseAlpha * 16).dp else 0.dp,
+                shape = RoundedCornerShape(24.dp),
+                spotColor = GTrainGreenGlow,
+                ambientColor = GTrainGreen
+            )
+            .clip(RoundedCornerShape(24.dp))
             .background(cardBg)
-            .border(1.dp, GTrainGreen.copy(alpha = borderAlpha), RoundedCornerShape(16.dp))
+            .border(
+                width = if (isNextTrain) 2.dp else 1.dp,
+                color = GTrainGreen.copy(alpha = pulseAlpha * (if(isNextTrain) 0.8f else 0.3f)),
+                shape = RoundedCornerShape(24.dp)
+            )
             .padding(24.dp),
         contentAlignment = Alignment.Center
     ) {
@@ -674,5 +666,196 @@ fun ErrorStateScreen(
                 }
             }
         }
+    }
+}
+
+fun Modifier.centerAt(xPx: Float, yPx: Float) = this.layout { measurable, constraints ->
+    val placeable = measurable.measure(constraints)
+    layout(0, 0) {
+        placeable.placeRelative(
+            x = (xPx - placeable.width / 2f).toInt(),
+            y = (yPx - placeable.height / 2f).toInt()
+        )
+    }
+}
+
+fun getTrainPosition(d: Float, X_v: Float, Y_h: Float, Y_s: Float, R: Float, isNorthbound: Boolean): androidx.compose.ui.geometry.Offset {
+    val d_curve_start = (Y_h - R) - Y_s
+    val curve_length = (Math.PI.toFloat() * R) / 2f
+    val d_horiz_start = d_curve_start + curve_length
+
+    if (isNorthbound) {
+        return when {
+            d < 0 -> androidx.compose.ui.geometry.Offset(X_v, Y_s)
+            d < d_curve_start -> {
+                androidx.compose.ui.geometry.Offset(X_v, Y_s + d)
+            }
+            d < d_horiz_start -> {
+                val d_on_curve = d - d_curve_start
+                val angle = d_on_curve / R
+                val cx = X_v - R
+                val cy = Y_h - R
+                androidx.compose.ui.geometry.Offset(
+                    cx + R * kotlin.math.cos(angle.toDouble()).toFloat(),
+                    cy + R * kotlin.math.sin(angle.toDouble()).toFloat()
+                )
+            }
+            else -> {
+                val d_on_horiz = d - d_horiz_start
+                androidx.compose.ui.geometry.Offset(X_v - R - d_on_horiz, Y_h)
+            }
+        }
+    } else {
+        if (d < 0) return androidx.compose.ui.geometry.Offset(X_v, Y_s)
+        return androidx.compose.ui.geometry.Offset(X_v, Y_s - d)
+    }
+}
+
+fun getTrackPath(X_v: Float, Y_h: Float, R: Float): androidx.compose.ui.graphics.Path {
+    return androidx.compose.ui.graphics.Path().apply {
+        moveTo(0f, Y_h)
+        lineTo(X_v - R, Y_h)
+        arcTo(
+            rect = androidx.compose.ui.geometry.Rect(X_v - 2*R, Y_h - 2*R, X_v, Y_h),
+            startAngleDegrees = 90f,
+            sweepAngleDegrees = -90f,
+            forceMoveTo = false
+        )
+        lineTo(X_v, 0f)
+    }
+}
+
+@Composable
+fun TrackCanvas(
+    northbound: List<TrainArrival>,
+    southbound: List<TrainArrival>,
+    currentTimeSeconds: Long
+) {
+    BoxWithConstraints(modifier = Modifier.fillMaxSize()) {
+        val W = constraints.maxWidth.toFloat()
+        val H = constraints.maxHeight.toFloat()
+        val density = androidx.compose.ui.platform.LocalDensity.current
+        
+        val X_v = W * 0.65f
+        val Y_h = H * 0.85f
+        val R = H * 0.25f
+        val Y_s = H * 0.45f
+        
+        val spacing = with(density) { 60.dp.toPx() }
+        val X_v_nb = X_v + spacing/2
+        val Y_h_nb = Y_h + spacing/2
+        val R_nb = R + spacing/2
+
+        val X_v_sb = X_v - spacing/2
+        val Y_h_sb = Y_h - spacing/2
+        val R_sb = R - spacing/2
+        
+        val maxNb = northbound.take(2).maxOfOrNull { it.getMinutesRemaining(currentTimeSeconds) } ?: 15L
+        val maxSb = southbound.take(2).maxOfOrNull { it.getMinutesRemaining(currentTimeSeconds) } ?: 15L
+        val maxMin = maxOf(10L, maxNb, maxSb).toFloat()
+        
+        val pixelsPerMinute = (H * 0.4f) / maxMin
+
+        androidx.compose.foundation.Canvas(modifier = Modifier.fillMaxSize()) {
+            val streetColor = Color(0xFF444444)
+            val streetStrokeWidth = 2.dp.toPx()
+            val dashEffect = androidx.compose.ui.graphics.PathEffect.dashPathEffect(floatArrayOf(20f, 20f))
+
+            // Marcy Ave (Vertical)
+            drawLine(
+                color = streetColor,
+                start = androidx.compose.ui.geometry.Offset(X_v, 0f),
+                end = androidx.compose.ui.geometry.Offset(X_v, H),
+                strokeWidth = streetStrokeWidth,
+                pathEffect = dashEffect
+            )
+
+            // Myrtle Ave (Horizontal)
+            drawLine(
+                color = streetColor,
+                start = androidx.compose.ui.geometry.Offset(0f, Y_s),
+                end = androidx.compose.ui.geometry.Offset(W, Y_s),
+                strokeWidth = streetStrokeWidth,
+                pathEffect = dashEffect
+            )
+
+            val pathNB = getTrackPath(X_v_nb, Y_h_nb, R_nb)
+            val pathSB = getTrackPath(X_v_sb, Y_h_sb, R_sb)
+            
+            val stroke = androidx.compose.ui.graphics.drawscope.Stroke(width = 8.dp.toPx())
+            val trackColor = Color(0xFF999999) // Lighter track lines
+
+            drawPath(pathNB, color = trackColor, style = stroke)
+            drawPath(pathSB, color = trackColor, style = stroke)
+        }
+
+        // Street Labels
+        Text(
+            text = "MARCY AVE",
+            color = Color(0xFF555555),
+            fontSize = 14.sp,
+            fontWeight = FontWeight.Bold,
+            modifier = Modifier.centerAt(X_v + with(density) { 50.dp.toPx() }, H * 0.1f)
+        )
+        Text(
+            text = "MYRTLE AVE",
+            color = Color(0xFF555555),
+            fontSize = 14.sp,
+            fontWeight = FontWeight.Bold,
+            modifier = Modifier.centerAt(W * 0.2f, Y_s - with(density) { 20.dp.toPx() })
+        )
+
+        Box(modifier = Modifier.centerAt(X_v, Y_s)) {
+            StationNode()
+        }
+
+        southbound.take(4).forEach { train ->
+            val min = train.getMinutesRemaining(currentTimeSeconds)
+            val d = min * pixelsPerMinute
+            val pos = getTrainPosition(d, X_v_sb, Y_h_sb, Y_s, R_sb, false)
+            Box(modifier = Modifier.centerAt(pos.x, pos.y)) {
+                TrainNode(minutes = min, isNorthbound = false)
+            }
+        }
+
+        northbound.take(4).forEach { train ->
+            val min = train.getMinutesRemaining(currentTimeSeconds)
+            val d = min * pixelsPerMinute
+            val pos = getTrainPosition(d, X_v_nb, Y_h_nb, Y_s, R_nb, true)
+            Box(modifier = Modifier.centerAt(pos.x, pos.y)) {
+                TrainNode(minutes = min, isNorthbound = true)
+            }
+        }
+    }
+}
+
+@Composable
+fun StationNode(modifier: Modifier = Modifier) {
+    Box(
+        modifier = modifier
+            .width(80.dp)
+            .height(24.dp)
+            .shadow(4.dp, RoundedCornerShape(12.dp))
+            .background(Color.White, RoundedCornerShape(12.dp))
+            .border(4.dp, Color(0xFF222222), RoundedCornerShape(12.dp))
+    )
+}
+
+@Composable
+fun TrainNode(minutes: Long, isNorthbound: Boolean) {
+    Box(
+        modifier = Modifier
+            .size(64.dp)
+            .shadow(8.dp, CircleShape)
+            .background(GTrainGreen, CircleShape)
+            .border(4.dp, Color.White, CircleShape),
+        contentAlignment = Alignment.Center
+    ) {
+        Text(
+            text = if (minutes <= 0) "0" else minutes.toString(),
+            color = Color.White,
+            fontSize = 26.sp,
+            fontWeight = FontWeight.Black
+        )
     }
 }
