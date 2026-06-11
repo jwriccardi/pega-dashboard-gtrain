@@ -34,19 +34,19 @@ class MtaDataService {
         .build()
 
     companion object {
-        private const val FEED_URL = "https://api-endpoint.mta.info/Dataservice/mtagtfsfeeds/nyct%2Fgtfs-b"
+        // G-train specific open GTFS-realtime endpoint (keyless)
+        private const val FEED_URL = "https://api-endpoint.mta.info/Dataservice/mtagtfsfeeds/nyct%2Fgtfs-g"
         private const val TARGET_STOP_N = "G34N" // Myrtle-Willoughby Avs Northbound
         private const val TARGET_STOP_S = "G34S" // Myrtle-Willoughby Avs Southbound
         private const val TAG = "MtaDataService"
     }
 
     /**
-     * Fetches real-time arrivals from the MTA GTFS feed.
+     * Fetches real-time arrivals from the MTA GTFS feed. No API key required.
      */
-    fun fetchArrivals(apiKey: String): TrainArrivals {
+    fun fetchArrivals(): TrainArrivals {
         val request = Request.Builder()
             .url(FEED_URL)
-            .addHeader("x-api-key", apiKey)
             .build()
 
         try {

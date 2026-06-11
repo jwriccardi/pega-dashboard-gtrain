@@ -1,22 +1,17 @@
 package ai.pegasusgrowth.gtraindash.ui
 
-import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.core.*
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
-import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.foundation.text.KeyboardActions
-import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Info
 import androidx.compose.material.icons.filled.Refresh
-import androidx.compose.material.icons.filled.Settings
 import androidx.compose.material.icons.filled.Warning
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
@@ -25,19 +20,13 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.alpha
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.draw.shadow
-import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.platform.LocalContext
-import androidx.compose.ui.platform.LocalSoftwareKeyboardController
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.text.input.ImeAction
-import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import androidx.compose.ui.window.Dialog
 import ai.pegasusgrowth.gtraindash.data.TrainArrival
 import ai.pegasusgrowth.gtraindash.data.TrainArrivals
 import ai.pegasusgrowth.gtraindash.ui.theme.*
@@ -50,7 +39,6 @@ fun DashboardScreen(
     modifier: Modifier = Modifier
 ) {
     val uiState by viewModel.uiState.collectAsState()
-    var showSettingsDialog by remember { mutableStateOf(false) }
 
     // Ticker that updates current time reference in seconds every 1 second
     var currentTimeSeconds by remember { mutableStateOf(System.currentTimeMillis() / 1000L) }
@@ -72,11 +60,6 @@ fun DashboardScreen(
             .background(BackgroundDark)
     ) {
         when (val state = uiState) {
-            is DashboardUiState.NoApiKey -> {
-                OnboardingScreen(
-                    onSaveApiKey = { viewModel.saveApiKey(it) }
-                )
-            }
             is DashboardUiState.Loading -> {
                 LoadingStateScreen()
             }
@@ -86,8 +69,7 @@ fun DashboardScreen(
                     isRefreshing = state.isRefreshing,
                     lastUpdatedEpoch = state.lastSuccessfulFetchEpochSeconds,
                     currentTimeSeconds = currentTimeSeconds,
-                    onRefresh = { viewModel.refreshData() },
-                    onOpenSettings = { showSettingsDialog = true }
+                    onRefresh = { viewModel.refreshData() }
                 )
             }
             is DashboardUiState.Error -> {
@@ -95,25 +77,9 @@ fun DashboardScreen(
                     message = state.message,
                     cachedArrivals = state.cachedArrivals,
                     currentTimeSeconds = currentTimeSeconds,
-                    onRefresh = { viewModel.refreshData() },
-                    onOpenSettings = { showSettingsDialog = true }
+                    onRefresh = { viewModel.refreshData() }
                 )
             }
-        }
-
-        if (showSettingsDialog) {
-            SettingsDialog(
-                currentKey = viewModel.getSavedApiKey(),
-                onDismiss = { showSettingsDialog = false },
-                onSave = {
-                    viewModel.saveApiKey(it)
-                    showSettingsDialog = false
-                },
-                onClear = {
-                    viewModel.clearApiKey()
-                    showSettingsDialog = false
-                }
-            )
         }
     }
 }
@@ -124,8 +90,7 @@ fun MainDashboardContent(
     isRefreshing: Boolean,
     lastUpdatedEpoch: Long,
     currentTimeSeconds: Long,
-    onRefresh: () -> Unit,
-    onOpenSettings: () -> Unit
+    onRefresh: () -> Unit
 ) {
     Column(
         modifier = Modifier
@@ -138,8 +103,7 @@ fun MainDashboardContent(
             currentTimeSeconds = currentTimeSeconds,
             isRefreshing = isRefreshing,
             hasError = false,
-            onRefresh = onRefresh,
-            onOpenSettings = onOpenSettings
+            onRefresh = onRefresh
         )
 
         Spacer(modifier = Modifier.height(16.dp))
@@ -178,9 +142,7 @@ fun HeaderBar(
     currentTimeSeconds: Long,
     isRefreshing: Boolean,
     hasError: Boolean,
-    errorMessage: String? = null,
-    onRefresh: () -> Unit,
-    onOpenSettings: () -> Unit
+    onRefresh: () -> Unit
 ) {
     // Pulsating animation for the status dot
     val infiniteTransition = rememberInfiniteTransition(label = "pulse")
@@ -245,7 +207,7 @@ fun HeaderBar(
             fontFamily = FontFamily.Monospace
         )
 
-        // Status & Settings (Right)
+        // Status & Refresh (Right)
         Row(
             verticalAlignment = Alignment.CenterVertically,
             horizontalArrangement = Arrangement.spacedBy(16.dp)
@@ -289,22 +251,6 @@ fun HeaderBar(
                 Icon(
                     imageVector = Icons.Default.Refresh,
                     contentDescription = "Refresh Feed",
-                    tint = TextPrimary,
-                    modifier = Modifier.size(18.dp)
-                )
-            }
-
-            // Settings Icon
-            IconButton(
-                onClick = onOpenSettings,
-                modifier = Modifier
-                    .size(36.dp)
-                    .clip(CircleShape)
-                    .background(Color(0x1F222822))
-            ) {
-                Icon(
-                    imageVector = Icons.Default.Settings,
-                    contentDescription = "Settings",
                     tint = TextPrimary,
                     modifier = Modifier.size(18.dp)
                 )
@@ -546,8 +492,7 @@ fun ErrorStateScreen(
     message: String,
     cachedArrivals: TrainArrivals?,
     currentTimeSeconds: Long,
-    onRefresh: () -> Unit,
-    onOpenSettings: () -> Unit
+    onRefresh: () -> Unit
 ) {
     if (cachedArrivals != null && (cachedArrivals.northbound.isNotEmpty() || cachedArrivals.southbound.isNotEmpty())) {
         // We have cached data! Show it with an error header bar.
@@ -562,9 +507,7 @@ fun ErrorStateScreen(
                 currentTimeSeconds = currentTimeSeconds,
                 isRefreshing = false,
                 hasError = true,
-                errorMessage = message,
-                onRefresh = onRefresh,
-                onOpenSettings = onOpenSettings
+                onRefresh = onRefresh
             )
 
             // Alert banner underneath header
@@ -671,250 +614,12 @@ fun ErrorStateScreen(
 
                     Spacer(modifier = Modifier.height(8.dp))
 
-                    Row(
-                        horizontalArrangement = Arrangement.spacedBy(12.dp),
-                        modifier = Modifier.fillMaxWidth()
-                    ) {
-                        OutlinedButton(
-                            onClick = onOpenSettings,
-                            colors = ButtonDefaults.outlinedButtonColors(contentColor = TextPrimary),
-                            modifier = Modifier.weight(1f)
-                        ) {
-                            Text("Settings")
-                        }
-                        
-                        Button(
-                            onClick = onRefresh,
-                            colors = ButtonDefaults.buttonColors(containerColor = GTrainGreen),
-                            modifier = Modifier.weight(1f)
-                        ) {
-                            Text("Retry Connection", color = Color.White)
-                        }
-                    }
-                }
-            }
-        }
-    }
-}
-
-@OptIn(ExperimentalMaterial3Api::class)
-@Composable
-fun OnboardingScreen(
-    onSaveApiKey: (String) -> Unit
-) {
-    var apiKeyInput by remember { mutableStateOf("") }
-    val keyboardController = LocalSoftwareKeyboardController.current
-
-    Box(
-        modifier = Modifier.fillMaxSize(),
-        contentAlignment = Alignment.Center
-    ) {
-        Column(
-            horizontalAlignment = Alignment.CenterHorizontally,
-            modifier = Modifier.width(460.dp),
-            verticalArrangement = Arrangement.spacedBy(24.dp)
-        ) {
-            // Logo Branding
-            Row(
-                verticalAlignment = Alignment.CenterVertically,
-                horizontalArrangement = Arrangement.spacedBy(16.dp)
-            ) {
-                Box(
-                    modifier = Modifier
-                        .size(54.dp)
-                        .clip(CircleShape)
-                        .background(GTrainGreen),
-                    contentAlignment = Alignment.Center
-                ) {
-                    Text(
-                        text = "G",
-                        color = Color.White,
-                        fontSize = 32.sp,
-                        fontWeight = FontWeight.Bold
-                    )
-                }
-                Column {
-                    Text(
-                        text = "G-TRAIN KIOSK",
-                        color = TextPrimary,
-                        fontSize = 24.sp,
-                        fontWeight = FontWeight.Black,
-                        letterSpacing = 1.sp
-                    )
-                    Text(
-                        text = "Myrtle-Willoughby Aves Station",
-                        color = GTrainGreenGlow,
-                        fontSize = 12.sp,
-                        fontWeight = FontWeight.Bold
-                    )
-                }
-            }
-
-            // API Input Card
-            Card(
-                colors = CardDefaults.cardColors(containerColor = SurfaceDark),
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .border(1.dp, BorderGlow, RoundedCornerShape(16.dp)),
-                shape = RoundedCornerShape(16.dp)
-            ) {
-                Column(
-                    modifier = Modifier.padding(28.dp),
-                    verticalArrangement = Arrangement.spacedBy(16.dp)
-                ) {
-                    Text(
-                        text = "MTA API Config",
-                        color = TextPrimary,
-                        fontSize = 18.sp,
-                        fontWeight = FontWeight.Bold
-                    )
-                    Text(
-                        text = "To fetch real-time subway arrivals, this kiosk queries the MTA Developer API. Enter your developer key below.",
-                        color = TextSecondary,
-                        fontSize = 13.sp,
-                        lineHeight = 18.sp
-                    )
-
-                    OutlinedTextField(
-                        value = apiKeyInput,
-                        onValueChange = { apiKeyInput = it },
-                        label = { Text("MTA API Key") },
-                        singleLine = true,
-                        visualTransformation = PasswordVisualTransformation(),
-                        keyboardOptions = KeyboardOptions(imeAction = ImeAction.Done),
-                        keyboardActions = KeyboardActions(onDone = {
-                            keyboardController?.hide()
-                            if (apiKeyInput.isNotBlank()) {
-                                onSaveApiKey(apiKeyInput)
-                            }
-                        }),
-                        colors = OutlinedTextFieldDefaults.colors(
-                            focusedBorderColor = GTrainGreen,
-                            unfocusedBorderColor = Color(0x3F6CBE45),
-                            focusedLabelColor = GTrainGreen,
-                            unfocusedLabelColor = TextSecondary,
-                            focusedTextColor = TextPrimary,
-                            unfocusedTextColor = TextPrimary
-                        ),
-                        modifier = Modifier.fillMaxWidth()
-                    )
-
                     Button(
-                        onClick = {
-                            keyboardController?.hide()
-                            if (apiKeyInput.isNotBlank()) {
-                                onSaveApiKey(apiKeyInput)
-                            }
-                        },
-                        enabled = apiKeyInput.isNotBlank(),
-                        colors = ButtonDefaults.buttonColors(
-                            containerColor = GTrainGreen,
-                            disabledContainerColor = GTrainGreenDim.copy(alpha = 0.5f)
-                        ),
-                        shape = RoundedCornerShape(8.dp),
-                        modifier = Modifier.fillMaxWidth()
-                    ) {
-                        Text(
-                            text = "Save & Connect",
-                            color = Color.White,
-                            fontWeight = FontWeight.Bold,
-                            fontSize = 15.sp,
-                            modifier = Modifier.padding(vertical = 4.dp)
-                        )
-                    }
-
-                    Text(
-                        text = "Need a key? Register at api.mta.info",
-                        color = GTrainGreenGlow,
-                        fontSize = 11.sp,
-                        fontWeight = FontWeight.SemiBold,
-                        textAlign = TextAlign.Center,
-                        modifier = Modifier
-                            .fillMaxWidth()
-                            .alpha(0.8f)
-                    )
-                }
-            }
-        }
-    }
-}
-
-@OptIn(ExperimentalMaterial3Api::class)
-@Composable
-fun SettingsDialog(
-    currentKey: String,
-    onDismiss: () -> Unit,
-    onSave: (String) -> Unit,
-    onClear: () -> Unit
-) {
-    var apiKeyInput by remember { mutableStateOf(currentKey) }
-
-    Dialog(onDismissRequest = onDismiss) {
-        Card(
-            colors = CardDefaults.cardColors(containerColor = SurfaceDark),
-            modifier = Modifier
-                .width(420.dp)
-                .border(1.dp, BorderGlow, RoundedCornerShape(16.dp)),
-            shape = RoundedCornerShape(16.dp)
-        ) {
-            Column(
-                modifier = Modifier.padding(24.dp),
-                verticalArrangement = Arrangement.spacedBy(16.dp)
-            ) {
-                Text(
-                    text = "Kiosk Settings",
-                    color = TextPrimary,
-                    fontSize = 20.sp,
-                    fontWeight = FontWeight.Bold
-                )
-
-                HorizontalDivider(color = Color(0x1F6CBE45))
-
-                Column(verticalArrangement = Arrangement.spacedBy(8.dp)) {
-                    Text(
-                        text = "MTA API Key",
-                        color = TextSecondary,
-                        fontSize = 13.sp,
-                        fontWeight = FontWeight.Medium
-                    )
-
-                    OutlinedTextField(
-                        value = apiKeyInput,
-                        onValueChange = { apiKeyInput = it },
-                        singleLine = true,
-                        visualTransformation = PasswordVisualTransformation(),
-                        colors = OutlinedTextFieldDefaults.colors(
-                            focusedBorderColor = GTrainGreen,
-                            unfocusedBorderColor = Color(0x3F6CBE45),
-                            focusedTextColor = TextPrimary,
-                            unfocusedTextColor = TextPrimary
-                        ),
-                        modifier = Modifier.fillMaxWidth()
-                    )
-                }
-
-                Spacer(modifier = Modifier.height(8.dp))
-
-                Row(
-                    horizontalArrangement = Arrangement.spacedBy(12.dp),
-                    modifier = Modifier.fillMaxWidth()
-                ) {
-                    OutlinedButton(
-                        onClick = onClear,
-                        colors = ButtonDefaults.outlinedButtonColors(contentColor = ErrorRed),
-                        modifier = Modifier.weight(1f),
-                        border = BorderStroke(1.dp, ErrorRed)
-                    ) {
-                        Text("Reset App")
-                    }
-
-                    Button(
-                        onClick = { onSave(apiKeyInput) },
+                        onClick = onRefresh,
                         colors = ButtonDefaults.buttonColors(containerColor = GTrainGreen),
-                        enabled = apiKeyInput.isNotBlank(),
-                        modifier = Modifier.weight(1.5f)
+                        modifier = Modifier.fillMaxWidth()
                     ) {
-                        Text("Save Key", color = Color.White)
+                        Text("Retry Connection", color = Color.White)
                     }
                 }
             }

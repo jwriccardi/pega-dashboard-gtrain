@@ -4,7 +4,6 @@ import android.app.Application
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.viewModelScope
 import ai.pegasusgrowth.gtraindash.data.MtaDataService
-import ai.pegasusgrowth.gtraindash.data.SettingsManager
 import ai.pegasusgrowth.gtraindash.data.TrainArrivals
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
@@ -16,7 +15,6 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 
 sealed interface DashboardUiState {
-    object NoApiKey : DashboardUiState
     object Loading : DashboardUiState
     data class Success(
         val arrivals: TrainArrivals,
@@ -30,7 +28,6 @@ sealed interface DashboardUiState {
 }
 
 class DashboardViewModel(application: Application) : AndroidViewModel(application) {
-    private val settingsManager = SettingsManager(application)
     private val mtaService = MtaDataService()
 
     private val _uiState = MutableStateFlow<DashboardUiState>(DashboardUiState.Loading)
@@ -39,39 +36,10 @@ class DashboardViewModel(application: Application) : AndroidViewModel(applicatio
     private var pollingJob: Job? = null
 
     init {
-        checkApiKeyAndStartPolling()
-    }
-
-    fun checkApiKeyAndStartPolling() {
-        if (!settingsManager.hasApiKey()) {
-            _uiState.value = DashboardUiState.NoApiKey
-            stopPolling()
-        } else {
-            startPolling()
-        }
-    }
-
-    fun saveApiKey(key: String) {
-        settingsManager.saveApiKey(key)
-        checkApiKeyAndStartPolling()
-    }
-
-    fun clearApiKey() {
-        settingsManager.clearApiKey()
-        checkApiKeyAndStartPolling()
-    }
-
-    fun getSavedApiKey(): String {
-        return settingsManager.getApiKey().orEmpty()
+        startPolling()
     }
 
     fun refreshData() {
-        val apiKey = settingsManager.getApiKey()
-        if (apiKey.isNullOrBlank()) {
-            _uiState.value = DashboardUiState.NoApiKey
-            return
-        }
-
         viewModelScope.launch {
             val currentState = _uiState.value
             if (currentState is DashboardUiState.Success) {
@@ -80,24 +48,20 @@ class DashboardViewModel(application: Application) : AndroidViewModel(applicatio
                 _uiState.value = DashboardUiState.Loading
             }
 
-            fetchDataImmediately(apiKey)
+            fetchDataImmediately()
         }
     }
 
     private fun startPolling() {
         pollingJob?.cancel()
         pollingJob = viewModelScope.launch {
-            val apiKey = settingsManager.getApiKey() ?: return@launch
-            
-            // Set loading state only if we don't have success state already
             if (_uiState.value !is DashboardUiState.Success) {
                 _uiState.value = DashboardUiState.Loading
             }
 
             while (true) {
-                fetchDataImmediately(apiKey)
-                // Poll every 30 seconds
-                delay(30000L)
+                fetchDataImmediately()
+                delay(30000L) // Poll every 30 seconds
             }
         }
     }
@@ -107,9 +71,9 @@ class DashboardViewModel(application: Application) : AndroidViewModel(applicatio
         pollingJob = null
     }
 
-    private suspend fun fetchDataImmediately(apiKey: String) {
+    private suspend fun fetchDataImmediately() {
         val result = withContext(Dispatchers.IO) {
-            mtaService.fetchArrivals(apiKey)
+            mtaService.fetchArrivals()
         }
 
         if (result.errorMessage != null) {
