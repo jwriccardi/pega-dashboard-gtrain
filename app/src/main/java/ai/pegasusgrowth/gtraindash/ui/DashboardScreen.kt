@@ -144,7 +144,6 @@ fun HeaderBar(
     hasError: Boolean,
     onRefresh: () -> Unit
 ) {
-    // Pulsating animation for the status dot
     val infiniteTransition = rememberInfiniteTransition(label = "pulse")
     val dotAlpha by infiniteTransition.animateFloat(
         initialValue = 0.3f,
@@ -181,28 +180,49 @@ fun HeaderBar(
         verticalAlignment = Alignment.CenterVertically,
         horizontalArrangement = Arrangement.SpaceBetween
     ) {
-        // Station details
-        Column {
-            Text(
-                text = "MYRTLE-WILLOUGHBY AVES",
-                color = TextPrimary,
-                fontSize = 20.sp,
-                fontWeight = FontWeight.Bold,
-                letterSpacing = 1.sp
-            )
-            Text(
-                text = "IND Crosstown Line",
-                color = TextSecondary,
-                fontSize = 12.sp,
-                fontWeight = FontWeight.Medium
-            )
+        // Station details and the single large G Logo
+        Row(
+            verticalAlignment = Alignment.CenterVertically,
+            horizontalArrangement = Arrangement.spacedBy(16.dp)
+        ) {
+            Box(
+                modifier = Modifier
+                    .size(54.dp)
+                    .shadow(4.dp, CircleShape, spotColor = GTrainGreenGlow)
+                    .clip(CircleShape)
+                    .background(GTrainGreen),
+                contentAlignment = Alignment.Center
+            ) {
+                Text(
+                    text = "G",
+                    color = Color.White,
+                    fontSize = 32.sp,
+                    fontWeight = FontWeight.Bold
+                )
+            }
+
+            Column {
+                Text(
+                    text = "MYRTLE-WILLOUGHBY AVES",
+                    color = TextPrimary,
+                    fontSize = 26.sp,
+                    fontWeight = FontWeight.Bold,
+                    letterSpacing = 1.sp
+                )
+                Text(
+                    text = "IND Crosstown Line",
+                    color = TextSecondary,
+                    fontSize = 15.sp,
+                    fontWeight = FontWeight.Medium
+                )
+            }
         }
 
-        // Live Clock (Center)
+        // Live Clock (Center) - Enlarge for easy distance reading
         Text(
             text = formattedCurrentTime,
             color = GTrainGreen,
-            fontSize = 32.sp,
+            fontSize = 42.sp,
             fontWeight = FontWeight.SemiBold,
             fontFamily = FontFamily.Monospace
         )
@@ -275,7 +295,7 @@ fun DirectionColumn(
             .border(1.dp, Color(0x1F6CBE45), RoundedCornerShape(16.dp))
             .padding(16.dp)
     ) {
-        // Section Header
+        // Section Header - enlarged text sizes
         Row(
             modifier = Modifier.fillMaxWidth(),
             horizontalArrangement = Arrangement.SpaceBetween,
@@ -284,7 +304,7 @@ fun DirectionColumn(
             Text(
                 text = title,
                 color = GTrainGreen,
-                fontSize = 18.sp,
+                fontSize = 24.sp,
                 fontWeight = FontWeight.Black,
                 letterSpacing = 1.sp
             )
@@ -292,8 +312,8 @@ fun DirectionColumn(
             Text(
                 text = destination,
                 color = TextSecondary,
-                fontSize = 14.sp,
-                fontWeight = FontWeight.Medium
+                fontSize = 18.sp,
+                fontWeight = FontWeight.Bold
             )
         }
 
@@ -321,7 +341,7 @@ fun DirectionColumn(
                     Text(
                         text = "No upcoming trains",
                         color = TextMuted,
-                        fontSize = 16.sp,
+                        fontSize = 18.sp,
                         fontWeight = FontWeight.Medium
                     )
                 }
@@ -329,9 +349,10 @@ fun DirectionColumn(
         } else {
             LazyColumn(
                 modifier = Modifier.fillMaxWidth().weight(1f),
-                verticalArrangement = Arrangement.spacedBy(12.dp)
+                verticalArrangement = Arrangement.spacedBy(16.dp) // Spaced further apart for 2 items
             ) {
-                items(trains, key = { it.tripId }) { train ->
+                // Limit to the next 2 arrivals for clear view
+                items(trains.take(2), key = { it.tripId }) { train ->
                     ArrivalCard(
                         train = train,
                         currentTimeSeconds = currentTimeSeconds,
@@ -351,7 +372,6 @@ fun ArrivalCard(
 ) {
     val minutes = train.getMinutesRemaining(currentTimeSeconds)
     
-    // Animate background color if it's the next train to create a premium glow
     val borderAlpha = if (isNextTrain) {
         val infiniteTransition = rememberInfiniteTransition(label = "glow")
         val alpha by infiniteTransition.animateFloat(
@@ -385,59 +405,40 @@ fun ArrivalCard(
             .clip(RoundedCornerShape(12.dp))
             .background(cardBg)
             .border(1.dp, GTrainGreen.copy(alpha = borderAlpha), RoundedCornerShape(12.dp))
-            .padding(14.dp),
+            .padding(20.dp), // Increased padding for a larger card presence
         verticalAlignment = Alignment.CenterVertically,
         horizontalArrangement = Arrangement.SpaceBetween
     ) {
-        Row(
-            verticalAlignment = Alignment.CenterVertically,
-            horizontalArrangement = Arrangement.spacedBy(14.dp)
+        // Left side: Destination and scheduled time (removed individual G logo)
+        Column(
+            modifier = Modifier.weight(1f)
         ) {
-            // G Train Logo Circle
-            Box(
-                modifier = Modifier
-                    .size(42.dp)
-                    .shadow(if (isNextTrain) 4.dp else 0.dp, CircleShape, spotColor = GTrainGreenGlow)
-                    .clip(CircleShape)
-                    .background(GTrainGreen),
-                contentAlignment = Alignment.Center
-            ) {
-                Text(
-                    text = "G",
-                    color = Color.White,
-                    fontSize = 24.sp,
-                    fontWeight = FontWeight.Bold
-                )
-            }
-
-            // Destination and scheduled time
-            Column {
-                Text(
-                    text = train.destination,
-                    color = TextPrimary,
-                    fontSize = 18.sp,
-                    fontWeight = FontWeight.SemiBold,
-                    maxLines = 1,
-                    overflow = TextOverflow.Ellipsis
-                )
-                Text(
-                    text = "Scheduled at $formattedExactTime",
-                    color = TextSecondary,
-                    fontSize = 12.sp
-                )
-            }
+            Text(
+                text = train.destination,
+                color = TextPrimary,
+                fontSize = 28.sp, // Enlarge destination name
+                fontWeight = FontWeight.Bold,
+                maxLines = 1,
+                overflow = TextOverflow.Ellipsis
+            )
+            Text(
+                text = "Scheduled at $formattedExactTime",
+                color = TextSecondary,
+                fontSize = 15.sp, // Enlarge scheduled time
+                fontWeight = FontWeight.Normal
+            )
         }
 
-        // Countdown Timer
+        // Right side: Countdown Timer (enlarged for visibility from distance)
         Row(
             verticalAlignment = Alignment.Bottom,
-            horizontalArrangement = Arrangement.spacedBy(2.dp)
+            horizontalArrangement = Arrangement.spacedBy(4.dp)
         ) {
             if (minutes <= 0) {
                 Text(
                     text = "Approaching",
                     color = GTrainGreenGlow,
-                    fontSize = 20.sp,
+                    fontSize = 28.sp,
                     fontWeight = FontWeight.Black,
                     letterSpacing = 0.5.sp,
                     modifier = Modifier.padding(bottom = 2.dp)
@@ -446,15 +447,15 @@ fun ArrivalCard(
                 Text(
                     text = minutes.toString(),
                     color = if (isNextTrain) GTrainGreenGlow else TextPrimary,
-                    fontSize = 36.sp,
+                    fontSize = 54.sp, // Huge countdown
                     fontWeight = FontWeight.Black
                 )
                 Text(
                     text = "min",
                     color = TextSecondary,
-                    fontSize = 14.sp,
-                    fontWeight = FontWeight.Medium,
-                    modifier = Modifier.padding(bottom = 6.dp)
+                    fontSize = 18.sp, // Larger unit label
+                    fontWeight = FontWeight.Bold,
+                    modifier = Modifier.padding(bottom = 8.dp)
                 )
             }
         }
@@ -540,7 +541,7 @@ fun ErrorStateScreen(
 
             Spacer(modifier = Modifier.height(16.dp))
 
-            // Split view using cache
+            // Split view using cache - limited to 2 items
             Row(
                 modifier = Modifier
                     .fillMaxWidth()
