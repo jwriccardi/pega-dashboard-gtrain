@@ -5,8 +5,6 @@ import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.*
-import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
@@ -347,16 +345,39 @@ fun DirectionColumn(
                 }
             }
         } else {
-            LazyColumn(
-                modifier = Modifier.fillMaxWidth().weight(1f),
-                verticalArrangement = Arrangement.spacedBy(16.dp) // Spaced further apart for 2 items
+            // Standard Column utilizing weights to distribute vertical space perfectly
+            Column(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .weight(1f),
+                verticalArrangement = Arrangement.spacedBy(16.dp)
             ) {
-                // Limit to the next 2 arrivals for clear view
-                items(trains.take(2), key = { it.tripId }) { train ->
+                val takeTrains = trains.take(2)
+                if (takeTrains.size == 1) {
                     ArrivalCard(
-                        train = train,
+                        train = takeTrains[0],
                         currentTimeSeconds = currentTimeSeconds,
-                        isNextTrain = trains.firstOrNull() == train
+                        isNextTrain = true,
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .weight(1f)
+                    )
+                } else if (takeTrains.size >= 2) {
+                    ArrivalCard(
+                        train = takeTrains[0],
+                        currentTimeSeconds = currentTimeSeconds,
+                        isNextTrain = true,
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .weight(1.4f) // Enormous "Hero" layout for first train
+                    )
+                    ArrivalCard(
+                        train = takeTrains[1],
+                        currentTimeSeconds = currentTimeSeconds,
+                        isNextTrain = false,
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .weight(1f) // Smaller layout for second train
                     )
                 }
             }
@@ -368,7 +389,8 @@ fun DirectionColumn(
 fun ArrivalCard(
     train: TrainArrival,
     currentTimeSeconds: Long,
-    isNextTrain: Boolean
+    isNextTrain: Boolean,
+    modifier: Modifier = Modifier
 ) {
     val minutes = train.getMinutesRemaining(currentTimeSeconds)
     
@@ -399,64 +421,91 @@ fun ArrivalCard(
         exactTimeFormatter.format(Date(train.arrivalTime * 1000L))
     }
 
-    Row(
-        modifier = Modifier
-            .fillMaxWidth()
-            .clip(RoundedCornerShape(12.dp))
+    // Determine if the train terminates at an unusual short-turn destination
+    val expectedDefaultDest = if (train.stopId.endsWith("N")) "Court Sq" else "Church Av"
+    val isShortTurn = train.destination != expectedDefaultDest && train.destination.isNotBlank()
+
+    Box(
+        modifier = modifier
+            .clip(RoundedCornerShape(16.dp))
             .background(cardBg)
-            .border(1.dp, GTrainGreen.copy(alpha = borderAlpha), RoundedCornerShape(12.dp))
-            .padding(20.dp), // Increased padding for a larger card presence
-        verticalAlignment = Alignment.CenterVertically,
-        horizontalArrangement = Arrangement.SpaceBetween
+            .border(1.dp, GTrainGreen.copy(alpha = borderAlpha), RoundedCornerShape(16.dp))
+            .padding(24.dp),
+        contentAlignment = Alignment.Center
     ) {
-        // Left side: Destination and scheduled time (removed individual G logo)
         Column(
-            modifier = Modifier.weight(1f)
+            horizontalAlignment = Alignment.CenterHorizontally,
+            verticalArrangement = Arrangement.Center,
+            modifier = Modifier.fillMaxSize()
         ) {
-            Text(
-                text = train.destination,
-                color = TextPrimary,
-                fontSize = 28.sp, // Enlarge destination name
-                fontWeight = FontWeight.Bold,
-                maxLines = 1,
-                overflow = TextOverflow.Ellipsis
-            )
+            // Giant Countdown text
+            Row(
+                verticalAlignment = Alignment.Bottom,
+                horizontalArrangement = Arrangement.Center
+            ) {
+                if (minutes <= 0) {
+                    Text(
+                        text = "Approaching",
+                        color = GTrainGreenGlow,
+                        fontSize = if (isNextTrain) 48.sp else 32.sp,
+                        fontWeight = FontWeight.Black,
+                        letterSpacing = 0.5.sp
+                    )
+                } else {
+                    Text(
+                        text = minutes.toString(),
+                        color = if (isNextTrain) GTrainGreenGlow else TextPrimary,
+                        fontSize = if (isNextTrain) 110.sp else 64.sp,
+                        fontWeight = FontWeight.Black,
+                        lineHeight = if (isNextTrain) 110.sp else 64.sp
+                    )
+                    Spacer(modifier = Modifier.width(6.dp))
+                    Text(
+                        text = "min",
+                        color = TextSecondary,
+                        fontSize = if (isNextTrain) 28.sp else 18.sp,
+                        fontWeight = FontWeight.Bold,
+                        modifier = Modifier.padding(bottom = if (isNextTrain) 16.dp else 8.dp)
+                    )
+                }
+            }
+
+            Spacer(modifier = Modifier.height(if (isNextTrain) 12.dp else 4.dp))
+
+            // Subtext: Scheduled time
             Text(
                 text = "Scheduled at $formattedExactTime",
                 color = TextSecondary,
-                fontSize = 15.sp, // Enlarge scheduled time
-                fontWeight = FontWeight.Normal
+                fontSize = if (isNextTrain) 20.sp else 15.sp,
+                fontWeight = FontWeight.Medium
             )
-        }
 
-        // Right side: Countdown Timer (enlarged for visibility from distance)
-        Row(
-            verticalAlignment = Alignment.Bottom,
-            horizontalArrangement = Arrangement.spacedBy(4.dp)
-        ) {
-            if (minutes <= 0) {
-                Text(
-                    text = "Approaching",
-                    color = GTrainGreenGlow,
-                    fontSize = 28.sp,
-                    fontWeight = FontWeight.Black,
-                    letterSpacing = 0.5.sp,
-                    modifier = Modifier.padding(bottom = 2.dp)
-                )
-            } else {
-                Text(
-                    text = minutes.toString(),
-                    color = if (isNextTrain) GTrainGreenGlow else TextPrimary,
-                    fontSize = 54.sp, // Huge countdown
-                    fontWeight = FontWeight.Black
-                )
-                Text(
-                    text = "min",
-                    color = TextSecondary,
-                    fontSize = 18.sp, // Larger unit label
-                    fontWeight = FontWeight.Bold,
-                    modifier = Modifier.padding(bottom = 8.dp)
-                )
+            // Warning if short turn destination
+            if (isShortTurn) {
+                Spacer(modifier = Modifier.height(8.dp))
+                Row(
+                    verticalAlignment = Alignment.CenterVertically,
+                    horizontalArrangement = Arrangement.Center,
+                    modifier = Modifier
+                        .clip(RoundedCornerShape(8.dp))
+                        .background(Color(0x1FEE5350))
+                        .border(1.dp, ErrorRed.copy(alpha = 0.3f), RoundedCornerShape(8.dp))
+                        .padding(horizontal = 10.dp, vertical = 4.dp)
+                ) {
+                    Icon(
+                        imageVector = Icons.Default.Warning,
+                        contentDescription = null,
+                        tint = ErrorRed,
+                        modifier = Modifier.size(if (isNextTrain) 16.dp else 12.dp)
+                    )
+                    Spacer(modifier = Modifier.width(6.dp))
+                    Text(
+                        text = "Terminates at ${train.destination}",
+                        color = ErrorRed,
+                        fontSize = if (isNextTrain) 16.sp else 12.sp,
+                        fontWeight = FontWeight.Bold
+                    )
+                }
             }
         }
     }
@@ -541,7 +590,7 @@ fun ErrorStateScreen(
 
             Spacer(modifier = Modifier.height(16.dp))
 
-            // Split view using cache - limited to 2 items
+            // Split view using cache - limited to 2 items with layout weights
             Row(
                 modifier = Modifier
                     .fillMaxWidth()
