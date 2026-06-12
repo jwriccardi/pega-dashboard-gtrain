@@ -8,6 +8,13 @@ import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.*
+import androidx.compose.animation.core.LinearEasing
+import androidx.compose.animation.core.RepeatMode
+import androidx.compose.animation.core.animateFloat
+import androidx.compose.animation.core.infiniteRepeatable
+import androidx.compose.animation.core.rememberInfiniteTransition
+import androidx.compose.animation.core.tween
+import kotlin.math.roundToInt
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -51,99 +58,143 @@ fun MagritteSkin(
     Box(
         modifier = Modifier
             .fillMaxSize()
-            .background(Brush.verticalGradient(listOf(Color(0xFF6B9BC0), Color(0xFFC4DDF0))))
+            .background(Brush.verticalGradient(listOf(Color(0xFF5E9EC9), Color(0xFF8FBEDC), Color(0xFFCADFE9))))
             .clickable { onCycleSkin() }
-            .padding(32.dp)
     ) {
-        // Top Left Card
-        Column(
+        // Sun G
+        Box(
             modifier = Modifier
-                .background(Color(0xFFF3EFE4), RoundedCornerShape(8.dp))
-                .padding(24.dp)
+                .align(Alignment.TopCenter)
+                .offset(x = (-100).dp, y = 46.dp)
+                .size(130.dp)
+                .shadow(70.dp, ambientColor = Color(0x998CEE5F), spotColor = Color(0x998CEE5F), shape = CircleShape)
+                .background(Brush.radialGradient(listOf(Color(0xFF8CD96A), Color(0xFF57A234)), center = Offset(0.35f, 0.3f)), CircleShape),
+            contentAlignment = Alignment.Center
         ) {
-            Text("MYRTLE–WILLOUGHBY AVS", color = Color(0xFF1A2A3A), fontSize = 24.sp, fontWeight = FontWeight.Black)
-            Spacer(modifier = Modifier.height(8.dp))
-            Text("oil on schedule, 2026", color = Color.Gray, fontSize = 16.sp, fontFamily = FontFamily.Serif, fontStyle = FontStyle.Italic)
-            Spacer(modifier = Modifier.height(16.dp))
-            Row(verticalAlignment = Alignment.CenterVertically) {
-                Box(modifier = Modifier.size(8.dp).clip(CircleShape).background(Color(0xFF6CBE45)))
-                Spacer(modifier = Modifier.width(8.dp))
-                Text(formattedTime, color = Color(0xFF334433), fontFamily = FontFamily.Monospace, fontSize = 14.sp)
+            Text("G", fontSize = 84.sp, fontWeight = FontWeight.Bold, color = Color.White)
+        }
+
+        // Small sun cloud
+        val smallCloudDx by rememberInfiniteTransition().animateFloat(
+            initialValue = 0f, targetValue = 44f,
+            animationSpec = infiniteRepeatable(animation = tween(10500, easing = LinearEasing), repeatMode = RepeatMode.Reverse)
+        )
+        val smallCloudDy by rememberInfiniteTransition().animateFloat(
+            initialValue = 0f, targetValue = -10f,
+            animationSpec = infiniteRepeatable(animation = tween(10500, easing = LinearEasing), repeatMode = RepeatMode.Reverse)
+        )
+        Box(modifier = Modifier.align(Alignment.TopCenter).offset(x = (-130).dp, y = 118.dp).offset { androidx.compose.ui.unit.IntOffset(smallCloudDx.roundToInt(), smallCloudDy.roundToInt()) }) {
+            Box(modifier = Modifier.width(150.dp).height(44.dp)) {
+                Canvas(modifier = Modifier.fillMaxSize()) {
+                    drawRoundRect(Brush.verticalGradient(listOf(Color(0xFFFFFFFF), Color(0xFFE2ECF1))), size = Size(size.width, size.height), cornerRadius = androidx.compose.ui.geometry.CornerRadius(size.height / 2, size.height / 2))
+                    drawCircle(Color.White, radius = 27.dp.toPx(), center = Offset(49.dp.toPx(), 3.dp.toPx()))
+                    drawCircle(Color.White, radius = 20.dp.toPx(), center = Offset(104.dp.toPx(), 4.dp.toPx()))
+                }
             }
         }
 
-        // Bottom Left Text
-        Text("Ceci n'est pas un train.", modifier = Modifier.align(Alignment.BottomStart), fontSize = 48.sp, fontFamily = FontFamily.Serif, fontStyle = FontStyle.Italic, color = Color(0xFF1A2A3A))
+        // Placard
+        Column(
+            modifier = Modifier
+                .align(Alignment.TopStart)
+                .offset(x = 40.dp, y = 34.dp)
+                .shadow(34.dp, ambientColor = Color(0x5914283C), spotColor = Color(0x5914283C))
+                .background(Color(0xFFF6F3EA), RoundedCornerShape(6.dp))
+                .padding(horizontal = 18.dp, vertical = 14.dp)
+        ) {
+            Text("MYRTLE–WILLOUGHBY AVS", color = Color(0xFF17242E), fontSize = 21.sp, fontWeight = FontWeight.Bold)
+            Text("oil on schedule, 2026", color = Color(0xFF5A6B76), fontSize = 16.sp, fontFamily = FontFamily.Serif, fontStyle = FontStyle.Italic, modifier = Modifier.padding(top = 3.dp))
+            Row(verticalAlignment = Alignment.CenterVertically, modifier = Modifier.padding(top = 8.dp)) {
+                Box(modifier = Modifier.size(8.dp).clip(CircleShape).background(Color(0xFF57A234)))
+                Spacer(modifier = Modifier.width(8.dp))
+                Text(formattedTime, color = Color(0xFF3A5A2C), fontFamily = FontFamily.Monospace, fontSize = 13.sp)
+            }
+        }
 
-        // Floating Door
+        // Caption
+        Text("Ceci n'est pas un train.", modifier = Modifier.align(Alignment.BottomStart).offset(x = 54.dp, y = (-28).dp), fontSize = 34.sp, fontFamily = FontFamily.Serif, fontStyle = FontStyle.Italic, color = Color(0xFF17242E))
+
+        // Door to Night
         Box(
             modifier = Modifier
                 .align(Alignment.BottomCenter)
-                .width(160.dp)
-                .height(260.dp)
-                .background(Color(0xFF5A4433), RoundedCornerShape(topStart = 8.dp, topEnd = 8.dp))
-                .padding(8.dp)
+                .offset(x = 50.dp)
+                .width(140.dp)
+                .height(222.dp)
+                .shadow(44.dp, ambientColor = Color(0x7314283C), spotColor = Color(0x7314283C))
+                .background(Brush.horizontalGradient(listOf(Color(0xFF6E5138), Color(0xFF4E3826))), RoundedCornerShape(topStart = 8.dp, topEnd = 8.dp))
+                .padding(start = 11.dp, top = 11.dp, end = 11.dp, bottom = 0.dp)
         ) {
-            Box(modifier = Modifier.fillMaxSize().background(Color(0xFF0F1423))) {
-                // Stars
+            Box(modifier = Modifier.fillMaxSize().background(Color(0xFF0A1120), RoundedCornerShape(topStart = 5.dp, topEnd = 5.dp))) {
                 Canvas(modifier = Modifier.fillMaxSize()) {
-                    drawCircle(Color.White, 2f, Offset(40f, 60f))
-                    drawCircle(Color.White, 1.5f, Offset(100f, 120f))
-                    drawCircle(Color.White, 2f, Offset(130f, 40f))
-                    drawCircle(Color.White, 1f, Offset(60f, 200f))
-                }
-                Column(modifier = Modifier.align(Alignment.Center), horizontalAlignment = Alignment.CenterHorizontally) {
-                    Box(modifier = Modifier.size(48.dp).clip(CircleShape).background(Color(0xFF6CBE45)), contentAlignment = Alignment.Center) {
-                        Text("G", color = Color.White, fontSize = 28.sp, fontWeight = FontWeight.Bold)
+                    for (x in 0..size.width.toInt() step 34) {
+                        for (y in 0..size.height.toInt() step 28) {
+                            drawCircle(Color(0x80FFFFFF), 2f, Offset(x.toFloat(), y.toFloat()))
+                        }
                     }
-                    Spacer(modifier = Modifier.height(16.dp))
-                    Text("ALREADY\nDEPARTED", color = Color(0xFF6CBE45), fontSize = 10.sp, fontFamily = FontFamily.Monospace, textAlign = TextAlign.Center, letterSpacing = 2.sp)
                 }
+                Box(modifier = Modifier.align(Alignment.TopCenter).offset(y = 37.dp).size(44.dp).shadow(28.dp, ambientColor = Color(0xD98CEE5F), spotColor = Color(0xD98CEE5F), shape = CircleShape).background(Color(0xFF57A234), CircleShape), contentAlignment = Alignment.Center) {
+                    Text("G", color = Color.White, fontSize = 28.sp, fontWeight = FontWeight.Bold)
+                }
+                Text("ALREADY\nDEPARTED", color = Color(0xFF8CEE5F), fontSize = 10.sp, fontFamily = FontFamily.Monospace, textAlign = TextAlign.Center, modifier = Modifier.align(Alignment.TopCenter).offset(y = 105.dp))
             }
-            // Doorknob
-            Box(modifier = Modifier.align(Alignment.CenterEnd).offset(x = (-4).dp).size(12.dp).clip(CircleShape).background(Color(0xFFD4AF37)))
+            Box(modifier = Modifier.align(Alignment.TopEnd).offset(x = 7.dp, y = 95.dp).size(9.dp).background(Color(0xFFC9A35B), CircleShape))
         }
 
-        // Clouds and Numbers
+        // Clouds implementation
         @Composable
-        fun CloudNumber(number: String, label: String, modifier: Modifier) {
-            Box(modifier = modifier) {
-                Box(modifier = Modifier.width(200.dp).height(120.dp)) {
+        fun DriftingCloud(
+            number: String,
+            label: String,
+            modifier: Modifier,
+            fontSizePx: Int,
+            baseWidthPx: Int,
+            baseHeightPx: Int,
+            overlapYPx: Int,
+            animDurationMs: Int,
+            isRev: Boolean
+        ) {
+            val infiniteTransition = rememberInfiniteTransition()
+            val dx by infiniteTransition.animateFloat(
+                initialValue = 0f,
+                targetValue = if (isRev) -40f else 44f,
+                animationSpec = infiniteRepeatable(animation = tween(animDurationMs / 2, easing = LinearEasing), repeatMode = RepeatMode.Reverse)
+            )
+            val dy by infiniteTransition.animateFloat(
+                initialValue = 0f,
+                targetValue = if (isRev) -12f else -10f,
+                animationSpec = infiniteRepeatable(animation = tween(animDurationMs / 2, easing = LinearEasing), repeatMode = RepeatMode.Reverse)
+            )
+
+            Box(modifier = modifier.offset { androidx.compose.ui.unit.IntOffset(dx.roundToInt(), dy.roundToInt()) }) {
+                Column(horizontalAlignment = Alignment.CenterHorizontally) {
                     Text(
-                        text = number, 
-                        fontSize = 110.sp, 
-                        fontWeight = FontWeight.Black, 
-                        color = Color(0xFF1A2A3A), 
-                        modifier = Modifier.align(Alignment.TopCenter).offset(y = (-80).dp),
-                        maxLines = 1,
-                        softWrap = false
+                        text = number,
+                        fontSize = fontSizePx.sp,
+                        fontWeight = FontWeight.Bold,
+                        color = Color(0xFF1E2D3A),
+                        lineHeight = (fontSizePx * 0.8).sp,
+                        modifier = Modifier.padding(bottom = 0.dp),
+                        style = TextStyle(platformStyle = androidx.compose.ui.text.PlatformTextStyle(includeFontPadding = false))
                     )
-                    // Cloud shape
-                    Canvas(modifier = Modifier.fillMaxSize()) {
-                        val w = size.width
-                        val h = size.height
-                        // Top of central cloud is roughly at y = h * 0.25
-                        drawCircle(Color.White, w * 0.2f, Offset(w * 0.25f, h * 0.7f))
-                        drawCircle(Color.White, w * 0.25f, Offset(w * 0.5f, h * 0.55f))
-                        drawCircle(Color.White, w * 0.2f, Offset(w * 0.75f, h * 0.7f))
-                        drawRoundRect(
-                            Color.White, 
-                            topLeft = Offset(w * 0.05f, h * 0.7f), 
-                            size = Size(w * 0.9f, h * 0.3f), 
-                            cornerRadius = androidx.compose.ui.geometry.CornerRadius(w * 0.15f, w * 0.15f)
-                        )
+                    Box(modifier = Modifier.offset(y = (-overlapYPx).dp).width(baseWidthPx.dp).height(baseHeightPx.dp)) {
+                        Canvas(modifier = Modifier.fillMaxSize()) {
+                            drawRoundRect(Brush.verticalGradient(listOf(Color(0xFFFFFFFF), Color(0xFFDCE8EE))), size = Size(size.width, size.height), cornerRadius = androidx.compose.ui.geometry.CornerRadius(size.height / 2, size.height / 2))
+                            drawCircle(Color.White, radius = (baseWidthPx * 0.18f).dp.toPx(), center = Offset((baseWidthPx * 0.31f).dp.toPx(), (-baseHeightPx * 0.1f).dp.toPx()))
+                            drawCircle(Color.White, radius = (baseWidthPx * 0.13f).dp.toPx(), center = Offset((baseWidthPx * 0.7f).dp.toPx(), (-baseHeightPx * 0.0f).dp.toPx()))
+                        }
                     }
-                }
-                Box(modifier = Modifier.align(Alignment.BottomCenter).offset(y = 24.dp).background(Color(0xDDEEEEEE), RoundedCornerShape(4.dp)).padding(horizontal = 12.dp, vertical = 6.dp)) {
-                    Text(label, fontSize = 12.sp, fontFamily = FontFamily.Monospace, color = Color(0xFF334455), fontWeight = FontWeight.Bold)
+                    Box(modifier = Modifier.offset(y = (-overlapYPx + 12).dp).background(Color(0x99FFFFFF), RoundedCornerShape(4.dp)).padding(horizontal = 10.dp, vertical = 4.dp)) {
+                        Text(label, fontSize = 12.sp, fontFamily = FontFamily.Monospace, color = Color(0xFF1E3A4C))
+                    }
                 }
             }
         }
 
-        CloudNumber(sbTrains.getOrNull(0) ?: "--", "▼ CHURCH AV · NEXT", Modifier.align(Alignment.CenterStart).offset(y = (-40).dp))
-        CloudNumber(sbTrains.getOrNull(1) ?: "--", "▼ CHURCH AV · THEN", Modifier.align(Alignment.BottomStart).offset(x = 300.dp, y = (-120).dp))
-        CloudNumber(nbTrains.getOrNull(0) ?: "--", "▲ COURT SQ · NEXT", Modifier.align(Alignment.TopEnd).offset(x = (-140).dp, y = 160.dp))
-        CloudNumber(nbTrains.getOrNull(1) ?: "--", "▲ COURT SQ · THEN", Modifier.align(Alignment.CenterEnd).offset(y = 80.dp))
+        DriftingCloud(sbTrains.getOrNull(0) ?: "--", "▼ CHURCH AV · NEXT", Modifier.align(Alignment.TopStart).offset(x = 70.dp, y = 130.dp), 200, 300, 86, 52, 16000, false)
+        DriftingCloud(nbTrains.getOrNull(0) ?: "--", "▲ COURT SQ · NEXT", Modifier.align(Alignment.TopEnd).offset(x = (-100).dp, y = 95.dp), 170, 260, 76, 44, 19000, false)
+        DriftingCloud(sbTrains.getOrNull(1) ?: "--", "▼ CHURCH AV · THEN", Modifier.align(Alignment.TopCenter).offset(x = (-100).dp, y = 355.dp), 120, 210, 64, 34, 17000, true)
+        DriftingCloud(nbTrains.getOrNull(1) ?: "--", "▲ COURT SQ · THEN", Modifier.align(Alignment.TopEnd).offset(x = (-40).dp, y = 290.dp), 112, 200, 62, 32, 20000, true)
     }
 }
 

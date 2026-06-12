@@ -1,0 +1,1127 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;500;600;700&family=DM+Mono:wght@400;500&family=Cormorant+Garamond:ital,wght@1,500;1,600&display=swap" rel="stylesheet">
+<style>
+  * { box-sizing: border-box; }
+  html, body { margin: 0; padding: 0; }
+  @keyframes gtpulse { 0%,100% { opacity: .35; } 50% { opacity: 1; } }
+  @keyframes gtbreathe { 0%,100% { opacity: .25; transform: scale(1); } 50% { opacity: .6; transform: scale(1.06); } }
+  @keyframes gtbreatheBig { 0%,100% { opacity: .3; transform: scale(1); } 50% { opacity: .7; transform: scale(1.08); } }
+  @keyframes ccdrift { 0%,100% { transform: translate(0,0); } 50% { transform: translate(44px,-10px); } }
+  @keyframes ccdriftrev { 0%,100% { transform: translate(0,0); } 50% { transform: translate(-40px,-12px); } }
+  @keyframes ccbob { 0%,100% { transform: translateY(0) rotate(-2deg); } 50% { transform: translateY(-18px) rotate(2deg); } }
+  @keyframes ccspin { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
+  @keyframes ccspinrev { from { transform: rotate(0deg); } to { transform: rotate(-360deg); } }
+  @keyframes ccrise { 0% { transform: translateY(0); opacity: 0; } 12% { opacity: .7; } 100% { transform: translateY(-620px); opacity: 0; } }
+  @keyframes ccdrip { 0%,100% { transform: scaleY(1); } 50% { transform: scaleY(1.4); } }
+  @keyframes cctwinkle { 0%,100% { opacity: .35; } 50% { opacity: .8; } }
+  @keyframes ccsway { 0%,100% { opacity: .35; } 50% { opacity: .75; } }
+</style>
+</helmet>
+
+<div style="min-height:100vh;background:#e8e8e3;padding:56px 40px 96px;font-family:'Oswald',sans-serif;">
+
+  <!-- ===== INTRO / SYSTEM ===== -->
+  <div style="max-width:1180px;margin:0 auto;">
+    <div style="font-family:'DM Mono',monospace;font-size:13px;letter-spacing:3px;color:#7a7e74;text-transform:uppercase;">Wall display · 1920×1080 · Myrtle–Willoughby Avs</div>
+    <h1 style="font-size:54px;font-weight:700;color:#16181b;margin:8px 0 0;letter-spacing:.5px;">G Train Departure Boards</h1>
+    <p style="font-size:18px;line-height:1.55;color:#54574e;max-width:780px;margin:14px 0 0;font-weight:400;">Five directions for the platform countdown — from a refined take on your current split-screen to bolder signage and editorial type. All share the IND Crosstown green, Oswald display numerals, a live clock, and one glance model: <strong style="color:#2c2f28;font-weight:600;">the next two trains in both directions.</strong></p>
+
+    <!-- system strip -->
+    <div style="display:flex;flex-wrap:wrap;align-items:center;gap:40px;background:#fff;border-radius:16px;padding:22px 26px;margin-top:26px;box-shadow:0 14px 40px -22px rgba(20,24,16,.35);">
+      <div style="display:flex;gap:14px;">
+        <div style="text-align:center;"><div style="width:38px;height:38px;border-radius:8px;background:#6CBE45;"></div><div style="font-family:'DM Mono',monospace;font-size:9px;letter-spacing:1px;color:#8a8e84;margin-top:7px;">GREEN</div></div>
+        <div style="text-align:center;"><div style="width:38px;height:38px;border-radius:8px;background:#8CEE5F;"></div><div style="font-family:'DM Mono',monospace;font-size:9px;letter-spacing:1px;color:#8a8e84;margin-top:7px;">GLOW</div></div>
+        <div style="text-align:center;"><div style="width:38px;height:38px;border-radius:8px;background:#0A0C0A;"></div><div style="font-family:'DM Mono',monospace;font-size:9px;letter-spacing:1px;color:#8a8e84;margin-top:7px;">INK</div></div>
+        <div style="text-align:center;"><div style="width:38px;height:38px;border-radius:8px;background:#141714;border:1px solid #e3e3de;"></div><div style="font-family:'DM Mono',monospace;font-size:9px;letter-spacing:1px;color:#8a8e84;margin-top:7px;">SURFACE</div></div>
+        <div style="text-align:center;"><div style="width:38px;height:38px;border-radius:8px;background:#F0F4F0;border:1px solid #e3e3de;"></div><div style="font-family:'DM Mono',monospace;font-size:9px;letter-spacing:1px;color:#8a8e84;margin-top:7px;">PAPER</div></div>
+      </div>
+      <div style="width:1px;align-self:stretch;background:#ecece7;"></div>
+      <div style="white-space:nowrap;">
+        <div style="font-size:25px;font-weight:700;color:#16181b;line-height:1.1;">Oswald <span style="color:#9a9e94;font-weight:500;font-size:19px;">— display &amp; numerals</span></div>
+        <div style="font-family:'DM Mono',monospace;font-size:14px;color:#54574e;margin-top:9px;">DM&nbsp;Mono — clock &amp; micro-labels</div>
+      </div>
+      <div style="width:1px;align-self:stretch;background:#ecece7;"></div>
+      <div style="font-family:'DM Mono',monospace;font-size:12px;line-height:1.7;letter-spacing:1px;color:#7a7e74;white-space:nowrap;">MOTION<br><span style="color:#3f8a26;">live clock · breathing glow · pulse</span></div>
+    </div>
+  </div>
+
+  <!-- ============================================================ -->
+  <!-- V1 — CLASSIC SPLIT -->
+  <!-- ============================================================ -->
+  <section data-screen-label="V1 Classic Split" style="max-width:1180px;margin:50px auto 0;">
+    <div style="display:flex;align-items:baseline;gap:14px;margin-bottom:16px;flex-wrap:wrap;">
+      <span style="font-family:'DM Mono',monospace;font-size:13px;font-weight:500;color:#6CBE45;background:#15171a;padding:5px 9px;border-radius:6px;letter-spacing:1px;">01</span>
+      <h2 style="font-size:26px;font-weight:700;color:#1b1d1a;margin:0;white-space:nowrap;flex-shrink:0;">Classic Split</h2>
+      <span style="font-size:15px;color:#6b6f68;font-weight:400;flex:1 1 300px;min-width:300px;margin-left:16px;">Your current layout, refined — bullet &amp; station on the left, both directions stacked on the right.</span>
+    </div>
+    <div data-board-wrap style="width:100%;overflow:hidden;"><div data-board style="position:relative;width:1180px;height:664px;border-radius:18px;overflow:hidden;background:#0A0C0A;box-shadow:0 40px 90px -30px rgba(20,30,15,.5),0 0 0 1px rgba(255,255,255,.04) inset;color:#F0F4F0;">
+      <div style="position:absolute;inset:0;display:flex;padding:44px;">
+        <div style="position:absolute;top:22px;right:28px;display:flex;align-items:center;gap:10px;z-index:2;">
+          <span style="width:9px;height:9px;border-radius:50%;background:#6CBE45;box-shadow:0 0 10px #6CBE45;animation:gtpulse 1.4s ease-in-out infinite;"></span>
+          <span style="font-family:'DM Mono',monospace;font-size:12px;letter-spacing:2px;color:#9AA09A;">LIVE</span>
+          <span data-clock style="white-space:nowrap;font-family:'DM Mono',monospace;font-size:15px;color:#6CBE45;letter-spacing:1px;margin-left:4px;">8:42:09 PM</span>
+        </div>
+        <!-- left -->
+        <div style="width:404px;display:flex;flex-direction:column;align-items:center;justify-content:center;position:relative;">
+          <div style="position:absolute;width:300px;height:300px;border-radius:50%;background:radial-gradient(circle,rgba(108,190,69,.45),transparent 65%);filter:blur(20px);animation:gtbreathe 4s ease-in-out infinite;"></div>
+          <div style="position:relative;width:172px;height:172px;border-radius:50%;background:linear-gradient(150deg,#7ECb54,#57A234);box-shadow:0 14px 44px -6px rgba(108,190,69,.5);display:grid;place-items:center;">
+            <span style="font-size:120px;font-weight:700;color:#fff;line-height:1;margin-top:-4px;">G</span>
+          </div>
+          <div style="margin-top:34px;text-align:center;">
+            <div style="font-size:42px;font-weight:700;line-height:1.0;letter-spacing:1px;">MYRTLE</div>
+            <div style="font-size:42px;font-weight:700;line-height:1.0;letter-spacing:1px;">WILLOUGHBY</div>
+            <div style="font-size:42px;font-weight:700;line-height:1.0;letter-spacing:1px;color:#9AA09A;">AVES</div>
+            <div style="width:64px;height:4px;background:#6CBE45;border-radius:2px;margin:16px auto 0;"></div>
+            <div style="font-family:'DM Mono',monospace;font-size:12px;letter-spacing:3px;color:#5A5F5A;margin-top:12px;white-space:nowrap;">IND CROSSTOWN LINE</div>
+          </div>
+        </div>
+        <div style="width:2px;align-self:stretch;margin:18px 34px;background:linear-gradient(180deg,transparent,#23281F 25%,#23281F 75%,transparent);"></div>
+        <!-- right -->
+        <div style="flex:1;display:flex;flex-direction:column;justify-content:center;">
+          <div style="display:flex;align-items:center;">
+            <div style="flex:0 0 auto;white-space:nowrap;">
+              <div style="display:flex;align-items:center;gap:10px;">
+                <span style="color:#6CBE45;font-size:18px;line-height:1;">▼</span>
+                <span style="font-size:18px;font-weight:600;letter-spacing:3px;color:#6CBE45;">SOUTHBOUND</span>
+              </div>
+              <div style="font-size:48px;font-weight:700;line-height:1.02;margin-top:4px;">CHURCH AV</div>
+            </div>
+            <div style="display:flex;gap:30px;margin-left:auto;flex-shrink:0;">
+              <div style="width:120px;text-align:center;"><div style="font-size:104px;font-weight:700;line-height:.85;color:#8CEE5F;text-shadow:0 0 30px rgba(140,238,95,.35);">2</div><div style="font-size:20px;font-weight:600;letter-spacing:2px;color:#9AA09A;margin-top:6px;">MIN</div></div>
+              <div style="width:120px;text-align:center;"><div style="font-size:104px;font-weight:700;line-height:.85;color:#F0F4F0;">9</div><div style="font-size:20px;font-weight:600;letter-spacing:2px;color:#9AA09A;margin-top:6px;">MIN</div></div>
+            </div>
+          </div>
+          <div style="height:2px;background:#1C201B;margin:30px 0;"></div>
+          <div style="display:flex;align-items:center;">
+            <div style="flex:0 0 auto;white-space:nowrap;">
+              <div style="display:flex;align-items:center;gap:10px;">
+                <span style="color:#6CBE45;font-size:18px;line-height:1;">▲</span>
+                <span style="font-size:18px;font-weight:600;letter-spacing:3px;color:#6CBE45;">NORTHBOUND</span>
+              </div>
+              <div style="font-size:48px;font-weight:700;line-height:1.02;margin-top:4px;">COURT SQ</div>
+            </div>
+            <div style="display:flex;gap:30px;margin-left:auto;flex-shrink:0;">
+              <div style="width:120px;text-align:center;"><div style="font-size:104px;font-weight:700;line-height:.85;color:#8CEE5F;text-shadow:0 0 30px rgba(140,238,95,.35);">4</div><div style="font-size:20px;font-weight:600;letter-spacing:2px;color:#9AA09A;margin-top:6px;">MIN</div></div>
+              <div style="width:120px;text-align:center;"><div style="font-size:104px;font-weight:700;line-height:.85;color:#F0F4F0;">11</div><div style="font-size:20px;font-weight:600;letter-spacing:2px;color:#9AA09A;margin-top:6px;">MIN</div></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    </div>
+  </section>
+
+  <!-- ============================================================ -->
+  <!-- V2 — SOLARI SPLIT -->
+  <!-- ============================================================ -->
+  <section data-screen-label="V2 Solari Split" style="max-width:1180px;margin:56px auto 0;">
+    <div style="display:flex;align-items:baseline;gap:14px;margin-bottom:16px;flex-wrap:wrap;">
+      <span style="font-family:'DM Mono',monospace;font-size:13px;font-weight:500;color:#6CBE45;background:#15171a;padding:5px 9px;border-radius:6px;letter-spacing:1px;">02</span>
+      <h2 style="font-size:26px;font-weight:700;color:#1b1d1a;margin:0;white-space:nowrap;flex-shrink:0;">Solari Split</h2>
+      <span style="font-size:15px;color:#6b6f68;font-weight:400;flex:1 1 300px;min-width:300px;margin-left:16px;">Two equal halves, split-flap feel. One giant hero number per direction + a “then” chip.</span>
+    </div>
+    <div data-board-wrap style="width:100%;overflow:hidden;"><div data-board style="position:relative;width:1180px;height:664px;border-radius:18px;overflow:hidden;background:#0A0C0A;box-shadow:0 40px 90px -30px rgba(20,30,15,.5),0 0 0 1px rgba(255,255,255,.04) inset;color:#F0F4F0;display:flex;flex-direction:column;">
+      <!-- top bar -->
+      <div style="height:76px;display:flex;align-items:center;justify-content:space-between;padding:0 36px;background:#121512;border-bottom:1px solid #20251F;">
+        <div style="display:flex;align-items:center;gap:16px;">
+          <div style="width:46px;height:46px;border-radius:50%;background:#6CBE45;display:grid;place-items:center;"><span style="font-size:30px;font-weight:700;color:#fff;line-height:1;">G</span></div>
+          <span style="font-size:26px;font-weight:700;letter-spacing:1px;white-space:nowrap;">MYRTLE–WILLOUGHBY AVS</span>
+          <span style="font-family:'DM Mono',monospace;font-size:12px;letter-spacing:2px;color:#5A5F5A;white-space:nowrap;">IND CROSSTOWN</span>
+        </div>
+        <div style="display:flex;align-items:center;gap:10px;">
+          <span style="width:9px;height:9px;border-radius:50%;background:#6CBE45;box-shadow:0 0 10px #6CBE45;animation:gtpulse 1.4s ease-in-out infinite;"></span>
+          <span data-clock style="white-space:nowrap;font-family:'DM Mono',monospace;font-size:17px;color:#6CBE45;letter-spacing:1px;">8:42:09 PM</span>
+        </div>
+      </div>
+      <!-- body -->
+      <div style="flex:1;display:flex;">
+        <!-- SB panel -->
+        <div style="flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;position:relative;background:radial-gradient(120% 80% at 50% 130%,rgba(108,190,69,.07),transparent 60%);">
+          <div style="display:flex;align-items:center;gap:12px;">
+            <span style="color:#6CBE45;font-size:26px;line-height:1;">▼</span>
+            <span style="font-size:30px;font-weight:700;letter-spacing:3px;color:#6CBE45;">SOUTHBOUND</span>
+          </div>
+          <div style="font-size:21px;font-weight:500;letter-spacing:1px;color:#9AA09A;margin-top:6px;white-space:nowrap;">TO CHURCH AV</div>
+          <div style="position:relative;margin-top:18px;">
+            <div style="position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);width:280px;height:280px;border-radius:50%;background:radial-gradient(circle,rgba(140,238,95,.3),transparent 65%);filter:blur(18px);animation:gtbreatheBig 3.2s ease-in-out infinite;"></div>
+            <div style="position:relative;display:flex;align-items:baseline;">
+              <span style="position:relative;font-size:232px;font-weight:700;line-height:.78;color:#F0F4F0;">2<span style="position:absolute;left:-6%;right:-6%;top:49%;height:2px;background:rgba(0,0,0,.55);"></span></span>
+              <span style="font-size:30px;font-weight:600;letter-spacing:2px;color:#9AA09A;margin-left:10px;">MIN</span>
+            </div>
+          </div>
+          <div style="margin-top:22px;padding:9px 20px;border:1px solid #2A2F2A;border-radius:999px;font-family:'DM Mono',monospace;font-size:15px;letter-spacing:1px;white-space:nowrap;"><span style="color:#5A5F5A;">THEN </span><span style="color:#F0F4F0;">9 MIN</span></div>
+        </div>
+        <!-- seam -->
+        <div style="width:2px;background:linear-gradient(180deg,transparent,#6CBE45 20%,#6CBE45 80%,transparent);"></div>
+        <!-- NB panel -->
+        <div style="flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;position:relative;">
+          <div style="display:flex;align-items:center;gap:12px;">
+            <span style="color:#6CBE45;font-size:26px;line-height:1;">▲</span>
+            <span style="font-size:30px;font-weight:700;letter-spacing:3px;color:#6CBE45;">NORTHBOUND</span>
+          </div>
+          <div style="font-size:21px;font-weight:500;letter-spacing:1px;color:#9AA09A;margin-top:6px;white-space:nowrap;">TO COURT SQ</div>
+          <div style="position:relative;margin-top:18px;">
+            <div style="position:relative;display:flex;align-items:baseline;">
+              <span style="position:relative;font-size:232px;font-weight:700;line-height:.78;color:#F0F4F0;">4<span style="position:absolute;left:-6%;right:-6%;top:49%;height:2px;background:rgba(0,0,0,.55);"></span></span>
+              <span style="font-size:30px;font-weight:600;letter-spacing:2px;color:#9AA09A;margin-left:10px;">MIN</span>
+            </div>
+          </div>
+          <div style="margin-top:22px;padding:9px 20px;border:1px solid #2A2F2A;border-radius:999px;font-family:'DM Mono',monospace;font-size:15px;letter-spacing:1px;white-space:nowrap;"><span style="color:#5A5F5A;">THEN </span><span style="color:#F0F4F0;">11 MIN</span></div>
+        </div>
+      </div>
+    </div>
+    </div>
+  </section>
+
+  <!-- ============================================================ -->
+  <!-- V3 — HERO + LIST -->
+  <!-- ============================================================ -->
+  <section data-screen-label="V3 Hero and List" style="max-width:1180px;margin:56px auto 0;">
+    <div style="display:flex;align-items:baseline;gap:14px;margin-bottom:16px;flex-wrap:wrap;">
+      <span style="font-family:'DM Mono',monospace;font-size:13px;font-weight:500;color:#6CBE45;background:#15171a;padding:5px 9px;border-radius:6px;letter-spacing:1px;">03</span>
+      <h2 style="font-size:26px;font-weight:700;color:#1b1d1a;margin:0;white-space:nowrap;flex-shrink:0;">Hero + Upcoming</h2>
+      <span style="font-size:15px;color:#6b6f68;font-weight:400;flex:1 1 300px;min-width:300px;margin-left:16px;">One dominant “next train” number, with a ranked list of everything after it.</span>
+    </div>
+    <div data-board-wrap style="width:100%;overflow:hidden;"><div data-board style="position:relative;width:1180px;height:664px;border-radius:18px;overflow:hidden;background:#0A0C0A;box-shadow:0 40px 90px -30px rgba(20,30,15,.5),0 0 0 1px rgba(255,255,255,.04) inset;color:#F0F4F0;display:flex;">
+      <!-- hero -->
+      <div style="flex:1.75;position:relative;padding:56px;display:flex;flex-direction:column;justify-content:center;overflow:hidden;">
+        <div style="position:absolute;left:-80px;bottom:-120px;width:520px;height:520px;border-radius:50%;background:radial-gradient(circle,rgba(108,190,69,.32),transparent 62%);filter:blur(10px);animation:gtbreatheBig 4s ease-in-out infinite;"></div>
+        <div style="position:absolute;top:30px;right:34px;display:flex;align-items:center;gap:10px;">
+          <span style="width:9px;height:9px;border-radius:50%;background:#6CBE45;box-shadow:0 0 10px #6CBE45;animation:gtpulse 1.4s ease-in-out infinite;"></span>
+          <span style="font-family:'DM Mono',monospace;font-size:12px;letter-spacing:2px;color:#9AA09A;">LIVE</span>
+          <span data-clock style="white-space:nowrap;font-family:'DM Mono',monospace;font-size:15px;color:#6CBE45;margin-left:4px;">8:42:09 PM</span>
+        </div>
+        <div style="position:relative;">
+          <div style="font-family:'DM Mono',monospace;font-size:16px;letter-spacing:5px;color:#6CBE45;white-space:nowrap;">NEXT TRAIN</div>
+          <div style="display:flex;align-items:center;gap:12px;margin-top:10px;">
+            <span style="color:#6CBE45;font-size:22px;line-height:1;">▼</span>
+            <span style="font-size:34px;font-weight:700;letter-spacing:1px;">SOUTHBOUND</span>
+            <span style="color:#3f4a3a;font-size:22px;">·</span>
+            <span style="font-size:34px;font-weight:500;color:#9AA09A;letter-spacing:1px;white-space:nowrap;">CHURCH AV</span>
+          </div>
+          <div style="display:flex;align-items:baseline;margin-top:2px;">
+            <span style="font-size:316px;font-weight:700;line-height:.8;color:#8CEE5F;text-shadow:0 0 50px rgba(140,238,95,.4);">2</span>
+            <span style="font-size:46px;font-weight:600;letter-spacing:2px;color:#9AA09A;margin-left:16px;">MIN</span>
+          </div>
+          <div style="font-family:'DM Mono',monospace;font-size:16px;color:#5A5F5A;margin-top:14px;letter-spacing:1px;white-space:nowrap;">SCHEDULED 8:44 PM · IND CROSSTOWN LINE</div>
+        </div>
+      </div>
+      <!-- list -->
+      <div style="flex:1;background:#101310;border-left:1px solid #20251F;padding:34px 36px;display:flex;flex-direction:column;">
+        <div style="font-size:20px;font-weight:700;letter-spacing:3px;color:#9AA09A;">UPCOMING</div>
+        <div style="width:48px;height:3px;background:#6CBE45;border-radius:2px;margin-top:10px;"></div>
+        <div style="margin-top:8px;display:flex;flex-direction:column;">
+          <!-- item -->
+          <div style="display:flex;align-items:center;justify-content:space-between;padding:20px 0;border-bottom:1px solid #1C201B;">
+            <div style="display:flex;align-items:center;gap:16px;">
+              <div style="width:42px;height:42px;border-radius:9px;background:#161A15;border:1px solid #2c3a26;display:grid;place-items:center;"><span style="color:#6CBE45;font-size:18px;">▲</span></div>
+              <div><div style="font-family:'DM Mono',monospace;font-size:12px;letter-spacing:1.5px;color:#6CBE45;">NORTHBOUND</div><div style="font-size:25px;font-weight:600;margin-top:2px;white-space:nowrap;">Court Sq</div></div>
+            </div>
+            <div style="display:flex;align-items:baseline;gap:6px;"><span style="font-size:46px;font-weight:700;line-height:1;">4</span><span style="font-size:16px;font-weight:500;color:#9AA09A;">min</span></div>
+          </div>
+          <div style="display:flex;align-items:center;justify-content:space-between;padding:20px 0;border-bottom:1px solid #1C201B;">
+            <div style="display:flex;align-items:center;gap:16px;">
+              <div style="width:42px;height:42px;border-radius:9px;background:#161A15;border:1px solid #2c3a26;display:grid;place-items:center;"><span style="color:#6CBE45;font-size:18px;">▼</span></div>
+              <div><div style="font-family:'DM Mono',monospace;font-size:12px;letter-spacing:1.5px;color:#6CBE45;">SOUTHBOUND</div><div style="font-size:25px;font-weight:600;margin-top:2px;white-space:nowrap;">Church Av</div></div>
+            </div>
+            <div style="display:flex;align-items:baseline;gap:6px;"><span style="font-size:46px;font-weight:700;line-height:1;">9</span><span style="font-size:16px;font-weight:500;color:#9AA09A;">min</span></div>
+          </div>
+          <div style="display:flex;align-items:center;justify-content:space-between;padding:20px 0;border-bottom:1px solid #1C201B;">
+            <div style="display:flex;align-items:center;gap:16px;">
+              <div style="width:42px;height:42px;border-radius:9px;background:#161A15;border:1px solid #2c3a26;display:grid;place-items:center;"><span style="color:#6CBE45;font-size:18px;">▲</span></div>
+              <div><div style="font-family:'DM Mono',monospace;font-size:12px;letter-spacing:1.5px;color:#6CBE45;">NORTHBOUND</div><div style="font-size:25px;font-weight:600;margin-top:2px;white-space:nowrap;">Court Sq</div><div style="display:inline-block;margin-top:6px;font-family:'DM Mono',monospace;font-size:10px;letter-spacing:1px;color:#FFA726;border:1px solid rgba(255,167,38,.4);border-radius:5px;padding:2px 6px;white-space:nowrap;">ENDS BEDFORD–NOSTRAND</div></div>
+            </div>
+            <div style="display:flex;align-items:baseline;gap:6px;"><span style="font-size:46px;font-weight:700;line-height:1;">11</span><span style="font-size:16px;font-weight:500;color:#9AA09A;">min</span></div>
+          </div>
+          <div style="display:flex;align-items:center;justify-content:space-between;padding:20px 0;">
+            <div style="display:flex;align-items:center;gap:16px;">
+              <div style="width:42px;height:42px;border-radius:9px;background:#161A15;border:1px solid #2c3a26;display:grid;place-items:center;"><span style="color:#6CBE45;font-size:18px;">▼</span></div>
+              <div><div style="font-family:'DM Mono',monospace;font-size:12px;letter-spacing:1.5px;color:#6CBE45;">SOUTHBOUND</div><div style="font-size:25px;font-weight:600;margin-top:2px;white-space:nowrap;">Church Av</div></div>
+            </div>
+            <div style="display:flex;align-items:baseline;gap:6px;"><span style="font-size:46px;font-weight:700;line-height:1;">15</span><span style="font-size:16px;font-weight:500;color:#9AA09A;">min</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+    </div>
+  </section>
+
+  <!-- ============================================================ -->
+  <!-- V4 — SIGNAGE STRIPE -->
+  <!-- ============================================================ -->
+  <section data-screen-label="V4 Signage Stripe" style="max-width:1180px;margin:56px auto 0;">
+    <div style="display:flex;align-items:baseline;gap:14px;margin-bottom:16px;flex-wrap:wrap;">
+      <span style="font-family:'DM Mono',monospace;font-size:13px;font-weight:500;color:#6CBE45;background:#15171a;padding:5px 9px;border-radius:6px;letter-spacing:1px;">04</span>
+      <h2 style="font-size:26px;font-weight:700;color:#1b1d1a;margin:0;white-space:nowrap;flex-shrink:0;">Signage Stripe</h2>
+      <span style="font-size:15px;color:#6b6f68;font-weight:400;flex:1 1 300px;min-width:300px;margin-left:16px;">Pushes the green. Full-width platform stripes with directional arrow blocks.</span>
+    </div>
+    <div data-board-wrap style="width:100%;overflow:hidden;"><div data-board style="position:relative;width:1180px;height:664px;border-radius:18px;overflow:hidden;background:#0A0C0A;box-shadow:0 40px 90px -30px rgba(20,30,15,.5),0 0 0 1px rgba(255,255,255,.04) inset;color:#F0F4F0;display:flex;flex-direction:column;">
+      <!-- green header band -->
+      <div style="height:96px;background:#6CBE45;display:flex;align-items:center;justify-content:space-between;padding:0 42px;color:#0A0C0A;">
+        <div style="display:flex;align-items:center;gap:18px;">
+          <div style="width:54px;height:54px;border-radius:50%;background:#fff;display:grid;place-items:center;"><span style="font-size:34px;font-weight:700;color:#3f8a26;line-height:1;">G</span></div>
+          <div>
+            <div style="font-size:30px;font-weight:700;letter-spacing:1px;line-height:1;white-space:nowrap;">MYRTLE–WILLOUGHBY AVS</div>
+            <div style="font-size:14px;font-weight:600;letter-spacing:2px;opacity:.7;margin-top:3px;white-space:nowrap;">IND CROSSTOWN LINE</div>
+          </div>
+        </div>
+        <div style="display:flex;align-items:center;gap:12px;">
+          <span style="font-family:'DM Mono',monospace;font-size:13px;font-weight:500;letter-spacing:2px;background:#0A0C0A;color:#6CBE45;padding:4px 10px;border-radius:5px;">LIVE</span>
+          <span data-clock style="white-space:nowrap;font-family:'DM Mono',monospace;font-size:26px;font-weight:500;letter-spacing:1px;">8:42:09 PM</span>
+        </div>
+      </div>
+      <!-- stripe SB -->
+      <div style="flex:1;display:flex;align-items:center;border-bottom:2px solid #20251F;">
+        <div style="width:152px;align-self:stretch;background:#6CBE45;display:grid;place-items:center;background-image:repeating-linear-gradient(135deg,rgba(0,0,0,.07) 0 14px,transparent 14px 28px);"><span style="font-size:96px;color:#0A0C0A;line-height:1;">▼</span></div>
+        <div style="flex:1;padding-left:44px;">
+          <div style="font-size:24px;font-weight:600;letter-spacing:3px;color:#6CBE45;">SOUTHBOUND</div>
+          <div style="font-size:66px;font-weight:700;line-height:.95;margin-top:2px;white-space:nowrap;">CHURCH AV</div>
+        </div>
+        <div style="display:flex;align-items:baseline;gap:48px;padding-right:52px;">
+          <div style="text-align:center;"><div style="font-size:128px;font-weight:700;line-height:.8;color:#8CEE5F;text-shadow:0 0 34px rgba(140,238,95,.35);">2</div><div style="font-size:20px;font-weight:600;letter-spacing:2px;color:#9AA09A;margin-top:8px;">MIN</div></div>
+          <div style="text-align:center;"><div style="font-size:128px;font-weight:700;line-height:.8;color:#F0F4F0;">9</div><div style="font-size:20px;font-weight:600;letter-spacing:2px;color:#9AA09A;margin-top:8px;">MIN</div></div>
+        </div>
+      </div>
+      <!-- stripe NB -->
+      <div style="flex:1;display:flex;align-items:center;background:#0C0F0C;">
+        <div style="width:152px;align-self:stretch;background:#6CBE45;display:grid;place-items:center;background-image:repeating-linear-gradient(135deg,rgba(0,0,0,.07) 0 14px,transparent 14px 28px);"><span style="font-size:96px;color:#0A0C0A;line-height:1;">▲</span></div>
+        <div style="flex:1;padding-left:44px;">
+          <div style="font-size:24px;font-weight:600;letter-spacing:3px;color:#6CBE45;">NORTHBOUND</div>
+          <div style="font-size:66px;font-weight:700;line-height:.95;margin-top:2px;white-space:nowrap;">COURT SQ</div>
+        </div>
+        <div style="display:flex;align-items:baseline;gap:48px;padding-right:52px;">
+          <div style="text-align:center;"><div style="font-size:128px;font-weight:700;line-height:.8;color:#8CEE5F;text-shadow:0 0 34px rgba(140,238,95,.35);">4</div><div style="font-size:20px;font-weight:600;letter-spacing:2px;color:#9AA09A;margin-top:8px;">MIN</div></div>
+          <div style="text-align:center;"><div style="font-size:128px;font-weight:700;line-height:.8;color:#F0F4F0;">11</div><div style="font-size:20px;font-weight:600;letter-spacing:2px;color:#9AA09A;margin-top:8px;">MIN</div></div>
+        </div>
+      </div>
+    </div>
+    </div>
+  </section>
+
+  <!-- ============================================================ -->
+  <!-- V5 — EDITORIAL OVERSIZED -->
+  <!-- ============================================================ -->
+  <section data-screen-label="V5 Editorial Oversized" style="max-width:1180px;margin:56px auto 0;">
+    <div style="display:flex;align-items:baseline;gap:14px;margin-bottom:16px;flex-wrap:wrap;">
+      <span style="font-family:'DM Mono',monospace;font-size:13px;font-weight:500;color:#6CBE45;background:#15171a;padding:5px 9px;border-radius:6px;letter-spacing:1px;">05</span>
+      <h2 style="font-size:26px;font-weight:700;color:#1b1d1a;margin:0;white-space:nowrap;flex-shrink:0;">Editorial Oversized</h2>
+      <span style="font-size:15px;color:#6b6f68;font-weight:400;flex:1 1 300px;min-width:300px;margin-left:16px;">The boldest. Numerals become the composition — one filled, one outlined — over scanline texture.</span>
+    </div>
+    <div data-board-wrap style="width:100%;overflow:hidden;"><div data-board style="position:relative;width:1180px;height:664px;border-radius:18px;overflow:hidden;background:#080A08;box-shadow:0 40px 90px -30px rgba(20,30,15,.5),0 0 0 1px rgba(255,255,255,.04) inset;color:#F0F4F0;">
+      <!-- scanline texture -->
+      <div style="position:absolute;inset:0;background-image:repeating-linear-gradient(0deg,rgba(255,255,255,.022) 0 1px,transparent 1px 4px);pointer-events:none;"></div>
+      <!-- glow -->
+      <div style="position:absolute;left:6%;bottom:-18%;width:560px;height:560px;border-radius:50%;background:radial-gradient(circle,rgba(108,190,69,.22),transparent 60%);filter:blur(20px);animation:gtbreatheBig 5s ease-in-out infinite;"></div>
+      <!-- vertical station name -->
+      <div style="position:absolute;left:34px;top:0;bottom:0;display:flex;align-items:center;">
+        <div style="writing-mode:vertical-rl;transform:rotate(180deg);font-size:40px;font-weight:700;letter-spacing:8px;color:transparent;-webkit-text-stroke:1px #2E332C;">MYRTLE–WILLOUGHBY AVS</div>
+      </div>
+      <!-- top-right status -->
+      <div style="position:absolute;top:28px;right:34px;display:flex;align-items:center;gap:12px;z-index:2;">
+        <div style="width:42px;height:42px;border-radius:50%;background:#6CBE45;display:grid;place-items:center;"><span style="font-size:26px;font-weight:700;color:#fff;line-height:1;">G</span></div>
+        <span style="width:9px;height:9px;border-radius:50%;background:#6CBE45;box-shadow:0 0 10px #6CBE45;animation:gtpulse 1.4s ease-in-out infinite;"></span>
+        <span data-clock style="white-space:nowrap;font-family:'DM Mono',monospace;font-size:16px;color:#6CBE45;letter-spacing:1px;">8:42:09 PM</span>
+      </div>
+      <!-- composition -->
+      <div style="position:absolute;inset:0;padding-left:150px;padding-right:60px;display:flex;align-items:center;">
+        <div style="display:flex;align-items:flex-end;gap:24px;">
+          <!-- block A filled -->
+          <div>
+            <div style="display:flex;align-items:center;gap:9px;">
+              <span style="color:#6CBE45;font-size:16px;line-height:1;">▼</span>
+              <span style="font-family:'DM Mono',monospace;font-size:13px;letter-spacing:3px;color:#6CBE45;">SOUTHBOUND</span>
+            </div>
+            <div style="font-size:28px;font-weight:600;letter-spacing:1px;color:#9AA09A;line-height:1;margin-top:7px;white-space:nowrap;">CHURCH AV</div>
+            <div style="font-size:320px;font-weight:700;line-height:1;color:#8CEE5F;text-shadow:0 0 60px rgba(140,238,95,.35);margin-top:2px;">2</div>
+          </div>
+          <!-- block B outline, offset down -->
+          <div style="margin-bottom:54px;">
+            <div style="display:flex;align-items:center;gap:9px;">
+              <span style="color:#6CBE45;font-size:16px;line-height:1;">▲</span>
+              <span style="font-family:'DM Mono',monospace;font-size:13px;letter-spacing:3px;color:#6CBE45;">NORTHBOUND</span>
+            </div>
+            <div style="font-size:28px;font-weight:600;letter-spacing:1px;color:#9AA09A;line-height:1;margin-top:7px;white-space:nowrap;">COURT SQ</div>
+            <div style="font-size:262px;font-weight:700;line-height:1;color:transparent;-webkit-text-stroke:2px #6CBE45;margin-top:2px;">4</div>
+          </div>
+          <!-- right rail -->
+          <div style="margin-bottom:60px;padding-left:8px;border-left:1px solid #23281F;align-self:stretch;display:flex;flex-direction:column;justify-content:flex-end;gap:14px;padding-bottom:30px;">
+            <div style="font-family:'DM Mono',monospace;font-size:13px;letter-spacing:2px;color:#5A5F5A;">MIN</div>
+            <div style="font-family:'DM Mono',monospace;font-size:14px;letter-spacing:1px;color:#9AA09A;white-space:nowrap;">THEN<br><span style="color:#F0F4F0;font-size:20px;">9</span> · SB</div>
+            <div style="font-family:'DM Mono',monospace;font-size:14px;letter-spacing:1px;color:#9AA09A;white-space:nowrap;">THEN<br><span style="color:#F0F4F0;font-size:20px;">11</span> · NB</div>
+          </div>
+        </div>
+      </div>
+      <!-- bottom green rule -->
+      <div style="position:absolute;left:150px;right:60px;bottom:64px;height:2px;background:linear-gradient(90deg,#6CBE45,transparent);"></div>
+    </div>
+    </div>
+  </section>
+
+  <!-- ===== ROUND 2 ===== -->
+  <div style="max-width:1180px;margin:84px auto 0;display:flex;align-items:center;gap:18px;">
+    <div style="font-family:'DM Mono',monospace;font-size:13px;letter-spacing:3px;color:#7a7e74;white-space:nowrap;">ROUND 2 · GO CRAZY</div>
+    <div style="flex:1;height:1px;background:#d4d4cd;"></div>
+  </div>
+  <p style="max-width:1180px;margin:10px auto 0;font-size:17px;color:#54574e;font-weight:400;line-height:1.5;">Five wilder takes. Same rule everywhere: <strong style="color:#2c2f28;font-weight:600;">four numbers — the next two trains in each direction — readable from across the room on an 8.7″ screen.</strong></p>
+
+  <!-- ============================================================ -->
+  <!-- V6 — FOUR BULLETS -->
+  <!-- ============================================================ -->
+  <section data-screen-label="V6 Four Bullets" style="max-width:1180px;margin:48px auto 0;">
+    <div style="display:flex;align-items:baseline;gap:14px;margin-bottom:16px;flex-wrap:wrap;">
+      <span style="font-family:'DM Mono',monospace;font-size:13px;font-weight:500;color:#6CBE45;background:#15171a;padding:5px 9px;border-radius:6px;letter-spacing:1px;">06</span>
+      <h2 style="font-size:26px;font-weight:700;color:#1b1d1a;margin:0;white-space:nowrap;flex-shrink:0;">Four Bullets</h2>
+      <span style="font-size:15px;color:#6b6f68;font-weight:400;flex:1 1 300px;min-width:300px;margin-left:16px;">The roundel as pop art — one bullet per train. Filled = next, outlined = then.</span>
+    </div>
+    <div data-board-wrap style="width:100%;overflow:hidden;"><div data-board style="position:relative;width:1180px;height:664px;border-radius:18px;overflow:hidden;background:#0A0C0A;box-shadow:0 40px 90px -30px rgba(20,30,15,.5),0 0 0 1px rgba(255,255,255,.04) inset;color:#F0F4F0;">
+      <div style="position:absolute;top:26px;left:48px;right:48px;display:flex;align-items:center;justify-content:space-between;z-index:2;">
+        <div style="display:flex;align-items:center;gap:14px;">
+          <div style="width:46px;height:46px;border-radius:50%;background:#6CBE45;display:grid;place-items:center;"><span style="font-size:30px;font-weight:700;color:#fff;line-height:1;">G</span></div>
+          <span style="font-size:24px;font-weight:700;letter-spacing:1px;white-space:nowrap;">MYRTLE–WILLOUGHBY AVS</span>
+        </div>
+        <div style="display:flex;align-items:center;gap:10px;">
+          <span style="width:9px;height:9px;border-radius:50%;background:#6CBE45;box-shadow:0 0 10px #6CBE45;animation:gtpulse 1.4s ease-in-out infinite;"></span>
+          <span style="font-family:'DM Mono',monospace;font-size:12px;letter-spacing:2px;color:#9AA09A;">LIVE</span>
+          <span data-clock style="white-space:nowrap;font-family:'DM Mono',monospace;font-size:15px;color:#6CBE45;letter-spacing:1px;margin-left:4px;">8:42:09 PM</span>
+        </div>
+      </div>
+      <div style="position:absolute;inset:0;padding:108px 56px 40px;display:flex;gap:44px;">
+        <!-- SB column -->
+        <div style="flex:1;display:flex;flex-direction:column;align-items:center;">
+          <div style="display:flex;align-items:center;gap:11px;">
+            <span style="color:#6CBE45;font-size:22px;line-height:1;">▼</span>
+            <span style="font-size:32px;font-weight:700;letter-spacing:2px;white-space:nowrap;">CHURCH AV</span>
+          </div>
+          <div style="font-family:'DM Mono',monospace;font-size:13px;letter-spacing:3px;color:#5A5F5A;margin-top:6px;">SOUTHBOUND</div>
+          <div style="flex:1;width:100%;display:flex;align-items:center;justify-content:center;gap:34px;">
+            <div style="width:252px;height:252px;border-radius:50%;background:#6CBE45;box-shadow:0 0 80px rgba(108,190,69,.35);display:flex;flex-direction:column;align-items:center;justify-content:center;">
+              <span style="font-size:142px;font-weight:700;color:#0A0C0A;line-height:.9;">2</span>
+              <span style="font-size:18px;font-weight:600;letter-spacing:3px;color:#0A0C0A;opacity:.65;margin-top:4px;">MIN</span>
+            </div>
+            <div style="width:198px;height:198px;border-radius:50%;border:5px solid rgba(108,190,69,.55);display:flex;flex-direction:column;align-items:center;justify-content:center;">
+              <span style="font-size:104px;font-weight:700;color:#F0F4F0;line-height:.9;">9</span>
+              <span style="font-size:15px;font-weight:600;letter-spacing:3px;color:#9AA09A;margin-top:4px;">MIN</span>
+            </div>
+          </div>
+        </div>
+        <div style="width:2px;background:linear-gradient(180deg,transparent,#23281F 20%,#23281F 80%,transparent);"></div>
+        <!-- NB column -->
+        <div style="flex:1;display:flex;flex-direction:column;align-items:center;">
+          <div style="display:flex;align-items:center;gap:11px;">
+            <span style="color:#6CBE45;font-size:22px;line-height:1;">▲</span>
+            <span style="font-size:32px;font-weight:700;letter-spacing:2px;white-space:nowrap;">COURT SQ</span>
+          </div>
+          <div style="font-family:'DM Mono',monospace;font-size:13px;letter-spacing:3px;color:#5A5F5A;margin-top:6px;">NORTHBOUND</div>
+          <div style="flex:1;width:100%;display:flex;align-items:center;justify-content:center;gap:34px;">
+            <div style="width:252px;height:252px;border-radius:50%;background:#6CBE45;box-shadow:0 0 80px rgba(108,190,69,.35);display:flex;flex-direction:column;align-items:center;justify-content:center;">
+              <span style="font-size:142px;font-weight:700;color:#0A0C0A;line-height:.9;">4</span>
+              <span style="font-size:18px;font-weight:600;letter-spacing:3px;color:#0A0C0A;opacity:.65;margin-top:4px;">MIN</span>
+            </div>
+            <div style="width:198px;height:198px;border-radius:50%;border:5px solid rgba(108,190,69,.55);display:flex;flex-direction:column;align-items:center;justify-content:center;">
+              <span style="font-size:104px;font-weight:700;color:#F0F4F0;line-height:.9;">11</span>
+              <span style="font-size:15px;font-weight:600;letter-spacing:3px;color:#9AA09A;margin-top:4px;">MIN</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    </div>
+  </section>
+
+  <!-- ============================================================ -->
+  <!-- V7 — APPROACH MAP -->
+  <!-- ============================================================ -->
+  <section data-screen-label="V7 Approach Map" style="max-width:1180px;margin:56px auto 0;">
+    <div style="display:flex;align-items:baseline;gap:14px;margin-bottom:16px;flex-wrap:wrap;">
+      <span style="font-family:'DM Mono',monospace;font-size:13px;font-weight:500;color:#6CBE45;background:#15171a;padding:5px 9px;border-radius:6px;letter-spacing:1px;">07</span>
+      <h2 style="font-size:26px;font-weight:700;color:#1b1d1a;margin:0;white-space:nowrap;flex-shrink:0;">Approach Map</h2>
+      <span style="font-size:15px;color:#6b6f68;font-weight:400;flex:1 1 300px;min-width:300px;margin-left:16px;">Trains as moving bodies — distance from the platform is literal time. Closer = sooner.</span>
+    </div>
+    <div data-board-wrap style="width:100%;overflow:hidden;"><div data-board style="position:relative;width:1180px;height:664px;border-radius:18px;overflow:hidden;background:#0A0C0A;box-shadow:0 40px 90px -30px rgba(20,30,15,.5),0 0 0 1px rgba(255,255,255,.04) inset;color:#F0F4F0;">
+      <div style="position:absolute;top:26px;left:48px;right:48px;display:flex;align-items:center;justify-content:space-between;z-index:2;">
+        <div style="display:flex;align-items:center;gap:14px;">
+          <div style="width:46px;height:46px;border-radius:50%;background:#6CBE45;display:grid;place-items:center;"><span style="font-size:30px;font-weight:700;color:#fff;line-height:1;">G</span></div>
+          <span style="font-size:24px;font-weight:700;letter-spacing:1px;white-space:nowrap;">MYRTLE–WILLOUGHBY AVS</span>
+        </div>
+        <div style="display:flex;align-items:center;gap:10px;">
+          <span style="width:9px;height:9px;border-radius:50%;background:#6CBE45;box-shadow:0 0 10px #6CBE45;animation:gtpulse 1.4s ease-in-out infinite;"></span>
+          <span style="font-family:'DM Mono',monospace;font-size:12px;letter-spacing:2px;color:#9AA09A;">LIVE</span>
+          <span data-clock style="white-space:nowrap;font-family:'DM Mono',monospace;font-size:15px;color:#6CBE45;letter-spacing:1px;margin-left:4px;">8:42:09 PM</span>
+        </div>
+      </div>
+      <!-- platform bar -->
+      <div style="position:absolute;left:96px;top:150px;bottom:90px;width:10px;border-radius:5px;background:#F0F4F0;box-shadow:0 0 30px rgba(240,244,240,.25);"></div>
+      <div style="position:absolute;left:56px;top:124px;width:90px;text-align:center;font-family:'DM Mono',monospace;font-size:11px;letter-spacing:2px;color:#9AA09A;">STATION</div>
+      <!-- SB track -->
+      <div style="position:absolute;left:106px;right:48px;top:248px;height:4px;background:repeating-linear-gradient(90deg,#2A2F2A 0 18px,transparent 18px 30px);"></div>
+      <div style="position:absolute;right:60px;top:176px;display:flex;align-items:center;gap:9px;">
+        <span style="color:#6CBE45;font-size:16px;line-height:1;">▼</span>
+        <span style="font-family:'DM Mono',monospace;font-size:13px;letter-spacing:3px;color:#6CBE45;white-space:nowrap;">SOUTHBOUND · TO CHURCH AV</span>
+      </div>
+      <!-- NB track -->
+      <div style="position:absolute;left:106px;right:48px;top:488px;height:4px;background:repeating-linear-gradient(90deg,#2A2F2A 0 18px,transparent 18px 30px);"></div>
+      <div style="position:absolute;right:60px;top:396px;display:flex;align-items:center;gap:9px;">
+        <span style="color:#6CBE45;font-size:16px;line-height:1;">▲</span>
+        <span style="font-family:'DM Mono',monospace;font-size:13px;letter-spacing:3px;color:#6CBE45;white-space:nowrap;">NORTHBOUND · TO COURT SQ</span>
+      </div>
+      <!-- SB trains -->
+      <div style="position:absolute;left:146px;top:155px;width:190px;height:190px;border-radius:50%;background:#6CBE45;box-shadow:0 0 70px rgba(108,190,69,.4);display:flex;flex-direction:column;align-items:center;justify-content:center;z-index:1;">
+        <span style="font-size:104px;font-weight:700;color:#0A0C0A;line-height:.9;">2</span>
+        <span style="font-size:15px;font-weight:600;letter-spacing:3px;color:#0A0C0A;opacity:.65;">MIN</span>
+      </div>
+      <div style="position:absolute;left:661px;top:180px;width:140px;height:140px;border-radius:50%;background:#141714;border:4px solid rgba(108,190,69,.5);display:flex;flex-direction:column;align-items:center;justify-content:center;z-index:1;">
+        <span style="font-size:72px;font-weight:700;color:#F0F4F0;line-height:.9;">9</span>
+        <span style="font-size:13px;font-weight:600;letter-spacing:2px;color:#9AA09A;">MIN</span>
+      </div>
+      <!-- NB trains -->
+      <div style="position:absolute;left:286px;top:395px;width:190px;height:190px;border-radius:50%;background:#6CBE45;box-shadow:0 0 70px rgba(108,190,69,.4);display:flex;flex-direction:column;align-items:center;justify-content:center;z-index:1;">
+        <span style="font-size:104px;font-weight:700;color:#0A0C0A;line-height:.9;">4</span>
+        <span style="font-size:15px;font-weight:600;letter-spacing:3px;color:#0A0C0A;opacity:.65;">MIN</span>
+      </div>
+      <div style="position:absolute;left:801px;top:420px;width:140px;height:140px;border-radius:50%;background:#141714;border:4px solid rgba(108,190,69,.5);display:flex;flex-direction:column;align-items:center;justify-content:center;z-index:1;">
+        <span style="font-size:72px;font-weight:700;color:#F0F4F0;line-height:.9;">11</span>
+        <span style="font-size:13px;font-weight:600;letter-spacing:2px;color:#9AA09A;">MIN</span>
+      </div>
+      <!-- time axis -->
+      <div style="position:absolute;left:106px;right:48px;top:614px;height:1px;background:#1C201B;"></div>
+      <div style="position:absolute;left:101px;top:606px;width:1px;height:9px;background:#3A3F3A;"></div>
+      <div style="position:absolute;left:81px;top:624px;width:40px;text-align:center;font-family:'DM Mono',monospace;font-size:11px;letter-spacing:1px;color:#5A5F5A;">NOW</div>
+      <div style="position:absolute;left:451px;top:606px;width:1px;height:9px;background:#3A3F3A;"></div>
+      <div style="position:absolute;left:421px;top:624px;width:60px;text-align:center;font-family:'DM Mono',monospace;font-size:11px;letter-spacing:1px;color:#5A5F5A;white-space:nowrap;">5 MIN</div>
+      <div style="position:absolute;left:801px;top:606px;width:1px;height:9px;background:#3A3F3A;"></div>
+      <div style="position:absolute;left:766px;top:624px;width:70px;text-align:center;font-family:'DM Mono',monospace;font-size:11px;letter-spacing:1px;color:#5A5F5A;white-space:nowrap;">10 MIN</div>
+    </div>
+    </div>
+  </section>
+
+  <!-- ============================================================ -->
+  <!-- V8 — DOT-MATRIX LED -->
+  <!-- ============================================================ -->
+  <section data-screen-label="V8 Dot-Matrix LED" style="max-width:1180px;margin:56px auto 0;">
+    <div style="display:flex;align-items:baseline;gap:14px;margin-bottom:16px;flex-wrap:wrap;">
+      <span style="font-family:'DM Mono',monospace;font-size:13px;font-weight:500;color:#6CBE45;background:#15171a;padding:5px 9px;border-radius:6px;letter-spacing:1px;">08</span>
+      <h2 style="font-size:26px;font-weight:700;color:#1b1d1a;margin:0;white-space:nowrap;flex-shrink:0;">Dot-Matrix LED</h2>
+      <span style="font-size:15px;color:#6b6f68;font-weight:400;flex:1 1 300px;min-width:300px;margin-left:16px;">Homage to the platform countdown clock — type made of glowing LED dots, in G green.</span>
+    </div>
+    <div data-board-wrap style="width:100%;overflow:hidden;"><div data-board style="position:relative;width:1180px;height:664px;border-radius:18px;overflow:hidden;background:#030503;box-shadow:0 40px 90px -30px rgba(20,30,15,.5),0 0 0 1px rgba(255,255,255,.04) inset;color:#F0F4F0;">
+      <div style="position:absolute;inset:24px;background:#070907;border:1px solid #161A15;border-radius:12px;padding:14px 40px 18px;display:flex;flex-direction:column;">
+        <div style="height:52px;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid #131613;flex-shrink:0;">
+          <span style="font-family:'DM Mono',monospace;font-size:15px;letter-spacing:3px;color:#9AA09A;white-space:nowrap;">MYRTLE–WILLOUGHBY AVS · CROSSTOWN</span>
+          <div style="display:flex;align-items:center;gap:10px;">
+            <span style="width:8px;height:8px;border-radius:50%;background:#6CBE45;box-shadow:0 0 8px #6CBE45;animation:gtpulse 1.4s ease-in-out infinite;"></span>
+            <span data-clock style="white-space:nowrap;font-family:'DM Mono',monospace;font-size:16px;color:#6CBE45;letter-spacing:1px;">8:42:09 PM</span>
+          </div>
+        </div>
+        <div style="flex:1;display:flex;align-items:center;gap:26px;border-bottom:1px solid #131613;">
+          <span style="font-family:'DM Mono',monospace;font-size:20px;color:#3f4a3a;width:26px;">1</span>
+          <div style="width:42px;height:42px;border-radius:50%;background:#6CBE45;display:grid;place-items:center;flex-shrink:0;"><span style="font-size:27px;font-weight:700;color:#fff;line-height:1;">G</span></div>
+          <div style="flex:1;">
+            <div style="font-size:52px;font-weight:700;line-height:1;color:transparent;background-image:radial-gradient(circle,#6CBE45 1.1px,rgba(108,190,69,.04) 1.35px);background-size:4.6px 4.6px;-webkit-background-clip:text;background-clip:text;white-space:nowrap;">CHURCH AV</div>
+            <div style="font-family:'DM Mono',monospace;font-size:12px;letter-spacing:2px;color:#4A4F4A;margin-top:6px;white-space:nowrap;">▼ SOUTHBOUND</div>
+          </div>
+          <div style="display:flex;align-items:baseline;gap:12px;min-width:250px;justify-content:flex-end;">
+            <span style="font-size:112px;font-weight:700;line-height:.9;color:transparent;background-image:radial-gradient(circle,#8CEE5F 1.8px,rgba(140,238,95,.05) 2.1px);background-size:7px 7px;-webkit-background-clip:text;background-clip:text;filter:drop-shadow(0 0 12px rgba(140,238,95,.45));">2</span>
+            <span style="font-family:'DM Mono',monospace;font-size:19px;color:#4A8430;">MIN</span>
+          </div>
+        </div>
+        <div style="flex:1;display:flex;align-items:center;gap:26px;border-bottom:1px solid #131613;">
+          <span style="font-family:'DM Mono',monospace;font-size:20px;color:#3f4a3a;width:26px;">2</span>
+          <div style="width:42px;height:42px;border-radius:50%;background:#6CBE45;display:grid;place-items:center;flex-shrink:0;"><span style="font-size:27px;font-weight:700;color:#fff;line-height:1;">G</span></div>
+          <div style="flex:1;">
+            <div style="font-size:52px;font-weight:700;line-height:1;color:transparent;background-image:radial-gradient(circle,#6CBE45 1.1px,rgba(108,190,69,.04) 1.35px);background-size:4.6px 4.6px;-webkit-background-clip:text;background-clip:text;white-space:nowrap;">CHURCH AV</div>
+            <div style="font-family:'DM Mono',monospace;font-size:12px;letter-spacing:2px;color:#4A4F4A;margin-top:6px;white-space:nowrap;">▼ SOUTHBOUND</div>
+          </div>
+          <div style="display:flex;align-items:baseline;gap:12px;min-width:250px;justify-content:flex-end;">
+            <span style="font-size:112px;font-weight:700;line-height:.9;color:transparent;background-image:radial-gradient(circle,#8CEE5F 1.8px,rgba(140,238,95,.05) 2.1px);background-size:7px 7px;-webkit-background-clip:text;background-clip:text;filter:drop-shadow(0 0 12px rgba(140,238,95,.45));">9</span>
+            <span style="font-family:'DM Mono',monospace;font-size:19px;color:#4A8430;">MIN</span>
+          </div>
+        </div>
+        <div style="flex:1;display:flex;align-items:center;gap:26px;border-bottom:1px solid #131613;">
+          <span style="font-family:'DM Mono',monospace;font-size:20px;color:#3f4a3a;width:26px;">3</span>
+          <div style="width:42px;height:42px;border-radius:50%;background:#6CBE45;display:grid;place-items:center;flex-shrink:0;"><span style="font-size:27px;font-weight:700;color:#fff;line-height:1;">G</span></div>
+          <div style="flex:1;">
+            <div style="font-size:52px;font-weight:700;line-height:1;color:transparent;background-image:radial-gradient(circle,#6CBE45 1.1px,rgba(108,190,69,.04) 1.35px);background-size:4.6px 4.6px;-webkit-background-clip:text;background-clip:text;white-space:nowrap;">COURT SQ</div>
+            <div style="font-family:'DM Mono',monospace;font-size:12px;letter-spacing:2px;color:#4A4F4A;margin-top:6px;white-space:nowrap;">▲ NORTHBOUND</div>
+          </div>
+          <div style="display:flex;align-items:baseline;gap:12px;min-width:250px;justify-content:flex-end;">
+            <span style="font-size:112px;font-weight:700;line-height:.9;color:transparent;background-image:radial-gradient(circle,#8CEE5F 1.8px,rgba(140,238,95,.05) 2.1px);background-size:7px 7px;-webkit-background-clip:text;background-clip:text;filter:drop-shadow(0 0 12px rgba(140,238,95,.45));">4</span>
+            <span style="font-family:'DM Mono',monospace;font-size:19px;color:#4A8430;">MIN</span>
+          </div>
+        </div>
+        <div style="flex:1;display:flex;align-items:center;gap:26px;">
+          <span style="font-family:'DM Mono',monospace;font-size:20px;color:#3f4a3a;width:26px;">4</span>
+          <div style="width:42px;height:42px;border-radius:50%;background:#6CBE45;display:grid;place-items:center;flex-shrink:0;"><span style="font-size:27px;font-weight:700;color:#fff;line-height:1;">G</span></div>
+          <div style="flex:1;">
+            <div style="font-size:52px;font-weight:700;line-height:1;color:transparent;background-image:radial-gradient(circle,#6CBE45 1.1px,rgba(108,190,69,.04) 1.35px);background-size:4.6px 4.6px;-webkit-background-clip:text;background-clip:text;white-space:nowrap;">COURT SQ</div>
+            <div style="font-family:'DM Mono',monospace;font-size:12px;letter-spacing:2px;color:#4A4F4A;margin-top:6px;white-space:nowrap;">▲ NORTHBOUND</div>
+          </div>
+          <div style="display:flex;align-items:baseline;gap:12px;min-width:250px;justify-content:flex-end;">
+            <span style="font-size:112px;font-weight:700;line-height:.9;color:transparent;background-image:radial-gradient(circle,#8CEE5F 1.8px,rgba(140,238,95,.05) 2.1px);background-size:7px 7px;-webkit-background-clip:text;background-clip:text;filter:drop-shadow(0 0 12px rgba(140,238,95,.45));">11</span>
+            <span style="font-family:'DM Mono',monospace;font-size:19px;color:#4A8430;">MIN</span>
+          </div>
+        </div>
+      </div>
+      <div style="position:absolute;inset:24px;border-radius:12px;background-image:repeating-linear-gradient(0deg,rgba(0,0,0,.18) 0 1px,transparent 1px 3px);pointer-events:none;"></div>
+    </div>
+    </div>
+  </section>
+
+  <!-- ============================================================ -->
+  <!-- V9 — QUADRANTS -->
+  <!-- ============================================================ -->
+  <section data-screen-label="V9 Quadrants" style="max-width:1180px;margin:56px auto 0;">
+    <div style="display:flex;align-items:baseline;gap:14px;margin-bottom:16px;flex-wrap:wrap;">
+      <span style="font-family:'DM Mono',monospace;font-size:13px;font-weight:500;color:#6CBE45;background:#15171a;padding:5px 9px;border-radius:6px;letter-spacing:1px;">09</span>
+      <h2 style="font-size:26px;font-weight:700;color:#1b1d1a;margin:0;white-space:nowrap;flex-shrink:0;">Quadrants</h2>
+      <span style="font-size:15px;color:#6b6f68;font-weight:400;flex:1 1 300px;min-width:300px;margin-left:16px;">Pure color blocks — four panels, four trains. The top row is what's coming next.</span>
+    </div>
+    <div data-board-wrap style="width:100%;overflow:hidden;"><div data-board style="position:relative;width:1180px;height:664px;border-radius:18px;overflow:hidden;background:#0A0C0A;box-shadow:0 40px 90px -30px rgba(20,30,15,.5),0 0 0 1px rgba(255,255,255,.04) inset;color:#F0F4F0;display:grid;grid-template-columns:1fr 1fr;grid-template-rows:1fr 1fr;gap:5px;">
+      <!-- TL : SB next -->
+      <div style="position:relative;background:#6CBE45;display:flex;flex-direction:column;align-items:center;justify-content:center;">
+        <div style="position:absolute;top:24px;left:30px;">
+          <div style="display:flex;align-items:center;gap:9px;"><span style="color:#0A0C0A;font-size:18px;line-height:1;">▼</span><span style="font-size:24px;font-weight:700;color:#0A0C0A;letter-spacing:1px;white-space:nowrap;">CHURCH AV</span></div>
+          <div style="font-family:'DM Mono',monospace;font-size:12px;letter-spacing:3px;color:#0A0C0A;opacity:.6;margin-top:4px;white-space:nowrap;">NEXT TRAIN</div>
+        </div>
+        <div style="display:flex;align-items:baseline;gap:14px;margin-top:30px;">
+          <span style="font-size:218px;font-weight:700;line-height:.85;color:#0A0C0A;">2</span>
+          <span style="font-size:26px;font-weight:600;letter-spacing:2px;color:#0A0C0A;opacity:.6;">MIN</span>
+        </div>
+      </div>
+      <!-- TR : NB next -->
+      <div style="position:relative;background:#4A8430;display:flex;flex-direction:column;align-items:center;justify-content:center;">
+        <div style="position:absolute;top:24px;left:30px;">
+          <div style="display:flex;align-items:center;gap:9px;"><span style="color:#0A0C0A;font-size:18px;line-height:1;">▲</span><span style="font-size:24px;font-weight:700;color:#0A0C0A;letter-spacing:1px;white-space:nowrap;">COURT SQ</span></div>
+          <div style="font-family:'DM Mono',monospace;font-size:12px;letter-spacing:3px;color:#0A0C0A;opacity:.6;margin-top:4px;white-space:nowrap;">NEXT TRAIN</div>
+        </div>
+        <div style="display:flex;align-items:baseline;gap:14px;margin-top:30px;">
+          <span style="font-size:218px;font-weight:700;line-height:.85;color:#0A0C0A;">4</span>
+          <span style="font-size:26px;font-weight:600;letter-spacing:2px;color:#0A0C0A;opacity:.6;">MIN</span>
+        </div>
+      </div>
+      <!-- BL : SB then -->
+      <div style="position:relative;background:#0E110E;display:flex;flex-direction:column;align-items:center;justify-content:center;">
+        <div style="position:absolute;top:24px;left:30px;">
+          <div style="display:flex;align-items:center;gap:9px;"><span style="color:#6CBE45;font-size:18px;line-height:1;">▼</span><span style="font-size:24px;font-weight:700;color:#F0F4F0;letter-spacing:1px;white-space:nowrap;">CHURCH AV</span></div>
+          <div style="font-family:'DM Mono',monospace;font-size:12px;letter-spacing:3px;color:#5A5F5A;margin-top:4px;">THEN</div>
+        </div>
+        <div style="display:flex;align-items:baseline;gap:14px;margin-top:30px;">
+          <span style="font-size:182px;font-weight:700;line-height:.85;color:#F0F4F0;">9</span>
+          <span style="font-size:24px;font-weight:600;letter-spacing:2px;color:#9AA09A;">MIN</span>
+        </div>
+      </div>
+      <!-- BR : NB then -->
+      <div style="position:relative;background:#0E110E;display:flex;flex-direction:column;align-items:center;justify-content:center;">
+        <div style="position:absolute;top:24px;left:30px;">
+          <div style="display:flex;align-items:center;gap:9px;"><span style="color:#6CBE45;font-size:18px;line-height:1;">▲</span><span style="font-size:24px;font-weight:700;color:#F0F4F0;letter-spacing:1px;white-space:nowrap;">COURT SQ</span></div>
+          <div style="font-family:'DM Mono',monospace;font-size:12px;letter-spacing:3px;color:#5A5F5A;margin-top:4px;">THEN</div>
+        </div>
+        <div style="display:flex;align-items:baseline;gap:14px;margin-top:30px;">
+          <span style="font-size:182px;font-weight:700;line-height:.85;color:#F0F4F0;">11</span>
+          <span style="font-size:24px;font-weight:600;letter-spacing:2px;color:#9AA09A;">MIN</span>
+        </div>
+      </div>
+      <!-- center chip -->
+      <div style="position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);display:flex;align-items:center;gap:12px;background:#0A0C0A;border:1px solid #2A2F2A;border-radius:999px;padding:10px 22px;box-shadow:0 10px 40px rgba(0,0,0,.6);">
+        <div style="width:34px;height:34px;border-radius:50%;background:#6CBE45;display:grid;place-items:center;"><span style="font-size:22px;font-weight:700;color:#fff;line-height:1;">G</span></div>
+        <span style="font-size:17px;font-weight:700;letter-spacing:1px;white-space:nowrap;display:inline-block;min-width:218px;">MYRTLE–WILLOUGHBY AVS</span>
+        <span data-clock style="white-space:nowrap;font-family:'DM Mono',monospace;font-size:14px;color:#6CBE45;letter-spacing:1px;">8:42:09 PM</span>
+      </div>
+    </div>
+    </div>
+  </section>
+
+  <!-- ============================================================ -->
+  <!-- V10 — TYPE POSTER -->
+  <!-- ============================================================ -->
+  <section data-screen-label="V10 Type Poster" style="max-width:1180px;margin:56px auto 0;">
+    <div style="display:flex;align-items:baseline;gap:14px;margin-bottom:16px;flex-wrap:wrap;">
+      <span style="font-family:'DM Mono',monospace;font-size:13px;font-weight:500;color:#6CBE45;background:#15171a;padding:5px 9px;border-radius:6px;letter-spacing:1px;">10</span>
+      <h2 style="font-size:26px;font-weight:700;color:#1b1d1a;margin:0;white-space:nowrap;flex-shrink:0;">Type Poster</h2>
+      <span style="font-size:15px;color:#6b6f68;font-weight:400;flex:1 1 300px;min-width:300px;margin-left:16px;">Swiss-poster energy — the four numerals scattered on a grid, tagged like specimens.</span>
+    </div>
+    <div data-board-wrap style="width:100%;overflow:hidden;"><div data-board style="position:relative;width:1180px;height:664px;border-radius:18px;overflow:hidden;background:#0A0C0A;box-shadow:0 40px 90px -30px rgba(20,30,15,.5),0 0 0 1px rgba(255,255,255,.04) inset;color:#F0F4F0;">
+      <!-- grid texture -->
+      <div style="position:absolute;inset:0;background-image:repeating-linear-gradient(0deg,rgba(255,255,255,.028) 0 1px,transparent 1px 83px),repeating-linear-gradient(90deg,rgba(255,255,255,.028) 0 1px,transparent 1px 118px);pointer-events:none;"></div>
+      <!-- G watermark -->
+      <div style="position:absolute;right:-50px;bottom:-150px;font-size:560px;font-weight:700;line-height:1;color:transparent;-webkit-text-stroke:1px #181C17;">G</div>
+      <!-- accent diagonal -->
+      <div style="position:absolute;left:-10%;top:54%;width:120%;height:2px;background:linear-gradient(90deg,transparent,rgba(108,190,69,.35),transparent);transform:rotate(-14deg);"></div>
+      <!-- header -->
+      <div style="position:absolute;top:38px;left:54px;">
+        <div style="font-size:38px;font-weight:700;line-height:1.05;letter-spacing:1px;white-space:nowrap;">MYRTLE–<br>WILLOUGHBY AVS</div>
+        <div style="font-family:'DM Mono',monospace;font-size:12px;letter-spacing:3px;color:#5A5F5A;margin-top:10px;white-space:nowrap;">IND CROSSTOWN · G LOCAL</div>
+      </div>
+      <div style="position:absolute;top:34px;right:48px;display:flex;align-items:center;gap:12px;">
+        <div style="width:42px;height:42px;border-radius:50%;background:#6CBE45;display:grid;place-items:center;"><span style="font-size:26px;font-weight:700;color:#fff;line-height:1;">G</span></div>
+        <span data-clock style="white-space:nowrap;font-family:'DM Mono',monospace;font-size:16px;color:#6CBE45;letter-spacing:1px;">8:42:09 PM</span>
+      </div>
+      <!-- numeral A : SB next -->
+      <div style="position:absolute;left:90px;top:216px;">
+        <div style="display:inline-flex;align-items:center;gap:8px;font-family:'DM Mono',monospace;font-size:13px;letter-spacing:2px;color:#0A0C0A;background:#6CBE45;padding:5px 11px;border-radius:4px;white-space:nowrap;">▼ CHURCH AV · NEXT</div>
+        <div style="font-size:330px;font-weight:700;line-height:.85;color:#8CEE5F;text-shadow:0 0 60px rgba(140,238,95,.35);margin-top:14px;">2</div>
+      </div>
+      <!-- numeral B : SB then -->
+      <div style="position:absolute;left:382px;top:368px;">
+        <div style="display:inline-flex;align-items:center;gap:8px;font-family:'DM Mono',monospace;font-size:13px;letter-spacing:2px;color:#6CBE45;border:1px solid rgba(108,190,69,.5);padding:4px 11px;border-radius:4px;white-space:nowrap;">▼ CHURCH AV · THEN</div>
+        <div style="font-size:204px;font-weight:700;line-height:.85;color:#F0F4F0;margin-top:14px;">9</div>
+      </div>
+      <!-- numeral C : NB next -->
+      <div style="position:absolute;left:640px;top:172px;">
+        <div style="display:inline-flex;align-items:center;gap:8px;font-family:'DM Mono',monospace;font-size:13px;letter-spacing:2px;color:#0A0C0A;background:#6CBE45;padding:5px 11px;border-radius:4px;white-space:nowrap;">▲ COURT SQ · NEXT</div>
+        <div style="font-size:282px;font-weight:700;line-height:.85;color:#6CBE45;margin-top:14px;">4</div>
+      </div>
+      <!-- numeral D : NB then -->
+      <div style="position:absolute;left:884px;top:382px;">
+        <div style="display:inline-flex;align-items:center;gap:8px;font-family:'DM Mono',monospace;font-size:13px;letter-spacing:2px;color:#6CBE45;border:1px solid rgba(108,190,69,.5);padding:4px 11px;border-radius:4px;white-space:nowrap;">▲ COURT SQ · THEN</div>
+        <div style="font-size:204px;font-weight:700;line-height:.85;color:transparent;-webkit-text-stroke:3px #6CBE45;margin-top:14px;">11</div>
+      </div>
+      <!-- footer caption -->
+      <div style="position:absolute;left:54px;bottom:36px;font-family:'DM Mono',monospace;font-size:12px;letter-spacing:3px;color:#5A5F5A;white-space:nowrap;">NEXT TWO TRAINS · BOTH DIRECTIONS</div>
+    </div>
+    </div>
+  </section>
+
+  <!-- ===== ROUND 3 ===== -->
+  <div style="max-width:1180px;margin:84px auto 0;display:flex;align-items:center;gap:18px;">
+    <div style="font-family:'DM Mono',monospace;font-size:13px;letter-spacing:3px;color:#7a7e74;white-space:nowrap;">ROUND 3 · SURREALIST</div>
+    <div style="flex:1;height:1px;background:#d4d4cd;"></div>
+  </div>
+  <p style="max-width:1180px;margin:10px auto 0;font-size:17px;color:#54574e;font-weight:400;line-height:1.5;">Logic off, paint on. Five boards that treat waiting for the G as a dream state — <strong style="color:#2c2f28;font-weight:600;">the clock stays live and the four times stay real, everything else floats.</strong></p>
+
+  <!-- ============================================================ -->
+  <!-- V11 — CECI N'EST PAS UN TRAIN (MAGRITTE) -->
+  <!-- ============================================================ -->
+  <section data-screen-label="V11 Ceci n'est pas un train" style="max-width:1180px;margin:48px auto 0;">
+    <div style="display:flex;align-items:baseline;gap:14px;margin-bottom:16px;flex-wrap:wrap;">
+      <span style="font-family:'DM Mono',monospace;font-size:13px;font-weight:500;color:#6CBE45;background:#15171a;padding:5px 9px;border-radius:6px;letter-spacing:1px;">11</span>
+      <h2 style="font-size:26px;font-weight:700;color:#1b1d1a;margin:0;white-space:nowrap;flex-shrink:0;">Ceci n'est pas un train</h2>
+      <span style="font-size:15px;color:#6b6f68;font-weight:400;flex:1 1 300px;min-width:300px;margin-left:16px;">Magritte daylight. The arrivals drift past on clouds; behind the little door it is already night.</span>
+    </div>
+    <div data-board-wrap style="width:100%;overflow:hidden;"><div data-board style="position:relative;width:1180px;height:664px;border-radius:18px;overflow:hidden;background:linear-gradient(180deg,#5E9EC9 0%,#8FBEDC 55%,#CADFE9 100%);box-shadow:0 40px 90px -30px rgba(20,30,15,.5),0 0 0 1px rgba(255,255,255,.04) inset;color:#1E2D3A;">
+      <!-- roundel sun -->
+      <div style="position:absolute;left:355px;top:46px;width:130px;height:130px;border-radius:50%;background:radial-gradient(circle at 35% 30%,#8CD96A,#57A234);box-shadow:0 0 70px rgba(140,238,95,.6);display:grid;place-items:center;">
+        <span style="font-size:84px;font-weight:700;color:#fff;line-height:1;">G</span>
+      </div>
+      <!-- small cloud crossing the sun -->
+      <div style="position:absolute;left:316px;top:118px;animation:ccdrift 21s ease-in-out infinite;">
+        <div style="position:relative;width:150px;height:44px;background:linear-gradient(180deg,#FFFFFF,#E2ECF1);border-radius:999px;" style-before="content:'';position:absolute;left:22px;top:-24px;width:54px;height:54px;border-radius:50%;background:#FFFFFF;" style-after="content:'';position:absolute;right:26px;top:-16px;width:40px;height:40px;border-radius:50%;background:#FFFFFF;"></div>
+      </div>
+      <!-- museum placard -->
+      <div style="position:absolute;left:40px;top:34px;background:#F6F3EA;border-radius:6px;padding:14px 18px;box-shadow:0 14px 34px -8px rgba(20,40,60,.35);">
+        <div style="font-size:21px;font-weight:700;color:#17242E;letter-spacing:1px;white-space:nowrap;">MYRTLE–WILLOUGHBY AVS</div>
+        <div style="font-family:'Cormorant Garamond',serif;font-style:italic;font-size:16px;color:#5A6B76;margin-top:3px;white-space:nowrap;">oil on schedule, 2026</div>
+        <div style="display:flex;align-items:center;gap:8px;margin-top:8px;">
+          <span style="width:8px;height:8px;border-radius:50%;background:#57A234;animation:gtpulse 1.4s ease-in-out infinite;"></span>
+          <span data-clock style="white-space:nowrap;font-family:'DM Mono',monospace;font-size:13px;color:#3A5A2C;letter-spacing:1px;">8:42:09 PM</span>
+        </div>
+      </div>
+      <!-- cloud · 2 -->
+      <div style="position:absolute;left:70px;top:130px;animation:ccdrift 16s ease-in-out infinite;">
+        <div style="position:relative;display:flex;flex-direction:column;align-items:center;">
+          <div style="position:relative;z-index:1;font-size:200px;font-weight:700;line-height:.8;color:#1E2D3A;">2</div>
+          <div style="position:relative;z-index:2;width:300px;height:86px;margin-top:-52px;background:linear-gradient(180deg,#FFFFFF,#DCE8EE);border-radius:999px;" style-before="content:'';position:absolute;left:40px;top:-48px;width:108px;height:108px;border-radius:50%;background:#FFFFFF;" style-after="content:'';position:absolute;right:48px;top:-34px;width:78px;height:78px;border-radius:50%;background:#FFFFFF;"></div>
+          <div style="position:relative;z-index:3;margin-top:12px;font-family:'DM Mono',monospace;font-size:13px;letter-spacing:2px;color:#1E3A4C;background:rgba(255,255,255,.6);padding:4px 10px;border-radius:4px;white-space:nowrap;">▼ CHURCH AV · 2 MIN</div>
+        </div>
+      </div>
+      <!-- cloud · 4 -->
+      <div style="position:absolute;left:645px;top:95px;animation:ccdrift 19s ease-in-out infinite 2s;">
+        <div style="position:relative;display:flex;flex-direction:column;align-items:center;">
+          <div style="position:relative;z-index:1;font-size:170px;font-weight:700;line-height:.8;color:#1E2D3A;">4</div>
+          <div style="position:relative;z-index:2;width:260px;height:76px;margin-top:-44px;background:linear-gradient(180deg,#FFFFFF,#DCE8EE);border-radius:999px;" style-before="content:'';position:absolute;left:34px;top:-42px;width:92px;height:92px;border-radius:50%;background:#FFFFFF;" style-after="content:'';position:absolute;right:42px;top:-28px;width:66px;height:66px;border-radius:50%;background:#FFFFFF;"></div>
+          <div style="position:relative;z-index:3;margin-top:12px;font-family:'DM Mono',monospace;font-size:13px;letter-spacing:2px;color:#1E3A4C;background:rgba(255,255,255,.6);padding:4px 10px;border-radius:4px;white-space:nowrap;">▲ COURT SQ · 4 MIN</div>
+        </div>
+      </div>
+      <!-- cloud · 9 -->
+      <div style="position:absolute;left:330px;top:355px;animation:ccdriftrev 17s ease-in-out infinite 1s;">
+        <div style="position:relative;display:flex;flex-direction:column;align-items:center;">
+          <div style="position:relative;z-index:1;font-size:120px;font-weight:700;line-height:.8;color:#1E2D3A;">9</div>
+          <div style="position:relative;z-index:2;width:210px;height:64px;margin-top:-34px;background:linear-gradient(180deg,#FFFFFF,#DCE8EE);border-radius:999px;" style-before="content:'';position:absolute;left:28px;top:-34px;width:74px;height:74px;border-radius:50%;background:#FFFFFF;" style-after="content:'';position:absolute;right:34px;top:-22px;width:54px;height:54px;border-radius:50%;background:#FFFFFF;"></div>
+          <div style="position:relative;z-index:3;margin-top:10px;font-family:'DM Mono',monospace;font-size:12px;letter-spacing:2px;color:#1E3A4C;background:rgba(255,255,255,.6);padding:4px 10px;border-radius:4px;white-space:nowrap;">▼ CHURCH AV · THEN 9</div>
+        </div>
+      </div>
+      <!-- cloud · 11 -->
+      <div style="position:absolute;left:900px;top:290px;animation:ccdriftrev 20s ease-in-out infinite 3s;">
+        <div style="position:relative;display:flex;flex-direction:column;align-items:center;">
+          <div style="position:relative;z-index:1;font-size:112px;font-weight:700;line-height:.8;color:#1E2D3A;">11</div>
+          <div style="position:relative;z-index:2;width:200px;height:62px;margin-top:-32px;background:linear-gradient(180deg,#FFFFFF,#DCE8EE);border-radius:999px;" style-before="content:'';position:absolute;left:26px;top:-32px;width:70px;height:70px;border-radius:50%;background:#FFFFFF;" style-after="content:'';position:absolute;right:32px;top:-20px;width:50px;height:50px;border-radius:50%;background:#FFFFFF;"></div>
+          <div style="position:relative;z-index:3;margin-top:10px;font-family:'DM Mono',monospace;font-size:12px;letter-spacing:2px;color:#1E3A4C;background:rgba(255,255,255,.6);padding:4px 10px;border-radius:4px;white-space:nowrap;">▲ COURT SQ · THEN 11</div>
+        </div>
+      </div>
+      <!-- the door to night -->
+      <div style="position:absolute;left:582px;bottom:0;width:140px;height:222px;">
+        <div style="position:absolute;inset:0;background:linear-gradient(90deg,#6E5138,#4E3826);border-radius:8px 8px 0 0;box-shadow:0 18px 44px -10px rgba(20,40,60,.45);"></div>
+        <div style="position:absolute;left:11px;right:11px;top:11px;bottom:0;background:#0A1120;border-radius:5px 5px 0 0;overflow:hidden;">
+          <div style="position:absolute;inset:0;background-image:radial-gradient(circle,rgba(255,255,255,.9) 1px,transparent 1.3px);background-size:34px 28px;opacity:.5;"></div>
+          <div style="position:absolute;left:50%;top:48px;transform:translateX(-50%);width:44px;height:44px;border-radius:50%;background:#57A234;box-shadow:0 0 28px rgba(140,238,95,.85);display:grid;place-items:center;"><span style="font-size:28px;font-weight:700;color:#fff;line-height:1;">G</span></div>
+          <div style="position:absolute;left:0;right:0;top:116px;text-align:center;font-family:'DM Mono',monospace;font-size:10px;letter-spacing:2px;color:#8CEE5F;line-height:1.7;">ALREADY<br>DEPARTED</div>
+        </div>
+        <div style="position:absolute;right:18px;top:106px;width:9px;height:9px;border-radius:50%;background:#C9A35B;"></div>
+      </div>
+      <!-- caption -->
+      <div style="position:absolute;left:54px;bottom:28px;font-family:'Cormorant Garamond',serif;font-style:italic;font-size:34px;color:#17242E;">Ceci n’est pas un train.</div>
+    </div>
+    </div>
+  </section>
+
+  <!-- ============================================================ -->
+  <!-- V12 — THE PERSISTENCE OF DEPARTURE (DALI) -->
+  <!-- ============================================================ -->
+  <section data-screen-label="V12 Persistence of Departure" style="max-width:1180px;margin:56px auto 0;">
+    <div style="display:flex;align-items:baseline;gap:14px;margin-bottom:16px;flex-wrap:wrap;">
+      <span style="font-family:'DM Mono',monospace;font-size:13px;font-weight:500;color:#6CBE45;background:#15171a;padding:5px 9px;border-radius:6px;letter-spacing:1px;">12</span>
+      <h2 style="font-size:26px;font-weight:700;color:#1b1d1a;margin:0;white-space:nowrap;flex-shrink:0;">The Persistence of Departure</h2>
+      <span style="font-size:15px;color:#6b6f68;font-weight:400;flex:1 1 300px;min-width:300px;margin-left:16px;">Dalí dusk. The times go soft in the heat — the next Church Av train is already dripping off the ledge.</span>
+    </div>
+    <div data-board-wrap style="width:100%;overflow:hidden;"><div data-board style="position:relative;width:1180px;height:664px;border-radius:18px;overflow:hidden;background:#F6DCA8;box-shadow:0 40px 90px -30px rgba(20,30,15,.5),0 0 0 1px rgba(255,255,255,.04) inset;color:#2E1B3E;">
+      <!-- sky -->
+      <div style="position:absolute;inset:0;background:linear-gradient(180deg,#F6DCA8 0%,#F0B57E 48%,#E08A5C 100%);"></div>
+      <!-- low sun -->
+      <div style="position:absolute;left:750px;top:292px;width:120px;height:120px;border-radius:50%;background:radial-gradient(circle at 45% 40%,#FFF3C9,#FFD98E);box-shadow:0 0 90px rgba(255,220,140,.85);"></div>
+      <!-- ground -->
+      <div style="position:absolute;left:0;right:0;bottom:0;height:280px;background:linear-gradient(180deg,#93525F 0%,#5A3158 55%,#2E1B3E 100%);"></div>
+      <!-- ledge -->
+      <div style="position:absolute;left:0;top:318px;width:330px;height:346px;background:linear-gradient(180deg,#8A573B,#5E3A2A);">
+        <div style="position:absolute;left:0;right:0;top:0;height:22px;background:#B27A4E;"></div>
+        <div style="position:absolute;left:30px;top:4px;width:220px;height:8px;background-image:radial-gradient(circle,#2A1B25 2px,transparent 2.6px);background-size:16px 8px;transform:rotate(-2deg);"></div>
+      </div>
+      <!-- melting 2 -->
+      <div style="position:absolute;left:90px;top:134px;font-size:240px;font-weight:700;line-height:.8;color:#FBEED3;transform:skewX(-3deg) scaleY(1.12);transform-origin:bottom left;text-shadow:0 6px 18px rgba(90,40,30,.35);">2</div>
+      <div style="position:absolute;left:120px;top:336px;width:14px;height:120px;background:#FBEED3;border-radius:0 0 10px 10px;transform-origin:top;animation:ccdrip 7s ease-in-out infinite;"></div>
+      <div style="position:absolute;left:178px;top:336px;width:12px;height:70px;background:#FBEED3;border-radius:0 0 9px 9px;transform-origin:top;animation:ccdrip 9s ease-in-out infinite 1.4s;"></div>
+      <div style="position:absolute;left:236px;top:336px;width:16px;height:150px;background:#FBEED3;border-radius:0 0 12px 12px;transform-origin:top;animation:ccdrip 11s ease-in-out infinite 0.6s;"></div>
+      <div style="position:absolute;left:237px;top:512px;width:14px;height:14px;border-radius:50%;background:#FBEED3;"></div>
+      <div style="position:absolute;left:96px;top:556px;font-family:'DM Mono',monospace;font-size:12px;letter-spacing:2px;color:#E8C9A8;white-space:nowrap;">▼ CHURCH AV · NEXT</div>
+      <!-- soft watch on a branch -->
+      <div style="position:absolute;left:920px;top:96px;width:290px;height:4px;background:#4A2C22;transform:rotate(10deg);transform-origin:right center;"></div>
+      <div style="position:absolute;left:905px;top:120px;width:230px;height:140px;border-radius:50%;background:#F8EFD9;border:7px solid #C9A35B;transform:rotate(-16deg) skewX(-8deg);box-shadow:0 16px 40px -10px rgba(60,30,50,.5);display:grid;place-items:center;">
+        <div style="text-align:center;transform:skewX(8deg) rotate(4deg);">
+          <div style="font-family:'DM Mono',monospace;font-size:10px;letter-spacing:3px;color:#A0743C;">LIVE</div>
+          <div data-clock style="white-space:nowrap;font-family:'DM Mono',monospace;font-size:22px;color:#4A3A28;letter-spacing:1px;margin-top:4px;">8:42:09 PM</div>
+        </div>
+      </div>
+      <div style="position:absolute;left:982px;top:252px;width:10px;height:60px;background:#C9A35B;border-radius:0 0 8px 8px;transform-origin:top;animation:ccdrip 8s ease-in-out infinite;"></div>
+      <div style="position:absolute;left:981px;top:316px;width:11px;height:11px;border-radius:50%;background:#C9A35B;"></div>
+      <!-- standing 4 + shadow -->
+      <div style="position:absolute;left:600px;top:334px;font-size:170px;font-weight:700;line-height:.8;color:rgba(40,18,42,.4);transform:skewX(54deg) scaleY(.3);transform-origin:bottom left;">4</div>
+      <div style="position:absolute;left:600px;top:334px;font-size:170px;font-weight:700;line-height:.8;color:#FBEED3;">4</div>
+      <div style="position:absolute;left:600px;top:486px;font-family:'DM Mono',monospace;font-size:12px;letter-spacing:2px;color:#E8C9A8;white-space:nowrap;">▲ COURT SQ · NEXT</div>
+      <!-- 9 + shadow, farther -->
+      <div style="position:absolute;left:868px;top:357px;font-size:110px;font-weight:700;line-height:.8;color:rgba(40,18,42,.38);transform:skewX(54deg) scaleY(.3);transform-origin:bottom left;">9</div>
+      <div style="position:absolute;left:868px;top:357px;font-size:110px;font-weight:700;line-height:.8;color:#F4DEC4;">9</div>
+      <div style="position:absolute;left:868px;top:455px;font-family:'DM Mono',monospace;font-size:11px;letter-spacing:2px;color:#D9B393;white-space:nowrap;">▼ CHURCH AV · THEN</div>
+      <!-- 11 near horizon, farthest -->
+      <div style="position:absolute;left:1014px;top:366px;font-size:64px;font-weight:700;line-height:.8;color:rgba(40,18,42,.35);transform:skewX(54deg) scaleY(.3);transform-origin:bottom left;">11</div>
+      <div style="position:absolute;left:1014px;top:366px;font-size:64px;font-weight:700;line-height:.8;color:#EFD2AE;">11</div>
+      <div style="position:absolute;left:1010px;top:426px;font-family:'DM Mono',monospace;font-size:10px;letter-spacing:2px;color:#CBA384;white-space:nowrap;">▲ COURT SQ · THEN</div>
+      <!-- station label -->
+      <div style="position:absolute;left:40px;top:34px;font-family:'DM Mono',monospace;font-size:13px;letter-spacing:3px;color:#6E3F2A;white-space:nowrap;">MYRTLE–WILLOUGHBY AVS · IND CROSSTOWN</div>
+      <!-- caption -->
+      <div style="position:absolute;left:40px;bottom:30px;font-family:'Cormorant Garamond',serif;font-style:italic;font-size:33px;color:#F4DEC4;">The persistence of departure.</div>
+    </div>
+    </div>
+  </section>
+
+  <!-- ============================================================ -->
+  <!-- V13 — THE ENIGMA OF ARRIVAL (DE CHIRICO) -->
+  <!-- ============================================================ -->
+  <section data-screen-label="V13 Enigma of Arrival" style="max-width:1180px;margin:56px auto 0;">
+    <div style="display:flex;align-items:baseline;gap:14px;margin-bottom:16px;flex-wrap:wrap;">
+      <span style="font-family:'DM Mono',monospace;font-size:13px;font-weight:500;color:#6CBE45;background:#15171a;padding:5px 9px;border-radius:6px;letter-spacing:1px;">13</span>
+      <h2 style="font-size:26px;font-weight:700;color:#1b1d1a;margin:0;white-space:nowrap;flex-shrink:0;">The Enigma of Arrival</h2>
+      <span style="font-size:15px;color:#6b6f68;font-weight:400;flex:1 1 300px;min-width:300px;margin-left:16px;">A De Chirico piazza at the long-shadow hour. The times stand around like statues; the G whistles in behind the wall.</span>
+    </div>
+    <div data-board-wrap style="width:100%;overflow:hidden;"><div data-board style="position:relative;width:1180px;height:664px;border-radius:18px;overflow:hidden;background:#C9923E;box-shadow:0 40px 90px -30px rgba(20,30,15,.5),0 0 0 1px rgba(255,255,255,.04) inset;color:#2E1812;">
+      <!-- sky -->
+      <div style="position:absolute;inset:0;background:linear-gradient(180deg,#0F3A38 0%,#2E6A52 55%,#A8B468 100%);"></div>
+      <!-- ground -->
+      <div style="position:absolute;left:0;right:0;bottom:0;height:270px;background:linear-gradient(180deg,#D09A45,#B97F32);"></div>
+      <!-- horizon train behind the low wall -->
+      <div style="position:absolute;left:700px;top:348px;width:150px;height:30px;border-radius:8px;background:#3F8A26;">
+        <div style="position:absolute;left:14px;top:8px;display:flex;gap:12px;">
+          <span style="width:12px;height:12px;border-radius:3px;background:#EDE4C2;"></span>
+          <span style="width:12px;height:12px;border-radius:3px;background:#EDE4C2;"></span>
+          <span style="width:12px;height:12px;border-radius:3px;background:#EDE4C2;"></span>
+        </div>
+      </div>
+      <div style="position:absolute;left:672px;top:328px;width:12px;height:12px;border-radius:50%;background:rgba(245,240,220,.9);animation:ccbob 5s ease-in-out infinite;"></div>
+      <div style="position:absolute;left:650px;top:310px;width:16px;height:16px;border-radius:50%;background:rgba(245,240,220,.6);animation:ccbob 6s ease-in-out infinite 1s;"></div>
+      <div style="position:absolute;left:624px;top:290px;width:20px;height:20px;border-radius:50%;background:rgba(245,240,220,.35);animation:ccbob 7s ease-in-out infinite 2s;"></div>
+      <div style="position:absolute;left:470px;top:372px;width:710px;height:26px;background:#8A5230;border-top:3px solid #C99A55;"></div>
+      <!-- tower -->
+      <div style="position:absolute;left:1040px;top:70px;width:100px;height:324px;background:linear-gradient(90deg,#A66B3F 0%,#A66B3F 60%,#6E4226 60%);">
+        <div style="position:absolute;left:50%;top:-44px;width:3px;height:44px;background:#3A2014;"></div>
+        <div style="position:absolute;left:53%;top:-40px;width:36px;height:18px;background:#3F8A26;clip-path:polygon(0 0,100% 50%,0 100%);"></div>
+        <div style="position:absolute;left:50%;top:26px;transform:translateX(-50%);width:66px;height:66px;border-radius:50%;background:#F2E3C0;border:4px solid #5E3A22;display:grid;place-items:center;">
+          <span data-clock style="white-space:nowrap;font-family:'DM Mono',monospace;font-size:9px;color:#3A2014;letter-spacing:0px;">8:42:09 PM</span>
+        </div>
+      </div>
+      <!-- arcade -->
+      <div style="position:absolute;left:0;top:130px;width:360px;height:534px;background:#B26038;clip-path:polygon(0 0,100% 26%,100% 100%,0 100%);">
+        <div style="position:absolute;left:20px;bottom:0;width:70px;height:170px;border-radius:35px 35px 0 0;background:#1E0E08;"></div>
+        <div style="position:absolute;left:105px;bottom:0;width:70px;height:170px;border-radius:35px 35px 0 0;background:#1E0E08;"></div>
+        <div style="position:absolute;left:190px;bottom:0;width:70px;height:170px;border-radius:35px 35px 0 0;background:#1E0E08;">
+          <div style="position:absolute;inset:0;border-radius:35px 35px 0 0;background:radial-gradient(circle at 50% 70%,rgba(140,238,95,.45),transparent 70%);"></div>
+          <div style="position:absolute;left:50%;bottom:42px;transform:translateX(-50%);width:34px;height:34px;border-radius:50%;background:#57A234;box-shadow:0 0 22px rgba(140,238,95,.8);display:grid;place-items:center;"><span style="font-size:22px;font-weight:700;color:#fff;line-height:1;">G</span></div>
+        </div>
+        <div style="position:absolute;left:275px;bottom:0;width:70px;height:170px;border-radius:35px 35px 0 0;background:#1E0E08;"></div>
+      </div>
+      <div style="position:absolute;left:24px;top:236px;font-family:'DM Mono',monospace;font-size:13px;letter-spacing:4px;color:rgba(40,18,10,.85);white-space:nowrap;transform:rotate(-2deg);">MYRTLE–WILLOUGHBY AVS</div>
+      <!-- arcade shadow across the plaza -->
+      <div style="position:absolute;left:0;bottom:0;width:720px;height:270px;background:rgba(25,10,6,.38);clip-path:polygon(0 0,47% 0,100% 100%,0 100%);"></div>
+      <!-- statue numerals -->
+      <div style="position:absolute;left:424px;top:416px;font-size:230px;font-weight:700;line-height:.8;color:rgba(20,10,6,.4);transform:skewX(54deg) scaleY(.3);transform-origin:bottom left;">2</div>
+      <div style="position:absolute;left:420px;top:416px;font-size:230px;font-weight:700;line-height:.8;color:#F2E3C0;">2</div>
+      <div style="position:absolute;left:424px;top:386px;font-family:'DM Mono',monospace;font-size:11px;letter-spacing:2px;color:#2E1812;white-space:nowrap;">▼ CHURCH AV · NEXT</div>
+      <div style="position:absolute;left:682px;top:420px;font-size:150px;font-weight:700;line-height:.8;color:rgba(20,10,6,.38);transform:skewX(54deg) scaleY(.3);transform-origin:bottom left;">4</div>
+      <div style="position:absolute;left:680px;top:420px;font-size:150px;font-weight:700;line-height:.8;color:#F2E3C0;">4</div>
+      <div style="position:absolute;left:682px;top:560px;font-family:'DM Mono',monospace;font-size:11px;letter-spacing:2px;color:#2E1812;white-space:nowrap;">▲ COURT SQ · NEXT</div>
+      <div style="position:absolute;left:852px;top:410px;font-size:100px;font-weight:700;line-height:.8;color:rgba(20,10,6,.35);transform:skewX(54deg) scaleY(.3);transform-origin:bottom left;">9</div>
+      <div style="position:absolute;left:850px;top:410px;font-size:100px;font-weight:700;line-height:.8;color:#EDD9B0;">9</div>
+      <div style="position:absolute;left:852px;top:502px;font-family:'DM Mono',monospace;font-size:10px;letter-spacing:2px;color:#2E1812;white-space:nowrap;">▼ CHURCH AV · THEN</div>
+      <div style="position:absolute;left:962px;top:404px;font-size:70px;font-weight:700;line-height:.8;color:rgba(20,10,6,.32);transform:skewX(54deg) scaleY(.3);transform-origin:bottom left;">11</div>
+      <div style="position:absolute;left:960px;top:404px;font-size:70px;font-weight:700;line-height:.8;color:#E6CFA2;">11</div>
+      <div style="position:absolute;left:962px;top:468px;font-family:'DM Mono',monospace;font-size:10px;letter-spacing:2px;color:#2E1812;white-space:nowrap;">▲ COURT SQ · THEN</div>
+      <!-- caption -->
+      <div style="position:absolute;left:40px;bottom:26px;font-family:'Cormorant Garamond',serif;font-style:italic;font-size:32px;color:#F6E8C8;">L’enigma dell’arrivo.</div>
+    </div>
+    </div>
+  </section>
+
+  <!-- ============================================================ -->
+  <!-- V14 — THE TUNNEL IS AN EYE -->
+  <!-- ============================================================ -->
+  <section data-screen-label="V14 Tunnel Eye" style="max-width:1180px;margin:56px auto 0;">
+    <div style="display:flex;align-items:baseline;gap:14px;margin-bottom:16px;flex-wrap:wrap;">
+      <span style="font-family:'DM Mono',monospace;font-size:13px;font-weight:500;color:#6CBE45;background:#15171a;padding:5px 9px;border-radius:6px;letter-spacing:1px;">14</span>
+      <h2 style="font-size:26px;font-weight:700;color:#1b1d1a;margin:0;white-space:nowrap;flex-shrink:0;">The Tunnel Is an Eye</h2>
+      <span style="font-size:15px;color:#6b6f68;font-weight:400;flex:1 1 300px;min-width:300px;margin-left:16px;">Cosmic. Departures orbit the tunnel mouth — the sooner the train, the tighter the orbit.</span>
+    </div>
+    <div data-board-wrap style="width:100%;overflow:hidden;"><div data-board style="position:relative;width:1180px;height:664px;border-radius:18px;overflow:hidden;background:radial-gradient(120% 120% at 50% 48%,#1A1033,#07040F);box-shadow:0 40px 90px -30px rgba(20,30,15,.5),0 0 0 1px rgba(255,255,255,.04) inset;color:#E8E2F6;">
+      <!-- stars -->
+      <div style="position:absolute;inset:0;background-image:radial-gradient(circle,rgba(255,255,255,.8) 1px,transparent 1.6px);background-size:110px 90px;opacity:.5;animation:cctwinkle 5s ease-in-out infinite;"></div>
+      <div style="position:absolute;inset:0;background-image:radial-gradient(circle,rgba(255,255,255,.6) 1px,transparent 1.4px);background-size:70px 130px;background-position:40px 60px;opacity:.4;animation:cctwinkle 7s ease-in-out infinite 1.5s;"></div>
+      <!-- comet -->
+      <div style="position:absolute;left:110px;top:500px;width:170px;height:2px;background:linear-gradient(90deg,rgba(255,255,255,.8),transparent);transform:rotate(-22deg);"></div>
+      <div style="position:absolute;left:104px;top:494px;width:7px;height:7px;border-radius:50%;background:#fff;box-shadow:0 0 12px #fff;"></div>
+      <!-- orbit rings -->
+      <div style="position:absolute;left:590px;top:322px;transform:translate(-50%,-50%);width:380px;height:380px;border-radius:50%;border:1px solid rgba(140,238,95,.25);"></div>
+      <div style="position:absolute;left:590px;top:322px;transform:translate(-50%,-50%);width:460px;height:460px;border-radius:50%;border:1px dashed rgba(160,140,220,.22);"></div>
+      <div style="position:absolute;left:590px;top:322px;transform:translate(-50%,-50%);width:556px;height:556px;border-radius:50%;border:1px solid rgba(140,238,95,.16);"></div>
+      <!-- the eye -->
+      <div style="position:absolute;left:460px;top:192px;width:260px;height:260px;border-radius:50%;background:radial-gradient(circle,rgba(140,238,95,.45),transparent 65%);filter:blur(14px);animation:gtbreatheBig 5s ease-in-out infinite;"></div>
+      <div style="position:absolute;left:505px;top:237px;width:170px;height:170px;border-radius:50%;background:radial-gradient(circle,#0A0C0A 0%,#0A0C0A 26%,#57A234 38%,#8CEE5F 52%,#1A4A12 78%,#0E2A0A 100%);box-shadow:0 0 90px rgba(140,238,95,.45);"></div>
+      <div style="position:absolute;left:590px;top:322px;transform:translate(-50%,-50%);display:grid;place-items:center;width:60px;height:60px;border-radius:50%;background:#050705;">
+        <span style="font-size:30px;font-weight:700;color:#fff;line-height:1;text-shadow:0 0 14px rgba(255,255,255,.9);">G</span>
+      </div>
+      <!-- inner orbit: next trains -->
+      <div style="position:absolute;left:590px;top:322px;width:0;height:0;animation:ccspin 26s linear infinite;">
+        <div style="position:absolute;left:-65px;top:-255px;width:130px;">
+          <div style="animation:ccspinrev 26s linear infinite;display:flex;flex-direction:column;align-items:center;">
+            <span style="font-size:104px;font-weight:700;line-height:.9;color:#8CEE5F;text-shadow:0 0 40px rgba(140,238,95,.5);">2</span>
+            <span style="font-family:'DM Mono',monospace;font-size:12px;letter-spacing:2px;color:#9A8FC9;white-space:nowrap;margin-top:4px;">▼ CHURCH AV</span>
+          </div>
+        </div>
+        <div style="position:absolute;left:-65px;top:130px;width:130px;">
+          <div style="animation:ccspinrev 26s linear infinite;display:flex;flex-direction:column;align-items:center;">
+            <span style="font-size:96px;font-weight:700;line-height:.9;color:#8CEE5F;text-shadow:0 0 40px rgba(140,238,95,.5);">4</span>
+            <span style="font-family:'DM Mono',monospace;font-size:12px;letter-spacing:2px;color:#9A8FC9;white-space:nowrap;margin-top:4px;">▲ COURT SQ</span>
+          </div>
+        </div>
+      </div>
+      <!-- outer orbit: then trains -->
+      <div style="position:absolute;left:590px;top:322px;width:0;height:0;animation:ccspinrev 44s linear infinite;">
+        <div style="position:absolute;left:-348px;top:-50px;width:140px;">
+          <div style="animation:ccspin 44s linear infinite;display:flex;flex-direction:column;align-items:center;">
+            <span style="font-size:64px;font-weight:700;line-height:.9;color:#F0F4F0;">9</span>
+            <span style="font-family:'DM Mono',monospace;font-size:11px;letter-spacing:2px;color:#9A8FC9;white-space:nowrap;margin-top:4px;">▼ CHURCH AV · THEN</span>
+          </div>
+        </div>
+        <div style="position:absolute;left:208px;top:-50px;width:140px;">
+          <div style="animation:ccspin 44s linear infinite;display:flex;flex-direction:column;align-items:center;">
+            <span style="font-size:64px;font-weight:700;line-height:.9;color:#F0F4F0;">11</span>
+            <span style="font-family:'DM Mono',monospace;font-size:11px;letter-spacing:2px;color:#9A8FC9;white-space:nowrap;margin-top:4px;">▲ COURT SQ · THEN</span>
+          </div>
+        </div>
+      </div>
+      <!-- ringed roundel planet -->
+      <div style="position:absolute;left:1024px;top:74px;width:84px;height:84px;border-radius:50%;background:radial-gradient(circle at 35% 30%,#8CD96A,#3F8A26);box-shadow:0 0 40px rgba(140,238,95,.4);display:grid;place-items:center;">
+        <span style="font-size:50px;font-weight:700;color:#fff;line-height:1;">G</span>
+      </div>
+      <div style="position:absolute;left:996px;top:96px;width:150px;height:42px;border-radius:50%;border:2px solid rgba(140,238,95,.4);transform:rotate(-18deg);"></div>
+      <!-- station + clock -->
+      <div style="position:absolute;left:40px;top:34px;">
+        <div style="font-family:'DM Mono',monospace;font-size:13px;letter-spacing:3px;color:#9A8FC9;white-space:nowrap;">MYRTLE–WILLOUGHBY AVS</div>
+        <div style="display:flex;align-items:center;gap:8px;margin-top:8px;">
+          <span style="width:8px;height:8px;border-radius:50%;background:#6CBE45;box-shadow:0 0 8px #6CBE45;animation:gtpulse 1.4s ease-in-out infinite;"></span>
+          <span data-clock style="white-space:nowrap;font-family:'DM Mono',monospace;font-size:14px;color:#8CEE5F;letter-spacing:1px;">8:42:09 PM</span>
+        </div>
+      </div>
+      <!-- caption -->
+      <div style="position:absolute;left:40px;bottom:24px;font-family:'Cormorant Garamond',serif;font-style:italic;font-size:30px;color:#C9BFE8;">Every orbit returns to Court Sq.</div>
+    </div>
+    </div>
+  </section>
+
+  <!-- ============================================================ -->
+  <!-- V15 — THE CROSSTOWN CURRENT -->
+  <!-- ============================================================ -->
+  <section data-screen-label="V15 Crosstown Current" style="max-width:1180px;margin:56px auto 0;">
+    <div style="display:flex;align-items:baseline;gap:14px;margin-bottom:16px;flex-wrap:wrap;">
+      <span style="font-family:'DM Mono',monospace;font-size:13px;font-weight:500;color:#6CBE45;background:#15171a;padding:5px 9px;border-radius:6px;letter-spacing:1px;">15</span>
+      <h2 style="font-size:26px;font-weight:700;color:#1b1d1a;margin:0;white-space:nowrap;flex-shrink:0;">The Crosstown Current</h2>
+      <span style="font-size:15px;color:#6b6f68;font-weight:400;flex:1 1 300px;min-width:300px;margin-left:16px;">The aquarium local. Arrivals drift up as jellyfish; the tunnel is a porthole at the bottom of the platform.</span>
+    </div>
+    <div data-board-wrap style="width:100%;overflow:hidden;"><div data-board style="position:relative;width:1180px;height:664px;border-radius:18px;overflow:hidden;background:linear-gradient(180deg,#0E3A4A 0%,#0A2538 60%,#061722 100%);box-shadow:0 40px 90px -30px rgba(20,30,15,.5),0 0 0 1px rgba(255,255,255,.04) inset;color:#DFF2EC;">
+      <!-- light rays -->
+      <div style="position:absolute;left:200px;top:-80px;width:140px;height:520px;background:linear-gradient(180deg,rgba(190,255,230,.14),transparent);transform:rotate(14deg) skewX(-8deg);animation:ccsway 9s ease-in-out infinite;"></div>
+      <div style="position:absolute;left:520px;top:-80px;width:110px;height:560px;background:linear-gradient(180deg,rgba(190,255,230,.12),transparent);transform:rotate(15deg) skewX(-8deg);animation:ccsway 12s ease-in-out infinite 2s;"></div>
+      <div style="position:absolute;left:830px;top:-80px;width:150px;height:500px;background:linear-gradient(180deg,rgba(190,255,230,.10),transparent);transform:rotate(13deg) skewX(-8deg);animation:ccsway 10s ease-in-out infinite 4s;"></div>
+      <!-- bubbles -->
+      <div style="position:absolute;left:100px;bottom:-60px;width:18px;height:18px;border-radius:50%;border:1.5px solid rgba(255,255,255,.35);animation:ccrise 14s linear infinite;"></div>
+      <div style="position:absolute;left:330px;bottom:-60px;width:10px;height:10px;border-radius:50%;border:1.5px solid rgba(255,255,255,.35);animation:ccrise 11s linear infinite 3s;"></div>
+      <div style="position:absolute;left:560px;bottom:-60px;width:26px;height:26px;border-radius:50%;border:1.5px solid rgba(255,255,255,.3);animation:ccrise 17s linear infinite 1s;"></div>
+      <div style="position:absolute;left:760px;bottom:-60px;width:14px;height:14px;border-radius:50%;border:1.5px solid rgba(255,255,255,.35);animation:ccrise 12s linear infinite 5s;"></div>
+      <div style="position:absolute;left:985px;bottom:-60px;width:20px;height:20px;border-radius:50%;border:1.5px solid rgba(255,255,255,.3);animation:ccrise 15s linear infinite 2s;"></div>
+      <div style="position:absolute;left:1110px;bottom:-60px;width:12px;height:12px;border-radius:50%;border:1.5px solid rgba(255,255,255,.35);animation:ccrise 10s linear infinite 6s;"></div>
+      <!-- jelly · 2 -->
+      <div style="position:absolute;left:140px;top:120px;animation:ccbob 7s ease-in-out infinite;">
+        <div style="display:flex;flex-direction:column;align-items:center;">
+          <div style="width:190px;height:150px;border-radius:95px 95px 18px 18px;background:radial-gradient(circle at 50% 30%,rgba(140,238,95,.95),rgba(108,190,69,.3) 78%);box-shadow:0 0 50px rgba(140,238,95,.35);display:grid;place-items:center;">
+            <span style="font-size:100px;font-weight:700;color:#06281E;line-height:1;margin-top:12px;">2</span>
+          </div>
+          <div style="display:flex;gap:13px;margin-top:5px;">
+            <div style="width:5px;height:74px;border-radius:3px;background:rgba(140,238,95,.5);transform-origin:top;animation:ccdrip 5s ease-in-out infinite;"></div>
+            <div style="width:5px;height:52px;border-radius:3px;background:rgba(140,238,95,.45);transform-origin:top;animation:ccdrip 6s ease-in-out infinite 1s;"></div>
+            <div style="width:5px;height:88px;border-radius:3px;background:rgba(140,238,95,.5);transform-origin:top;animation:ccdrip 7s ease-in-out infinite .5s;"></div>
+            <div style="width:5px;height:60px;border-radius:3px;background:rgba(140,238,95,.45);transform-origin:top;animation:ccdrip 5.5s ease-in-out infinite 1.6s;"></div>
+            <div style="width:5px;height:78px;border-radius:3px;background:rgba(140,238,95,.5);transform-origin:top;animation:ccdrip 6.5s ease-in-out infinite .8s;"></div>
+          </div>
+          <div style="margin-top:12px;font-family:'DM Mono',monospace;font-size:12px;letter-spacing:2px;color:#7FD9C9;white-space:nowrap;">▼ CHURCH AV · NEXT</div>
+        </div>
+      </div>
+      <!-- jelly · 4 -->
+      <div style="position:absolute;left:660px;top:90px;animation:ccbob 8s ease-in-out infinite 1.2s;">
+        <div style="display:flex;flex-direction:column;align-items:center;">
+          <div style="width:170px;height:134px;border-radius:85px 85px 16px 16px;background:radial-gradient(circle at 50% 30%,rgba(140,238,95,.95),rgba(108,190,69,.3) 78%);box-shadow:0 0 46px rgba(140,238,95,.35);display:grid;place-items:center;">
+            <span style="font-size:88px;font-weight:700;color:#06281E;line-height:1;margin-top:10px;">4</span>
+          </div>
+          <div style="display:flex;gap:12px;margin-top:5px;">
+            <div style="width:5px;height:64px;border-radius:3px;background:rgba(140,238,95,.5);transform-origin:top;animation:ccdrip 5.4s ease-in-out infinite;"></div>
+            <div style="width:5px;height:46px;border-radius:3px;background:rgba(140,238,95,.45);transform-origin:top;animation:ccdrip 6.2s ease-in-out infinite .9s;"></div>
+            <div style="width:5px;height:78px;border-radius:3px;background:rgba(140,238,95,.5);transform-origin:top;animation:ccdrip 7.1s ease-in-out infinite .4s;"></div>
+            <div style="width:5px;height:54px;border-radius:3px;background:rgba(140,238,95,.45);transform-origin:top;animation:ccdrip 5.8s ease-in-out infinite 1.4s;"></div>
+          </div>
+          <div style="margin-top:12px;font-family:'DM Mono',monospace;font-size:12px;letter-spacing:2px;color:#7FD9C9;white-space:nowrap;">▲ COURT SQ · NEXT</div>
+        </div>
+      </div>
+      <!-- jelly · 9 -->
+      <div style="position:absolute;left:430px;top:330px;animation:ccbob 9s ease-in-out infinite 2s;">
+        <div style="display:flex;flex-direction:column;align-items:center;">
+          <div style="width:130px;height:102px;border-radius:65px 65px 14px 14px;background:radial-gradient(circle at 50% 30%,rgba(160,220,255,.7),rgba(120,180,220,.22) 78%);box-shadow:0 0 36px rgba(160,220,255,.25);display:grid;place-items:center;">
+            <span style="font-size:64px;font-weight:700;color:#0A2538;line-height:1;margin-top:8px;">9</span>
+          </div>
+          <div style="display:flex;gap:11px;margin-top:5px;">
+            <div style="width:4px;height:48px;border-radius:3px;background:rgba(160,220,255,.4);transform-origin:top;animation:ccdrip 5.2s ease-in-out infinite;"></div>
+            <div style="width:4px;height:64px;border-radius:3px;background:rgba(160,220,255,.45);transform-origin:top;animation:ccdrip 6.4s ease-in-out infinite .7s;"></div>
+            <div style="width:4px;height:42px;border-radius:3px;background:rgba(160,220,255,.4);transform-origin:top;animation:ccdrip 5.7s ease-in-out infinite 1.2s;"></div>
+          </div>
+          <div style="margin-top:12px;font-family:'DM Mono',monospace;font-size:11px;letter-spacing:2px;color:#7FB9D9;white-space:nowrap;">▼ CHURCH AV · THEN</div>
+        </div>
+      </div>
+      <!-- jelly · 11 -->
+      <div style="position:absolute;left:920px;top:300px;animation:ccbob 8.5s ease-in-out infinite 3s;">
+        <div style="display:flex;flex-direction:column;align-items:center;">
+          <div style="width:120px;height:94px;border-radius:60px 60px 14px 14px;background:radial-gradient(circle at 50% 30%,rgba(160,220,255,.7),rgba(120,180,220,.22) 78%);box-shadow:0 0 34px rgba(160,220,255,.25);display:grid;place-items:center;">
+            <span style="font-size:56px;font-weight:700;color:#0A2538;line-height:1;margin-top:8px;">11</span>
+          </div>
+          <div style="display:flex;gap:10px;margin-top:5px;">
+            <div style="width:4px;height:44px;border-radius:3px;background:rgba(160,220,255,.4);transform-origin:top;animation:ccdrip 5.3s ease-in-out infinite;"></div>
+            <div style="width:4px;height:58px;border-radius:3px;background:rgba(160,220,255,.45);transform-origin:top;animation:ccdrip 6.1s ease-in-out infinite .6s;"></div>
+            <div style="width:4px;height:38px;border-radius:3px;background:rgba(160,220,255,.4);transform-origin:top;animation:ccdrip 5.6s ease-in-out infinite 1.1s;"></div>
+          </div>
+          <div style="margin-top:12px;font-family:'DM Mono',monospace;font-size:11px;letter-spacing:2px;color:#7FB9D9;white-space:nowrap;">▲ COURT SQ · THEN</div>
+        </div>
+      </div>
+      <!-- fish school -->
+      <div style="position:absolute;left:740px;top:460px;animation:ccdriftrev 14s ease-in-out infinite;">
+        <div style="position:absolute;left:0;top:0;display:flex;align-items:center;"><span style="width:30px;height:13px;border-radius:50%;background:#2E7E66;"></span><span style="width:10px;height:10px;background:#2E7E66;transform:rotate(45deg);margin-left:-5px;"></span></div>
+        <div style="position:absolute;left:50px;top:26px;display:flex;align-items:center;"><span style="width:24px;height:11px;border-radius:50%;background:#2E7E66;"></span><span style="width:8px;height:8px;background:#2E7E66;transform:rotate(45deg);margin-left:-4px;"></span></div>
+        <div style="position:absolute;left:14px;top:52px;display:flex;align-items:center;"><span style="width:26px;height:11px;border-radius:50%;background:#2E7E66;"></span><span style="width:9px;height:9px;background:#2E7E66;transform:rotate(45deg);margin-left:-4px;"></span></div>
+        <div style="position:absolute;left:70px;top:70px;display:flex;align-items:center;"><span style="width:20px;height:9px;border-radius:50%;background:#2E7E66;"></span><span style="width:7px;height:7px;background:#2E7E66;transform:rotate(45deg);margin-left:-3px;"></span></div>
+      </div>
+      <!-- porthole tunnel -->
+      <div style="position:absolute;left:44px;bottom:36px;width:150px;height:150px;border-radius:50%;border:12px solid #B98C4C;background:radial-gradient(circle at 40% 35%,#0F3A30,#06231C);box-shadow:0 14px 40px rgba(0,0,0,.5),0 0 0 3px #8A6634 inset;display:grid;place-items:center;">
+        <span style="font-size:56px;font-weight:700;color:#8CEE5F;line-height:1;text-shadow:0 0 26px rgba(140,238,95,.8);">G</span>
+        <div style="position:absolute;left:50%;top:-9px;transform:translateX(-50%);width:8px;height:8px;border-radius:50%;background:#E0B870;"></div>
+        <div style="position:absolute;left:50%;bottom:-9px;transform:translateX(-50%);width:8px;height:8px;border-radius:50%;background:#E0B870;"></div>
+        <div style="position:absolute;left:-9px;top:50%;transform:translateY(-50%);width:8px;height:8px;border-radius:50%;background:#E0B870;"></div>
+        <div style="position:absolute;right:-9px;top:50%;transform:translateY(-50%);width:8px;height:8px;border-radius:50%;background:#E0B870;"></div>
+      </div>
+      <!-- caption -->
+      <div style="position:absolute;left:232px;bottom:64px;font-family:'Cormorant Garamond',serif;font-style:italic;font-size:30px;color:#BFE8DC;">Local via the Crosstown Current.</div>
+      <!-- station chip -->
+      <div style="position:absolute;right:36px;top:30px;display:flex;align-items:center;gap:10px;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.22);border-radius:999px;padding:8px 16px;">
+        <div style="width:30px;height:30px;border-radius:50%;background:#57A234;display:grid;place-items:center;"><span style="font-size:19px;font-weight:700;color:#fff;line-height:1;">G</span></div>
+        <span style="font-size:16px;font-weight:600;letter-spacing:1px;color:#F0FAF5;white-space:nowrap;">MYRTLE–WILLOUGHBY AVS</span>
+        <span data-clock style="white-space:nowrap;font-family:'DM Mono',monospace;font-size:13px;color:#8CEE5F;letter-spacing:1px;">8:42:09 PM</span>
+      </div>
+    </div>
+    </div>
+  </section>
+
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script>
+class Component extends DCLogic {
+  layoutBoards() {
+    document.querySelectorAll('[data-board]').forEach((b) => {
+      const wrap = b.parentElement;
+      if (!wrap) return;
+      const avail = wrap.clientWidth;
+      const scale = Math.min(1, avail / 1180);
+      b.style.transformOrigin = 'top left';
+      b.style.transform = 'scale(' + scale + ')';
+      wrap.style.height = (664 * scale) + 'px';
+    });
+  }
+  componentDidMount() {
+    this.layoutBoards();
+    this._relayout = () => this.layoutBoards();
+    window.addEventListener('resize', this._relayout);
+    setTimeout(() => this.layoutBoards(), 300);
+    if (document.fonts && document.fonts.ready) { document.fonts.ready.then(() => this.layoutBoards()); }
+    const pad = (n) => String(n).padStart(2, '0');
+    const tick = () => {
+      const now = new Date();
+      let h = now.getHours();
+      const m = now.getMinutes();
+      const s = now.getSeconds();
+      const ap = h >= 12 ? 'PM' : 'AM';
+      h = h % 12; if (h === 0) h = 12;
+      const full = h + ':' + pad(m) + ':' + pad(s) + ' ' + ap;
+      document.querySelectorAll('[data-clock]').forEach((el) => { el.textContent = full; });
+      this.layoutBoards();
+    };
+    tick();
+    this._timer = setInterval(tick, 1000);
+  }
+  componentWillUnmount() {
+    if (this._timer) clearInterval(this._timer);
+    if (this._relayout) window.removeEventListener('resize', this._relayout);
+  }
+  renderVals() { return {}; }
+}
+</script>
+</body>
+</html>
