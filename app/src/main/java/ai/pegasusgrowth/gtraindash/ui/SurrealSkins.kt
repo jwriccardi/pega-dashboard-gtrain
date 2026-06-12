@@ -111,10 +111,10 @@ fun MagritteSkin(
                 Box(modifier = Modifier.width(200.dp).height(120.dp)) {
                     Text(
                         text = number, 
-                        fontSize = 120.sp, 
+                        fontSize = 110.sp, 
                         fontWeight = FontWeight.Black, 
                         color = Color(0xFF1A2A3A), 
-                        modifier = Modifier.align(Alignment.BottomCenter).offset(y = (-40).dp),
+                        modifier = Modifier.align(Alignment.TopCenter).offset(y = (-10).dp),
                         maxLines = 1,
                         softWrap = false
                     )
@@ -122,14 +122,15 @@ fun MagritteSkin(
                     Canvas(modifier = Modifier.fillMaxSize()) {
                         val w = size.width
                         val h = size.height
-                        drawCircle(Color.White, w * 0.25f, Offset(w * 0.25f, h * 0.6f))
-                        drawCircle(Color.White, w * 0.35f, Offset(w * 0.55f, h * 0.45f))
-                        drawCircle(Color.White, w * 0.25f, Offset(w * 0.8f, h * 0.6f))
+                        // Top of central cloud is roughly at y = h * 0.25
+                        drawCircle(Color.White, w * 0.2f, Offset(w * 0.25f, h * 0.7f))
+                        drawCircle(Color.White, w * 0.25f, Offset(w * 0.5f, h * 0.55f))
+                        drawCircle(Color.White, w * 0.2f, Offset(w * 0.75f, h * 0.7f))
                         drawRoundRect(
                             Color.White, 
-                            topLeft = Offset(w * 0.05f, h * 0.5f), 
-                            size = Size(w * 0.9f, h * 0.5f), 
-                            cornerRadius = androidx.compose.ui.geometry.CornerRadius(w * 0.2f, w * 0.2f)
+                            topLeft = Offset(w * 0.05f, h * 0.7f), 
+                            size = Size(w * 0.9f, h * 0.3f), 
+                            cornerRadius = androidx.compose.ui.geometry.CornerRadius(w * 0.15f, w * 0.15f)
                         )
                     }
                 }
