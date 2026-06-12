@@ -32,10 +32,18 @@ import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.graphics.drawscope.Fill
 import androidx.compose.ui.graphics.drawscope.clipPath
 import androidx.compose.ui.text.TextStyle
+import androidx.compose.ui.draw.drawWithContent
+import androidx.compose.ui.graphics.drawscope.drawIntoCanvas
 import androidx.compose.ui.text.font.Font
+import androidx.compose.ui.draw.drawWithContent
+import androidx.compose.ui.graphics.drawscope.drawIntoCanvas
 import androidx.compose.ui.text.font.FontFamily
 import ai.pegasusgrowth.gtraindash.R
+import androidx.compose.ui.draw.drawWithContent
+import androidx.compose.ui.graphics.drawscope.drawIntoCanvas
 import androidx.compose.ui.text.font.FontStyle
+import androidx.compose.ui.draw.drawWithContent
+import androidx.compose.ui.graphics.drawscope.drawIntoCanvas
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
@@ -205,6 +213,21 @@ fun MagritteSkin(
 // -------------------------------------------------------------------------------------
 // SKIN 6: DALI (The Persistence of Departure)
 // -------------------------------------------------------------------------------------
+
+// Extension for skew
+fun Modifier.skewX(degrees: Float, pivotX: Float = 0f, pivotY: Float = 1f) = this.drawWithContent {
+    val rad = Math.toRadians(degrees.toDouble()).toFloat()
+    val tan = kotlin.math.tan(rad.toDouble()).toFloat()
+    drawIntoCanvas { canvas ->
+        canvas.save()
+        canvas.translate(size.width * pivotX, size.height * pivotY)
+        canvas.skew(tan, 0f)
+        canvas.translate(-size.width * pivotX, -size.height * pivotY)
+        drawContent()
+        canvas.restore()
+    }
+}
+
 @Composable
 fun DaliSkin(
     arrivals: TrainArrivals,
@@ -268,10 +291,10 @@ fun DaliSkin(
                 .shadow(40.dp, ambientColor = Color(0x803C1E32), spotColor = Color(0x803C1E32), shape = CircleShape)
                 .background(Color(0xFFF8EFD9), CircleShape)
                 .border(7.dp, Color(0xFFC9A35B), CircleShape)
-                .graphicsLayer(rotationZ = -16f, scaleX = 0.9f),
+                .graphicsLayer(rotationZ = -16f).skewX(-8f, 0.5f, 0.5f),
             contentAlignment = Alignment.Center
         ) {
-            Column(horizontalAlignment = Alignment.CenterHorizontally, modifier = Modifier.graphicsLayer(rotationZ = 4f)) {
+            Column(horizontalAlignment = Alignment.CenterHorizontally, modifier = Modifier.skewX(8f, 0.5f, 0.5f).graphicsLayer(rotationZ = 4f)) {
                 Text("LIVE", color = Color(0xFFA0743C), fontSize = 10.sp, fontFamily = FontFamily.Monospace, letterSpacing = 3.sp)
                 Text(formattedTime, color = Color(0xFF4A3A28), fontSize = 22.sp, fontFamily = FontFamily.Monospace, letterSpacing = 1.sp)
             }
@@ -297,37 +320,37 @@ fun DaliSkin(
         Box(modifier = Modifier.align(Alignment.TopStart).offset(x = 981.dp, y = 316.dp).size(11.dp).background(Color(0xFFC9A35B), CircleShape))
 
         // Melting 2
-        Box(modifier = Modifier.align(Alignment.TopStart).offset(x = 90.dp, y = 134.dp)) {
+        Box(modifier = Modifier.align(Alignment.TopStart).offset(x = 90.dp, y = 134.dp).height(184.dp).clipToBounds()) {
             Text(
                 text = sbTrains.getOrNull(0) ?: "--", 
                 fontSize = 240.sp, fontWeight = FontWeight.Bold, fontFamily = oswaldFont, color = Color(0xFFFBEED3), 
-                modifier = Modifier.graphicsLayer(rotationZ = -3f, scaleY = 1.12f, transformOrigin = androidx.compose.ui.graphics.TransformOrigin(0f, 1f)),
+                modifier = Modifier.skewX(-3f).graphicsLayer(scaleY = 1.12f, transformOrigin = androidx.compose.ui.graphics.TransformOrigin(0f, 1f)),
                 style = TextStyle(platformStyle = androidx.compose.ui.text.PlatformTextStyle(includeFontPadding = false), shadow = Shadow(Color(0x595A281E), Offset(0f, 6f), 18f))
             )
         }
-        Drip(120, 336, 14, 120, Color(0xFFFBEED3), 7000)
-        Drip(178, 336, 12, 70, Color(0xFFFBEED3), 9000)
-        Drip(236, 336, 16, 150, Color(0xFFFBEED3), 11000)
+        Drip(120, 318, 14, 120, Color(0xFFFBEED3), 7000)
+        Drip(178, 318, 12, 70, Color(0xFFFBEED3), 9000)
+        Drip(236, 318, 16, 150, Color(0xFFFBEED3), 11000)
         Box(modifier = Modifier.align(Alignment.TopStart).offset(x = 237.dp, y = 512.dp).size(14.dp).background(Color(0xFFFBEED3), CircleShape))
         Text("▼ CHURCH AV · NEXT", modifier = Modifier.align(Alignment.TopStart).offset(x = 96.dp, y = 556.dp), color = Color(0xFFE8C9A8), fontSize = 12.sp, fontFamily = FontFamily.Monospace, letterSpacing = 2.sp)
 
         // Standing 4 + shadow
         Box(modifier = Modifier.align(Alignment.TopStart).offset(x = 600.dp, y = 334.dp)) {
-            Text(nbTrains.getOrNull(0) ?: "--", fontSize = 170.sp, fontWeight = FontWeight.Bold, fontFamily = oswaldFont, color = Color(0x6628122A), modifier = Modifier.graphicsLayer(scaleY = 0.3f, transformOrigin = androidx.compose.ui.graphics.TransformOrigin(0f, 1f), translationX = 60f, translationY = 80f), style = TextStyle(platformStyle = androidx.compose.ui.text.PlatformTextStyle(includeFontPadding = false)))
+            Text(nbTrains.getOrNull(0) ?: "--", fontSize = 170.sp, fontWeight = FontWeight.Bold, fontFamily = oswaldFont, color = Color(0x6628122A), modifier = Modifier.offset(x = 60.dp, y = 80.dp).graphicsLayer(scaleY = 0.3f, transformOrigin = androidx.compose.ui.graphics.TransformOrigin(0f, 1f)).skewX(54f), style = TextStyle(platformStyle = androidx.compose.ui.text.PlatformTextStyle(includeFontPadding = false)))
             Text(nbTrains.getOrNull(0) ?: "--", fontSize = 170.sp, fontWeight = FontWeight.Bold, fontFamily = oswaldFont, color = Color(0xFFFBEED3), style = TextStyle(platformStyle = androidx.compose.ui.text.PlatformTextStyle(includeFontPadding = false)))
         }
         Text("▲ COURT SQ · NEXT", modifier = Modifier.align(Alignment.TopStart).offset(x = 600.dp, y = 486.dp), color = Color(0xFFE8C9A8), fontSize = 12.sp, fontFamily = FontFamily.Monospace, letterSpacing = 2.sp)
 
         // 9 + shadow
         Box(modifier = Modifier.align(Alignment.TopStart).offset(x = 868.dp, y = 357.dp)) {
-            Text(sbTrains.getOrNull(1) ?: "--", fontSize = 110.sp, fontWeight = FontWeight.Bold, fontFamily = oswaldFont, color = Color(0x6128122A), modifier = Modifier.graphicsLayer(scaleY = 0.3f, transformOrigin = androidx.compose.ui.graphics.TransformOrigin(0f, 1f), translationX = 40f, translationY = 50f), style = TextStyle(platformStyle = androidx.compose.ui.text.PlatformTextStyle(includeFontPadding = false)))
+            Text(sbTrains.getOrNull(1) ?: "--", fontSize = 110.sp, fontWeight = FontWeight.Bold, fontFamily = oswaldFont, color = Color(0x6128122A), modifier = Modifier.offset(x = 40.dp, y = 50.dp).graphicsLayer(scaleY = 0.3f, transformOrigin = androidx.compose.ui.graphics.TransformOrigin(0f, 1f)).skewX(54f), style = TextStyle(platformStyle = androidx.compose.ui.text.PlatformTextStyle(includeFontPadding = false)))
             Text(sbTrains.getOrNull(1) ?: "--", fontSize = 110.sp, fontWeight = FontWeight.Bold, fontFamily = oswaldFont, color = Color(0xFFF4DEC4), style = TextStyle(platformStyle = androidx.compose.ui.text.PlatformTextStyle(includeFontPadding = false)))
         }
         Text("▼ CHURCH AV · THEN", modifier = Modifier.align(Alignment.TopStart).offset(x = 868.dp, y = 455.dp), color = Color(0xFFD9B393), fontSize = 11.sp, fontFamily = FontFamily.Monospace, letterSpacing = 2.sp)
 
         // 11 + shadow
         Box(modifier = Modifier.align(Alignment.TopStart).offset(x = 1014.dp, y = 366.dp)) {
-            Text(nbTrains.getOrNull(1) ?: "--", fontSize = 64.sp, fontWeight = FontWeight.Bold, fontFamily = oswaldFont, color = Color(0x5928122A), modifier = Modifier.graphicsLayer(scaleY = 0.3f, transformOrigin = androidx.compose.ui.graphics.TransformOrigin(0f, 1f), translationX = 20f, translationY = 30f), style = TextStyle(platformStyle = androidx.compose.ui.text.PlatformTextStyle(includeFontPadding = false)))
+            Text(nbTrains.getOrNull(1) ?: "--", fontSize = 64.sp, fontWeight = FontWeight.Bold, fontFamily = oswaldFont, color = Color(0x5928122A), modifier = Modifier.offset(x = 20.dp, y = 30.dp).graphicsLayer(scaleY = 0.3f, transformOrigin = androidx.compose.ui.graphics.TransformOrigin(0f, 1f)).skewX(54f), style = TextStyle(platformStyle = androidx.compose.ui.text.PlatformTextStyle(includeFontPadding = false)))
             Text(nbTrains.getOrNull(1) ?: "--", fontSize = 64.sp, fontWeight = FontWeight.Bold, fontFamily = oswaldFont, color = Color(0xFFEFD2AE), style = TextStyle(platformStyle = androidx.compose.ui.text.PlatformTextStyle(includeFontPadding = false)))
         }
         Text("▲ COURT SQ · THEN", modifier = Modifier.align(Alignment.TopStart).offset(x = 1010.dp, y = 426.dp), color = Color(0xFFCBA384), fontSize = 10.sp, fontFamily = FontFamily.Monospace, letterSpacing = 2.sp)
@@ -419,22 +442,22 @@ fun ChiricoSkin(
         Text("L'enigma dell'arrivo.", modifier = Modifier.align(Alignment.BottomEnd).offset(x = (-40).dp, y = (-24).dp), color = Color(0xFFC9923E), fontSize = 34.sp, fontFamily = FontFamily.Serif, fontStyle = FontStyle.Italic)
 
         Box(modifier = Modifier.align(Alignment.TopStart).offset(x = 340.dp, y = 410.dp)) {
-            Text(sbTrains.getOrNull(0) ?: "--", fontSize = 160.sp, fontWeight = FontWeight.Bold, fontFamily = oswaldFont, color = Color(0x662E1812), modifier = Modifier.graphicsLayer(scaleY = 0.4f, transformOrigin = androidx.compose.ui.graphics.TransformOrigin(0f, 1f), translationX = 140f, translationY = 80f, rotationZ = -20f), style = TextStyle(platformStyle = androidx.compose.ui.text.PlatformTextStyle(includeFontPadding = false)))
+            Text(sbTrains.getOrNull(0) ?: "--", fontSize = 160.sp, fontWeight = FontWeight.Bold, fontFamily = oswaldFont, color = Color(0x662E1812), modifier = Modifier.offset(x = 140.dp, y = 80.dp).graphicsLayer(scaleY = 0.4f, transformOrigin = androidx.compose.ui.graphics.TransformOrigin(0f, 1f)).skewX(64f), style = TextStyle(platformStyle = androidx.compose.ui.text.PlatformTextStyle(includeFontPadding = false)))
             Text(sbTrains.getOrNull(0) ?: "--", fontSize = 160.sp, fontWeight = FontWeight.Bold, fontFamily = oswaldFont, color = Color(0xFFE8D5C4), style = TextStyle(platformStyle = androidx.compose.ui.text.PlatformTextStyle(includeFontPadding = false)))
             Text("▼ CHURCH AV · NEXT", modifier = Modifier.offset(y = 150.dp), color = Color(0xFF4A281E), fontSize = 12.sp, fontFamily = FontFamily.Monospace, letterSpacing = 2.sp)
         }
         Box(modifier = Modifier.align(Alignment.TopStart).offset(x = 610.dp, y = 460.dp)) {
-            Text(nbTrains.getOrNull(0) ?: "--", fontSize = 120.sp, fontWeight = FontWeight.Bold, fontFamily = oswaldFont, color = Color(0x662E1812), modifier = Modifier.graphicsLayer(scaleY = 0.4f, transformOrigin = androidx.compose.ui.graphics.TransformOrigin(0f, 1f), translationX = 100f, translationY = 60f, rotationZ = -20f), style = TextStyle(platformStyle = androidx.compose.ui.text.PlatformTextStyle(includeFontPadding = false)))
+            Text(nbTrains.getOrNull(0) ?: "--", fontSize = 120.sp, fontWeight = FontWeight.Bold, fontFamily = oswaldFont, color = Color(0x662E1812), modifier = Modifier.offset(x = 100.dp, y = 60.dp).graphicsLayer(scaleY = 0.4f, transformOrigin = androidx.compose.ui.graphics.TransformOrigin(0f, 1f)).skewX(64f), style = TextStyle(platformStyle = androidx.compose.ui.text.PlatformTextStyle(includeFontPadding = false)))
             Text(nbTrains.getOrNull(0) ?: "--", fontSize = 120.sp, fontWeight = FontWeight.Bold, fontFamily = oswaldFont, color = Color(0xFFE8D5C4), style = TextStyle(platformStyle = androidx.compose.ui.text.PlatformTextStyle(includeFontPadding = false)))
             Text("▲ COURT SQ · NEXT", modifier = Modifier.offset(y = 110.dp), color = Color(0xFF4A281E), fontSize = 11.sp, fontFamily = FontFamily.Monospace, letterSpacing = 2.sp)
         }
         Box(modifier = Modifier.align(Alignment.TopStart).offset(x = 810.dp, y = 500.dp)) {
-            Text(sbTrains.getOrNull(1) ?: "--", fontSize = 90.sp, fontWeight = FontWeight.Bold, fontFamily = oswaldFont, color = Color(0x662E1812), modifier = Modifier.graphicsLayer(scaleY = 0.4f, transformOrigin = androidx.compose.ui.graphics.TransformOrigin(0f, 1f), translationX = 70f, translationY = 50f, rotationZ = -20f), style = TextStyle(platformStyle = androidx.compose.ui.text.PlatformTextStyle(includeFontPadding = false)))
+            Text(sbTrains.getOrNull(1) ?: "--", fontSize = 90.sp, fontWeight = FontWeight.Bold, fontFamily = oswaldFont, color = Color(0x662E1812), modifier = Modifier.offset(x = 70.dp, y = 50.dp).graphicsLayer(scaleY = 0.4f, transformOrigin = androidx.compose.ui.graphics.TransformOrigin(0f, 1f)).skewX(64f), style = TextStyle(platformStyle = androidx.compose.ui.text.PlatformTextStyle(includeFontPadding = false)))
             Text(sbTrains.getOrNull(1) ?: "--", fontSize = 90.sp, fontWeight = FontWeight.Bold, fontFamily = oswaldFont, color = Color(0xFFD4A35B), style = TextStyle(platformStyle = androidx.compose.ui.text.PlatformTextStyle(includeFontPadding = false)))
             Text("▼ CHURCH AV · THEN", modifier = Modifier.offset(y = 80.dp), color = Color(0xFF2E1812), fontSize = 10.sp, fontFamily = FontFamily.Monospace, letterSpacing = 2.sp)
         }
         Box(modifier = Modifier.align(Alignment.TopStart).offset(x = 1000.dp, y = 540.dp)) {
-            Text(nbTrains.getOrNull(1) ?: "--", fontSize = 70.sp, fontWeight = FontWeight.Bold, fontFamily = oswaldFont, color = Color(0x662E1812), modifier = Modifier.graphicsLayer(scaleY = 0.4f, transformOrigin = androidx.compose.ui.graphics.TransformOrigin(0f, 1f), translationX = 50f, translationY = 40f, rotationZ = -20f), style = TextStyle(platformStyle = androidx.compose.ui.text.PlatformTextStyle(includeFontPadding = false)))
+            Text(nbTrains.getOrNull(1) ?: "--", fontSize = 70.sp, fontWeight = FontWeight.Bold, fontFamily = oswaldFont, color = Color(0x662E1812), modifier = Modifier.offset(x = 50.dp, y = 40.dp).graphicsLayer(scaleY = 0.4f, transformOrigin = androidx.compose.ui.graphics.TransformOrigin(0f, 1f)).skewX(64f), style = TextStyle(platformStyle = androidx.compose.ui.text.PlatformTextStyle(includeFontPadding = false)))
             Text(nbTrains.getOrNull(1) ?: "--", fontSize = 70.sp, fontWeight = FontWeight.Bold, fontFamily = oswaldFont, color = Color(0xFFD4A35B), style = TextStyle(platformStyle = androidx.compose.ui.text.PlatformTextStyle(includeFontPadding = false)))
             Text("▲ COURT SQ · THEN", modifier = Modifier.offset(y = 60.dp), color = Color(0xFF2E1812), fontSize = 9.sp, fontFamily = FontFamily.Monospace, letterSpacing = 2.sp)
         }
