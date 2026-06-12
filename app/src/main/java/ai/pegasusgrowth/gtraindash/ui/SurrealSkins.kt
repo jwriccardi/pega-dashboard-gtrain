@@ -114,7 +114,7 @@ fun MagritteSkin(
                         fontSize = 110.sp, 
                         fontWeight = FontWeight.Black, 
                         color = Color(0xFF1A2A3A), 
-                        modifier = Modifier.align(Alignment.TopCenter).offset(y = (-10).dp),
+                        modifier = Modifier.align(Alignment.TopCenter).offset(y = (-80).dp),
                         maxLines = 1,
                         softWrap = false
                     )
