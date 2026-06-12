@@ -250,7 +250,11 @@ fun PremiumDarkSkin(
                                     color = Color.White,
                                     fontSize = 64.sp,
                                     fontWeight = FontWeight.Bold,
-                                    fontFamily = oswaldFontFamily
+                                    fontFamily = oswaldFontFamily,
+                                    modifier = Modifier.weight(1f).padding(end = 16.dp),
+                                    lineHeight = 64.sp,
+                                    maxLines = 2,
+                                    overflow = TextOverflow.Ellipsis
                                 )
                                 Row(horizontalArrangement = Arrangement.spacedBy(32.dp)) {
                                     Column(horizontalAlignment = Alignment.CenterHorizontally) {
@@ -260,6 +264,8 @@ fun PremiumDarkSkin(
                                             fontSize = 96.sp, 
                                             fontWeight = FontWeight.Bold, 
                                             fontFamily = oswaldFontFamily,
+                                            maxLines = 1,
+                                            softWrap = false,
                                             style = androidx.compose.ui.text.TextStyle(
                                                 shadow = androidx.compose.ui.graphics.Shadow(color = Color(0xFF8CEE5F), blurRadius = 30f)
                                             )
@@ -267,7 +273,7 @@ fun PremiumDarkSkin(
                                         Text(text = "MIN", color = Color.Gray, fontSize = 24.sp, fontWeight = FontWeight.Bold, fontFamily = oswaldFontFamily)
                                     }
                                     Column(horizontalAlignment = Alignment.CenterHorizontally) {
-                                        Text(text = sbMin2, color = Color.White, fontSize = 96.sp, fontWeight = FontWeight.Bold, fontFamily = oswaldFontFamily)
+                                        Text(text = sbMin2, color = Color.White, fontSize = 96.sp, fontWeight = FontWeight.Bold, fontFamily = oswaldFontFamily, maxLines = 1, softWrap = false)
                                         Text(text = "MIN", color = Color.Gray, fontSize = 24.sp, fontWeight = FontWeight.Bold, fontFamily = oswaldFontFamily)
                                     }
                                 }
@@ -296,7 +302,11 @@ fun PremiumDarkSkin(
                                     color = Color.White,
                                     fontSize = 64.sp,
                                     fontWeight = FontWeight.Bold,
-                                    fontFamily = oswaldFontFamily
+                                    fontFamily = oswaldFontFamily,
+                                    modifier = Modifier.weight(1f).padding(end = 16.dp),
+                                    lineHeight = 64.sp,
+                                    maxLines = 2,
+                                    overflow = TextOverflow.Ellipsis
                                 )
                                 Row(horizontalArrangement = Arrangement.spacedBy(32.dp)) {
                                     Column(horizontalAlignment = Alignment.CenterHorizontally) {
@@ -306,6 +316,8 @@ fun PremiumDarkSkin(
                                             fontSize = 96.sp, 
                                             fontWeight = FontWeight.Bold, 
                                             fontFamily = oswaldFontFamily,
+                                            maxLines = 1,
+                                            softWrap = false,
                                             style = androidx.compose.ui.text.TextStyle(
                                                 shadow = androidx.compose.ui.graphics.Shadow(color = Color(0xFF8CEE5F), blurRadius = 30f)
                                             )
@@ -313,7 +325,7 @@ fun PremiumDarkSkin(
                                         Text(text = "MIN", color = Color.Gray, fontSize = 24.sp, fontWeight = FontWeight.Bold, fontFamily = oswaldFontFamily)
                                     }
                                     Column(horizontalAlignment = Alignment.CenterHorizontally) {
-                                        Text(text = nbMin2, color = Color.White, fontSize = 96.sp, fontWeight = FontWeight.Bold, fontFamily = oswaldFontFamily)
+                                        Text(text = nbMin2, color = Color.White, fontSize = 96.sp, fontWeight = FontWeight.Bold, fontFamily = oswaldFontFamily, maxLines = 1, softWrap = false)
                                         Text(text = "MIN", color = Color.Gray, fontSize = 24.sp, fontWeight = FontWeight.Bold, fontFamily = oswaldFontFamily)
                                     }
                                 }
@@ -427,7 +439,11 @@ fun PremiumDarkSkin(
                                     color = Color.White,
                                     fontSize = 48.sp,
                                     fontWeight = FontWeight.Bold,
-                                    fontFamily = oswaldFontFamily
+                                    fontFamily = oswaldFontFamily,
+                                    modifier = Modifier.weight(1f).padding(end = 8.dp),
+                                    lineHeight = 48.sp,
+                                    maxLines = 2,
+                                    overflow = TextOverflow.Ellipsis
                                 )
                                 Row(horizontalArrangement = Arrangement.spacedBy(16.dp)) {
                                     Column(horizontalAlignment = Alignment.CenterHorizontally) {
@@ -437,6 +453,8 @@ fun PremiumDarkSkin(
                                             fontSize = 72.sp, 
                                             fontWeight = FontWeight.Bold, 
                                             fontFamily = oswaldFontFamily,
+                                            maxLines = 1,
+                                            softWrap = false,
                                             style = androidx.compose.ui.text.TextStyle(
                                                 shadow = androidx.compose.ui.graphics.Shadow(color = Color(0xFF8CEE5F), blurRadius = 20f)
                                             )
@@ -444,7 +462,7 @@ fun PremiumDarkSkin(
                                         Text(text = "MIN", color = Color.Gray, fontSize = 20.sp, fontWeight = FontWeight.Bold, fontFamily = oswaldFontFamily)
                                     }
                                     Column(horizontalAlignment = Alignment.CenterHorizontally) {
-                                        Text(text = sbMin2, color = Color.White, fontSize = 72.sp, fontWeight = FontWeight.Bold, fontFamily = oswaldFontFamily)
+                                        Text(text = sbMin2, color = Color.White, fontSize = 72.sp, fontWeight = FontWeight.Bold, fontFamily = oswaldFontFamily, maxLines = 1, softWrap = false)
                                         Text(text = "MIN", color = Color.Gray, fontSize = 20.sp, fontWeight = FontWeight.Bold, fontFamily = oswaldFontFamily)
                                     }
                                 }
@@ -473,7 +491,11 @@ fun PremiumDarkSkin(
                                     color = Color.White,
                                     fontSize = 48.sp,
                                     fontWeight = FontWeight.Bold,
-                                    fontFamily = oswaldFontFamily
+                                    fontFamily = oswaldFontFamily,
+                                    modifier = Modifier.weight(1f).padding(end = 8.dp),
+                                    lineHeight = 48.sp,
+                                    maxLines = 2,
+                                    overflow = TextOverflow.Ellipsis
                                 )
                                 Row(horizontalArrangement = Arrangement.spacedBy(16.dp)) {
                                     Column(horizontalAlignment = Alignment.CenterHorizontally) {
@@ -483,6 +505,8 @@ fun PremiumDarkSkin(
                                             fontSize = 72.sp, 
                                             fontWeight = FontWeight.Bold, 
                                             fontFamily = oswaldFontFamily,
+                                            maxLines = 1,
+                                            softWrap = false,
                                             style = androidx.compose.ui.text.TextStyle(
                                                 shadow = androidx.compose.ui.graphics.Shadow(color = Color(0xFF8CEE5F), blurRadius = 20f)
                                             )
@@ -490,7 +514,7 @@ fun PremiumDarkSkin(
                                         Text(text = "MIN", color = Color.Gray, fontSize = 20.sp, fontWeight = FontWeight.Bold, fontFamily = oswaldFontFamily)
                                     }
                                     Column(horizontalAlignment = Alignment.CenterHorizontally) {
-                                        Text(text = nbMin2, color = Color.White, fontSize = 72.sp, fontWeight = FontWeight.Bold, fontFamily = oswaldFontFamily)
+                                        Text(text = nbMin2, color = Color.White, fontSize = 72.sp, fontWeight = FontWeight.Bold, fontFamily = oswaldFontFamily, maxLines = 1, softWrap = false)
                                         Text(text = "MIN", color = Color.Gray, fontSize = 20.sp, fontWeight = FontWeight.Bold, fontFamily = oswaldFontFamily)
                                     }
                                 }
