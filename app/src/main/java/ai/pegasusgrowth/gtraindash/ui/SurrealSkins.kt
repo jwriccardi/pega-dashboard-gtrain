@@ -108,13 +108,30 @@ fun MagritteSkin(
         @Composable
         fun CloudNumber(number: String, label: String, modifier: Modifier) {
             Box(modifier = modifier) {
-                Text(number, fontSize = 180.sp, fontWeight = FontWeight.Black, color = Color(0xFF1A2A3A), modifier = Modifier.offset(x = 40.dp, y = (-80).dp))
-                // Cloud shape
-                Canvas(modifier = Modifier.width(200.dp).height(100.dp)) {
-                    drawCircle(Color.White, 60f, Offset(50f, 60f))
-                    drawCircle(Color.White, 80f, Offset(110f, 40f))
-                    drawCircle(Color.White, 50f, Offset(160f, 60f))
-                    drawRoundRect(Color.White, topLeft = Offset(20f, 50f), size = Size(160f, 50f), cornerRadius = androidx.compose.ui.geometry.CornerRadius(25f, 25f))
+                Box(modifier = Modifier.width(200.dp).height(120.dp)) {
+                    Text(
+                        text = number, 
+                        fontSize = 120.sp, 
+                        fontWeight = FontWeight.Black, 
+                        color = Color(0xFF1A2A3A), 
+                        modifier = Modifier.align(Alignment.BottomCenter).offset(y = (-40).dp),
+                        maxLines = 1,
+                        softWrap = false
+                    )
+                    // Cloud shape
+                    Canvas(modifier = Modifier.fillMaxSize()) {
+                        val w = size.width
+                        val h = size.height
+                        drawCircle(Color.White, w * 0.25f, Offset(w * 0.25f, h * 0.6f))
+                        drawCircle(Color.White, w * 0.35f, Offset(w * 0.55f, h * 0.45f))
+                        drawCircle(Color.White, w * 0.25f, Offset(w * 0.8f, h * 0.6f))
+                        drawRoundRect(
+                            Color.White, 
+                            topLeft = Offset(w * 0.05f, h * 0.5f), 
+                            size = Size(w * 0.9f, h * 0.5f), 
+                            cornerRadius = androidx.compose.ui.geometry.CornerRadius(w * 0.2f, w * 0.2f)
+                        )
+                    }
                 }
                 Box(modifier = Modifier.align(Alignment.BottomCenter).offset(y = 24.dp).background(Color(0xDDEEEEEE), RoundedCornerShape(4.dp)).padding(horizontal = 12.dp, vertical = 6.dp)) {
                     Text(label, fontSize = 12.sp, fontFamily = FontFamily.Monospace, color = Color(0xFF334455), fontWeight = FontWeight.Bold)
