@@ -381,6 +381,7 @@ fun ChiricoSkin(
             .background(Brush.verticalGradient(listOf(Color(0xFF0F3A38), Color(0xFF2E6A52), Color(0xFFA8B468))))
             .clickable { onCycleSkin() }
     ) {
+        // Ground
         Box(
             modifier = Modifier
                 .align(Alignment.BottomCenter)
@@ -389,78 +390,96 @@ fun ChiricoSkin(
                 .background(Brush.verticalGradient(listOf(Color(0xFFD09A45), Color(0xFFB97F32))))
         )
         
-        Box(modifier = Modifier.align(Alignment.TopStart).offset(x = 700.dp, y = 348.dp).width(150.dp).height(30.dp).background(Color(0xFF3F8A26), RoundedCornerShape(8.dp)))
-        Box(modifier = Modifier.align(Alignment.TopStart).offset(x = 712.dp, y = 356.dp).width(20.dp).height(12.dp).background(Color(0xFFF0F4F0)))
-        Box(modifier = Modifier.align(Alignment.TopStart).offset(x = 744.dp, y = 356.dp).width(20.dp).height(12.dp).background(Color(0xFFF0F4F0)))
-        Box(modifier = Modifier.align(Alignment.TopStart).offset(x = 776.dp, y = 356.dp).width(20.dp).height(12.dp).background(Color(0xFFF0F4F0)))
-        Box(modifier = Modifier.align(Alignment.TopStart).offset(x = 808.dp, y = 356.dp).width(20.dp).height(12.dp).background(Color(0xFFF0F4F0)))
-        Box(modifier = Modifier.align(Alignment.TopStart).offset(x = 690.dp, y = 344.dp).width(6.dp).height(14.dp).background(Color(0xFF1E1E1E)))
-        
-        val steamRise by rememberInfiniteTransition().animateFloat(
-            initialValue = 1f, targetValue = 0f,
-            animationSpec = infiniteRepeatable(animation = tween(4000, easing = LinearEasing), repeatMode = RepeatMode.Restart)
-        )
-        Box(modifier = Modifier.align(Alignment.TopStart).offset(x = 680.dp, y = (330 - steamRise*40).dp.value.dp).size(24.dp).background(Color(0x88FFFFFF), CircleShape))
-        Box(modifier = Modifier.align(Alignment.TopStart).offset(x = 660.dp, y = (310 - steamRise*60).dp.value.dp).size(36.dp).background(Color(0x55FFFFFF), CircleShape))
-        Box(modifier = Modifier.align(Alignment.TopStart).offset(x = 620.dp, y = (280 - steamRise*80).dp.value.dp).size(50.dp).background(Color(0x22FFFFFF), CircleShape))
-
-        Box(modifier = Modifier.align(Alignment.TopStart).offset(y = 370.dp).fillMaxWidth().height(26.dp).background(Color(0xFF7D4E3A)))
-
-        Canvas(modifier = Modifier.fillMaxSize()) {
-            val path = Path().apply {
-                moveTo(220.dp.toPx(), 396.dp.toPx())
-                lineTo(1180.dp.toPx(), 260.dp.toPx())
-                lineTo(1180.dp.toPx(), 664.dp.toPx())
-                lineTo(340.dp.toPx(), 664.dp.toPx())
-                close()
-            }
-            drawPath(path, Color(0xFF6E4A25))
-        }
-
-        Box(modifier = Modifier.align(Alignment.TopStart).offset(x = (-30).dp).width(250.dp).fillMaxHeight().background(Color(0xFFA66D4F)))
-        Box(modifier = Modifier.align(Alignment.TopStart).offset(x = (-10).dp, y = 340.dp).width(110.dp).height(340.dp).background(Color(0xFF2E1812), RoundedCornerShape(topStart = 55.dp, topEnd = 55.dp)))
-        Box(modifier = Modifier.align(Alignment.TopStart).offset(x = 130.dp, y = 340.dp).width(110.dp).height(340.dp).background(Color(0xFF2E1812), RoundedCornerShape(topStart = 55.dp, topEnd = 55.dp)))
-
-        Box(modifier = Modifier.align(Alignment.TopEnd).offset(x = (-80).dp).width(200.dp).height(240.dp).background(Color(0xFFD49A6A)))
-        Box(modifier = Modifier.align(Alignment.TopEnd).offset(x = (-260).dp).width(20.dp).height(240.dp).background(Color(0xFF8B5E34)))
-        Box(modifier = Modifier.align(Alignment.TopEnd).offset(x = (-130).dp, y = 140.dp).size(100.dp).background(Color(0xFFF6F3EA), CircleShape).border(6.dp, Color(0xFF2E1812), CircleShape), contentAlignment = Alignment.Center) {
-            Column(horizontalAlignment = Alignment.CenterHorizontally) {
-                Text("LIVE", color = Color(0xFFA66D4F), fontSize = 10.sp, fontFamily = FontFamily.Monospace, letterSpacing = 2.sp)
-                Text(formattedTime, color = Color(0xFF2E1812), fontSize = 14.sp, fontFamily = FontFamily.Monospace)
+        // Horizon train behind low wall
+        Box(modifier = Modifier.align(Alignment.TopStart).offset(x = 700.dp, y = 348.dp).width(150.dp).height(30.dp).background(Color(0xFF3F8A26), RoundedCornerShape(8.dp))) {
+            Row(modifier = Modifier.offset(x = 14.dp, y = 8.dp), horizontalArrangement = Arrangement.spacedBy(12.dp)) {
+                repeat(3) { Box(modifier = Modifier.size(12.dp).background(Color(0xFFEDE4C2), RoundedCornerShape(3.dp))) }
             }
         }
         
-        Canvas(modifier = Modifier.align(Alignment.TopEnd).offset(x = (-210).dp, y = (-20).dp).size(80.dp, 60.dp)) {
-            drawLine(Color(0xFF2E1812), Offset(20f, 60f), Offset(20f, -40f), strokeWidth = 6f)
-            val path1 = Path().apply { moveTo(20f, -40f); lineTo(80f, -20f); lineTo(20f, 0f); close() }
-            drawPath(path1, Color(0xFFD34F3F))
-            val path2 = Path().apply { moveTo(20f, 10f); lineTo(70f, 25f); lineTo(20f, 40f); close() }
-            drawPath(path2, Color(0xFFF0D568))
+        @Composable
+        fun Steam(x: Int, y: Int, size: Int, color: Color, duration: Int) {
+            val bob by rememberInfiniteTransition().animateFloat(
+                initialValue = 0f, targetValue = -18f,
+                animationSpec = infiniteRepeatable(animation = tween(duration / 2, easing = LinearEasing), repeatMode = RepeatMode.Reverse)
+            )
+            Box(modifier = Modifier.align(Alignment.TopStart).offset(x = x.dp, y = y.dp).offset(y = bob.dp).size(size.dp).background(color, CircleShape))
+        }
+        Steam(672, 328, 12, Color(0xE6F5F0DC), 5000)
+        Steam(650, 310, 16, Color(0x99F5F0DC), 6000)
+        Steam(624, 290, 20, Color(0x59F5F0DC), 7000)
+
+        // Low wall top border
+        Box(modifier = Modifier.align(Alignment.TopStart).offset(x = 470.dp, y = 372.dp).width(710.dp).height(26.dp).background(Color(0xFF8A5230))) {
+            Box(modifier = Modifier.fillMaxWidth().height(3.dp).background(Color(0xFFC99A55)))
         }
 
-        Text("MYRTLE–WILLOUGHBY AVS · IND CROSSTOWN", modifier = Modifier.align(Alignment.TopStart).offset(x = 24.dp, y = 24.dp), color = Color(0xFF2E1812), fontSize = 14.sp, fontFamily = FontFamily.Monospace, letterSpacing = 3.sp)
-        Text("L'enigma dell'arrivo.", modifier = Modifier.align(Alignment.BottomEnd).offset(x = (-40).dp, y = (-24).dp), color = Color(0xFFC9923E), fontSize = 34.sp, fontFamily = FontFamily.Serif, fontStyle = FontStyle.Italic)
+        // Tower
+        Box(modifier = Modifier.align(Alignment.TopStart).offset(x = 1040.dp, y = 70.dp).width(100.dp).height(324.dp).background(Brush.horizontalGradient(listOf(Color(0xFFA66B3F), Color(0xFFA66B3F), Color(0xFF6E4226)), startX = 0f, endX = 100f))) {
+            Box(modifier = Modifier.align(Alignment.TopCenter).offset(y = (-44).dp).width(3.dp).height(44.dp).background(Color(0xFF3A2014)))
+            Canvas(modifier = Modifier.align(Alignment.TopCenter).offset(x = 18.dp, y = (-40).dp).size(36.dp, 18.dp)) {
+                val path = Path().apply { moveTo(0f, 0f); lineTo(size.width, size.height/2); lineTo(0f, size.height); close() }
+                drawPath(path, Color(0xFF3F8A26))
+            }
+            Box(modifier = Modifier.align(Alignment.TopCenter).offset(y = 26.dp).size(66.dp).background(Color(0xFFF2E3C0), CircleShape).border(4.dp, Color(0xFF5E3A22), CircleShape), contentAlignment = Alignment.Center) {
+                Text(formattedTime, color = Color(0xFF3A2014), fontSize = 9.sp, fontFamily = FontFamily.Monospace, letterSpacing = 0.sp)
+            }
+        }
 
-        Box(modifier = Modifier.align(Alignment.TopStart).offset(x = 340.dp, y = 410.dp)) {
-            Text(sbTrains.getOrNull(0) ?: "--", fontSize = 160.sp, fontWeight = FontWeight.Bold, fontFamily = oswaldFont, color = Color(0x662E1812), modifier = Modifier.offset(x = 140.dp, y = 80.dp).graphicsLayer(scaleY = 0.4f, transformOrigin = androidx.compose.ui.graphics.TransformOrigin(0f, 1f)).skewX(64f), style = TextStyle(platformStyle = androidx.compose.ui.text.PlatformTextStyle(includeFontPadding = false)))
-            Text(sbTrains.getOrNull(0) ?: "--", fontSize = 160.sp, fontWeight = FontWeight.Bold, fontFamily = oswaldFont, color = Color(0xFFE8D5C4), style = TextStyle(platformStyle = androidx.compose.ui.text.PlatformTextStyle(includeFontPadding = false)))
-            Text("▼ CHURCH AV · NEXT", modifier = Modifier.offset(y = 150.dp), color = Color(0xFF4A281E), fontSize = 12.sp, fontFamily = FontFamily.Monospace, letterSpacing = 2.sp)
+        // Arcade Left Building
+        Canvas(modifier = Modifier.align(Alignment.TopStart).offset(y = 130.dp).size(360.dp, 534.dp)) {
+            val path = Path().apply { moveTo(0f, 0f); lineTo(size.width, size.height * 0.26f); lineTo(size.width, size.height); lineTo(0f, size.height); close() }
+            drawPath(path, Color(0xFFB26038))
         }
-        Box(modifier = Modifier.align(Alignment.TopStart).offset(x = 610.dp, y = 460.dp)) {
-            Text(nbTrains.getOrNull(0) ?: "--", fontSize = 120.sp, fontWeight = FontWeight.Bold, fontFamily = oswaldFont, color = Color(0x662E1812), modifier = Modifier.offset(x = 100.dp, y = 60.dp).graphicsLayer(scaleY = 0.4f, transformOrigin = androidx.compose.ui.graphics.TransformOrigin(0f, 1f)).skewX(64f), style = TextStyle(platformStyle = androidx.compose.ui.text.PlatformTextStyle(includeFontPadding = false)))
-            Text(nbTrains.getOrNull(0) ?: "--", fontSize = 120.sp, fontWeight = FontWeight.Bold, fontFamily = oswaldFont, color = Color(0xFFE8D5C4), style = TextStyle(platformStyle = androidx.compose.ui.text.PlatformTextStyle(includeFontPadding = false)))
-            Text("▲ COURT SQ · NEXT", modifier = Modifier.offset(y = 110.dp), color = Color(0xFF4A281E), fontSize = 11.sp, fontFamily = FontFamily.Monospace, letterSpacing = 2.sp)
+        
+        // Arches inside arcade
+        val archColor = Color(0xFF1E0E08)
+        Box(modifier = Modifier.align(Alignment.TopStart).offset(x = 20.dp, y = 494.dp).size(70.dp, 170.dp).background(archColor, RoundedCornerShape(topStart = 35.dp, topEnd = 35.dp)))
+        Box(modifier = Modifier.align(Alignment.TopStart).offset(x = 105.dp, y = 494.dp).size(70.dp, 170.dp).background(archColor, RoundedCornerShape(topStart = 35.dp, topEnd = 35.dp)))
+        Box(modifier = Modifier.align(Alignment.TopStart).offset(x = 190.dp, y = 494.dp).size(70.dp, 170.dp).background(archColor, RoundedCornerShape(topStart = 35.dp, topEnd = 35.dp))) {
+            Box(modifier = Modifier.fillMaxSize().background(Brush.radialGradient(listOf(Color(0x738CEE5F), Color.Transparent), center = Offset(0.5f, 0.7f)), RoundedCornerShape(topStart = 35.dp, topEnd = 35.dp)))
+            Box(modifier = Modifier.align(Alignment.BottomCenter).offset(y = (-42).dp).size(34.dp).shadow(22.dp, ambientColor = Color(0xCC8CEE5F), spotColor = Color(0xCC8CEE5F), shape = CircleShape).background(Color(0xFF57A234), CircleShape), contentAlignment = Alignment.Center) {
+                Text("G", color = Color.White, fontSize = 22.sp, fontWeight = FontWeight.Bold)
+            }
         }
-        Box(modifier = Modifier.align(Alignment.TopStart).offset(x = 810.dp, y = 500.dp)) {
-            Text(sbTrains.getOrNull(1) ?: "--", fontSize = 90.sp, fontWeight = FontWeight.Bold, fontFamily = oswaldFont, color = Color(0x662E1812), modifier = Modifier.offset(x = 70.dp, y = 50.dp).graphicsLayer(scaleY = 0.4f, transformOrigin = androidx.compose.ui.graphics.TransformOrigin(0f, 1f)).skewX(64f), style = TextStyle(platformStyle = androidx.compose.ui.text.PlatformTextStyle(includeFontPadding = false)))
-            Text(sbTrains.getOrNull(1) ?: "--", fontSize = 90.sp, fontWeight = FontWeight.Bold, fontFamily = oswaldFont, color = Color(0xFFD4A35B), style = TextStyle(platformStyle = androidx.compose.ui.text.PlatformTextStyle(includeFontPadding = false)))
-            Text("▼ CHURCH AV · THEN", modifier = Modifier.offset(y = 80.dp), color = Color(0xFF2E1812), fontSize = 10.sp, fontFamily = FontFamily.Monospace, letterSpacing = 2.sp)
+        Box(modifier = Modifier.align(Alignment.TopStart).offset(x = 275.dp, y = 494.dp).size(70.dp, 170.dp).background(archColor, RoundedCornerShape(topStart = 35.dp, topEnd = 35.dp)))
+
+        Text("MYRTLE–WILLOUGHBY AVS", modifier = Modifier.align(Alignment.TopStart).offset(x = 24.dp, y = 236.dp).graphicsLayer(rotationZ = -2f), color = Color(0xD928120A), fontSize = 13.sp, fontFamily = FontFamily.Monospace, letterSpacing = 4.sp)
+
+        // Arcade shadow across plaza
+        Canvas(modifier = Modifier.align(Alignment.BottomStart).size(720.dp, 270.dp)) {
+            val path = Path().apply { moveTo(0f, 0f); lineTo(size.width * 0.47f, 0f); lineTo(size.width, size.height); lineTo(0f, size.height); close() }
+            drawPath(path, Color(0x61190A06))
         }
-        Box(modifier = Modifier.align(Alignment.TopStart).offset(x = 1000.dp, y = 540.dp)) {
-            Text(nbTrains.getOrNull(1) ?: "--", fontSize = 70.sp, fontWeight = FontWeight.Bold, fontFamily = oswaldFont, color = Color(0x662E1812), modifier = Modifier.offset(x = 50.dp, y = 40.dp).graphicsLayer(scaleY = 0.4f, transformOrigin = androidx.compose.ui.graphics.TransformOrigin(0f, 1f)).skewX(64f), style = TextStyle(platformStyle = androidx.compose.ui.text.PlatformTextStyle(includeFontPadding = false)))
-            Text(nbTrains.getOrNull(1) ?: "--", fontSize = 70.sp, fontWeight = FontWeight.Bold, fontFamily = oswaldFont, color = Color(0xFFD4A35B), style = TextStyle(platformStyle = androidx.compose.ui.text.PlatformTextStyle(includeFontPadding = false)))
-            Text("▲ COURT SQ · THEN", modifier = Modifier.offset(y = 60.dp), color = Color(0xFF2E1812), fontSize = 9.sp, fontFamily = FontFamily.Monospace, letterSpacing = 2.sp)
+
+        // Statue Numerals
+        val skewDegrees = -54f
+        
+        Box(modifier = Modifier.align(Alignment.TopStart).offset(x = 420.dp, y = 416.dp)) {
+            Text(sbTrains.getOrNull(0) ?: "--", fontSize = 230.sp, fontWeight = FontWeight.Bold, fontFamily = oswaldFont, color = Color(0x66140A06), modifier = Modifier.offset(x = 4.dp).graphicsLayer(scaleY = 0.3f, transformOrigin = androidx.compose.ui.graphics.TransformOrigin(0f, 1f)).skewX(skewDegrees), style = TextStyle(platformStyle = androidx.compose.ui.text.PlatformTextStyle(includeFontPadding = false)))
+            Text(sbTrains.getOrNull(0) ?: "--", fontSize = 230.sp, fontWeight = FontWeight.Bold, fontFamily = oswaldFont, color = Color(0xFFF2E3C0), style = TextStyle(platformStyle = androidx.compose.ui.text.PlatformTextStyle(includeFontPadding = false)))
+            Text("▼ CHURCH AV · NEXT", modifier = Modifier.offset(x = 4.dp, y = (-30).dp), color = Color(0xFF2E1812), fontSize = 11.sp, fontFamily = FontFamily.Monospace, letterSpacing = 2.sp)
         }
+        
+        Box(modifier = Modifier.align(Alignment.TopStart).offset(x = 680.dp, y = 420.dp)) {
+            Text(nbTrains.getOrNull(0) ?: "--", fontSize = 150.sp, fontWeight = FontWeight.Bold, fontFamily = oswaldFont, color = Color(0x61140A06), modifier = Modifier.offset(x = 2.dp).graphicsLayer(scaleY = 0.3f, transformOrigin = androidx.compose.ui.graphics.TransformOrigin(0f, 1f)).skewX(skewDegrees), style = TextStyle(platformStyle = androidx.compose.ui.text.PlatformTextStyle(includeFontPadding = false)))
+            Text(nbTrains.getOrNull(0) ?: "--", fontSize = 150.sp, fontWeight = FontWeight.Bold, fontFamily = oswaldFont, color = Color(0xFFF2E3C0), style = TextStyle(platformStyle = androidx.compose.ui.text.PlatformTextStyle(includeFontPadding = false)))
+            Text("▲ COURT SQ · NEXT", modifier = Modifier.offset(x = 2.dp, y = 140.dp), color = Color(0xFF2E1812), fontSize = 11.sp, fontFamily = FontFamily.Monospace, letterSpacing = 2.sp)
+        }
+        
+        Box(modifier = Modifier.align(Alignment.TopStart).offset(x = 850.dp, y = 410.dp)) {
+            Text(sbTrains.getOrNull(1) ?: "--", fontSize = 100.sp, fontWeight = FontWeight.Bold, fontFamily = oswaldFont, color = Color(0x59140A06), modifier = Modifier.offset(x = 2.dp).graphicsLayer(scaleY = 0.3f, transformOrigin = androidx.compose.ui.graphics.TransformOrigin(0f, 1f)).skewX(skewDegrees), style = TextStyle(platformStyle = androidx.compose.ui.text.PlatformTextStyle(includeFontPadding = false)))
+            Text(sbTrains.getOrNull(1) ?: "--", fontSize = 100.sp, fontWeight = FontWeight.Bold, fontFamily = oswaldFont, color = Color(0xFFEDD9B0), style = TextStyle(platformStyle = androidx.compose.ui.text.PlatformTextStyle(includeFontPadding = false)))
+            Text("▼ CHURCH AV · THEN", modifier = Modifier.offset(x = 2.dp, y = 92.dp), color = Color(0xFF2E1812), fontSize = 10.sp, fontFamily = FontFamily.Monospace, letterSpacing = 2.sp)
+        }
+        
+        Box(modifier = Modifier.align(Alignment.TopStart).offset(x = 960.dp, y = 404.dp)) {
+            Text(nbTrains.getOrNull(1) ?: "--", fontSize = 70.sp, fontWeight = FontWeight.Bold, fontFamily = oswaldFont, color = Color(0x52140A06), modifier = Modifier.offset(x = 2.dp).graphicsLayer(scaleY = 0.3f, transformOrigin = androidx.compose.ui.graphics.TransformOrigin(0f, 1f)).skewX(skewDegrees), style = TextStyle(platformStyle = androidx.compose.ui.text.PlatformTextStyle(includeFontPadding = false)))
+            Text(nbTrains.getOrNull(1) ?: "--", fontSize = 70.sp, fontWeight = FontWeight.Bold, fontFamily = oswaldFont, color = Color(0xFFE6CFA2), style = TextStyle(platformStyle = androidx.compose.ui.text.PlatformTextStyle(includeFontPadding = false)))
+            Text("▲ COURT SQ · THEN", modifier = Modifier.offset(x = 2.dp, y = 64.dp), color = Color(0xFF2E1812), fontSize = 10.sp, fontFamily = FontFamily.Monospace, letterSpacing = 2.sp)
+        }
+
+        Text("L’enigma dell’arrivo.", modifier = Modifier.align(Alignment.BottomStart).offset(x = 40.dp, y = (-26).dp), color = Color(0xFFF6E8C8), fontSize = 32.sp, fontFamily = FontFamily.Serif, fontStyle = FontStyle.Italic)
     }
 }
 
