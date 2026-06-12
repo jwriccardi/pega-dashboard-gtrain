@@ -4,6 +4,7 @@ import androidx.compose.animation.core.*
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -93,6 +94,32 @@ fun MainDashboardContent(
     currentTimeSeconds: Long,
     onRefresh: () -> Unit
 ) {
+    var currentSkin by remember { mutableStateOf(DashboardSkin.PREMIUM_DARK) }
+    
+    val cycleSkin = {
+        currentSkin = when (currentSkin) {
+            DashboardSkin.PREMIUM_DARK -> DashboardSkin.GREEN_BAR
+            DashboardSkin.GREEN_BAR -> DashboardSkin.DOT_MATRIX
+            DashboardSkin.DOT_MATRIX -> DashboardSkin.SPATIAL
+            DashboardSkin.SPATIAL -> DashboardSkin.PREMIUM_DARK
+        }
+    }
+
+    when (currentSkin) {
+        DashboardSkin.PREMIUM_DARK -> PremiumDarkSkin(arrivals, isRefreshing, currentTimeSeconds, cycleSkin)
+        DashboardSkin.GREEN_BAR -> GreenBarSkin(arrivals, currentTimeSeconds, cycleSkin)
+        DashboardSkin.DOT_MATRIX -> DotMatrixSkin(arrivals, currentTimeSeconds, cycleSkin)
+        DashboardSkin.SPATIAL -> SpatialSkin(arrivals, currentTimeSeconds, cycleSkin)
+    }
+}
+
+@Composable
+fun PremiumDarkSkin(
+    arrivals: TrainArrivals,
+    isRefreshing: Boolean,
+    currentTimeSeconds: Long,
+    onCycleSkin: () -> Unit
+) {
     val oswaldFontFamily = FontFamily(
         Font(R.font.oswald_regular, FontWeight.Normal),
         Font(R.font.oswald_bold, FontWeight.Bold)
@@ -107,7 +134,10 @@ fun MainDashboardContent(
     val nbMin1 = northboundTrains.getOrNull(0)?.toString() ?: "--"
     val nbMin2 = northboundTrains.getOrNull(1)?.toString() ?: "--"
 
-    BoxWithConstraints(modifier = Modifier.fillMaxSize().background(Color(0xFF0A0C0A))) {
+    val sbDest = arrivals.southbound.firstOrNull()?.destination?.uppercase() ?: "CHURCH AV"
+    val nbDest = arrivals.northbound.firstOrNull()?.destination?.uppercase() ?: "COURT SQ"
+
+    BoxWithConstraints(modifier = Modifier.fillMaxSize().background(Color(0xFF0A0C0A)).clickable { onCycleSkin() }) {
         val isLandscape = maxWidth > maxHeight
         
         val timeFormatter = remember { java.text.SimpleDateFormat("h:mm:ss a", java.util.Locale.US) }
@@ -216,7 +246,7 @@ fun MainDashboardContent(
                                 horizontalArrangement = Arrangement.SpaceBetween
                             ) {
                                 Text(
-                                    text = "CHURCH AV",
+                                    text = sbDest,
                                     color = Color.White,
                                     fontSize = 64.sp,
                                     fontWeight = FontWeight.Bold,
@@ -262,7 +292,7 @@ fun MainDashboardContent(
                                 horizontalArrangement = Arrangement.SpaceBetween
                             ) {
                                 Text(
-                                    text = "COURT SQ",
+                                    text = nbDest,
                                     color = Color.White,
                                     fontSize = 64.sp,
                                     fontWeight = FontWeight.Bold,
@@ -393,7 +423,7 @@ fun MainDashboardContent(
                                 horizontalArrangement = Arrangement.SpaceBetween
                             ) {
                                 Text(
-                                    text = "CHURCH AV",
+                                    text = sbDest,
                                     color = Color.White,
                                     fontSize = 48.sp,
                                     fontWeight = FontWeight.Bold,
@@ -439,7 +469,7 @@ fun MainDashboardContent(
                                 horizontalArrangement = Arrangement.SpaceBetween
                             ) {
                                 Text(
-                                    text = "COURT SQ",
+                                    text = nbDest,
                                     color = Color.White,
                                     fontSize = 48.sp,
                                     fontWeight = FontWeight.Bold,
