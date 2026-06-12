@@ -101,7 +101,11 @@ fun MainDashboardContent(
             DashboardSkin.PREMIUM_DARK -> DashboardSkin.GREEN_BAR
             DashboardSkin.GREEN_BAR -> DashboardSkin.DOT_MATRIX
             DashboardSkin.DOT_MATRIX -> DashboardSkin.SPATIAL
-            DashboardSkin.SPATIAL -> DashboardSkin.PREMIUM_DARK
+            DashboardSkin.SPATIAL -> DashboardSkin.MAGRITTE
+            DashboardSkin.MAGRITTE -> DashboardSkin.DALI
+            DashboardSkin.DALI -> DashboardSkin.CHIRICO
+            DashboardSkin.CHIRICO -> DashboardSkin.JELLYFISH
+            DashboardSkin.JELLYFISH -> DashboardSkin.PREMIUM_DARK
         }
     }
 
@@ -110,6 +114,10 @@ fun MainDashboardContent(
         DashboardSkin.GREEN_BAR -> GreenBarSkin(arrivals, currentTimeSeconds, cycleSkin)
         DashboardSkin.DOT_MATRIX -> DotMatrixSkin(arrivals, currentTimeSeconds, cycleSkin)
         DashboardSkin.SPATIAL -> SpatialSkin(arrivals, currentTimeSeconds, cycleSkin)
+        DashboardSkin.MAGRITTE -> MagritteSkin(arrivals, currentTimeSeconds, cycleSkin)
+        DashboardSkin.DALI -> DaliSkin(arrivals, currentTimeSeconds, cycleSkin)
+        DashboardSkin.CHIRICO -> ChiricoSkin(arrivals, currentTimeSeconds, cycleSkin)
+        DashboardSkin.JELLYFISH -> JellyfishSkin(arrivals, currentTimeSeconds, cycleSkin)
     }
 }
 

@@ -33,7 +33,7 @@ import java.text.SimpleDateFormat
 import java.util.*
 
 enum class DashboardSkin {
-    PREMIUM_DARK, GREEN_BAR, DOT_MATRIX, SPATIAL
+    PREMIUM_DARK, GREEN_BAR, DOT_MATRIX, SPATIAL, MAGRITTE, DALI, CHIRICO, JELLYFISH
 }
 
 // -------------------------------------------------------------------------------------
