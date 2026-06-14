@@ -90,12 +90,12 @@ fun MagritteSkin(
     val timeFormatter = remember { SimpleDateFormat("h:mm:ss a", Locale.US) }
     val formattedTime = remember(currentTimeSeconds) { timeFormatter.format(Date(currentTimeSeconds * 1000L)) }
 
-    Box(
-        modifier = Modifier
-            .fillMaxSize()
-            .background(Brush.verticalGradient(listOf(Color(0xFF5E9EC9), Color(0xFF8FBEDC), Color(0xFFCADFE9))))
-            .clickable { onCycleSkin() }
-    ) {
+    ScaledLayout(onCycleSkin = onCycleSkin) {
+        Box(
+            modifier = Modifier
+                .fillMaxSize()
+                .background(Brush.verticalGradient(listOf(Color(0xFF5E9EC9), Color(0xFF8FBEDC), Color(0xFFCADFE9))))
+        ) {
         // Sun G
         Box(
             modifier = Modifier
@@ -231,6 +231,7 @@ fun MagritteSkin(
         DriftingCloud(sbTrains.getOrNull(1) ?: "--", "▼ CHURCH AV · THEN", Modifier.align(Alignment.TopCenter).offset(x = (-100).dp, y = 355.dp), 120, 210, 64, 34, 17000, true)
         DriftingCloud(nbTrains.getOrNull(1) ?: "--", "▲ COURT SQ · THEN", Modifier.align(Alignment.TopEnd).offset(x = (-40).dp, y = 290.dp), 112, 200, 62, 32, 20000, true)
     }
+    }
 }
 
 // -------------------------------------------------------------------------------------
@@ -263,12 +264,12 @@ fun DaliSkin(
     val timeFormatter = remember { java.text.SimpleDateFormat("h:mm:ss a", java.util.Locale.US) }
     val formattedTime = remember(currentTimeSeconds) { timeFormatter.format(java.util.Date(currentTimeSeconds * 1000L)) }
 
-    Box(
-        modifier = Modifier
-            .fillMaxSize()
-            .background(Brush.verticalGradient(listOf(Color(0xFFF6DCA8), Color(0xFFF0B57E), Color(0xFFE08A5C))))
-            .clickable { onCycleSkin() }
-    ) {
+    ScaledLayout(onCycleSkin = onCycleSkin) {
+        Box(
+            modifier = Modifier
+                .fillMaxSize()
+                .background(Brush.verticalGradient(listOf(Color(0xFFF6DCA8), Color(0xFFF0B57E), Color(0xFFE08A5C))))
+        ) {
         // Low sun
         Box(
             modifier = Modifier
@@ -381,6 +382,7 @@ fun DaliSkin(
         Text("MYRTLE–WILLOUGHBY AVS · IND CROSSTOWN", modifier = Modifier.align(Alignment.TopStart).offset(x = 40.dp, y = 34.dp), color = Color(0xFF6E3F2A), fontSize = 13.sp, fontFamily = FontFamily.Monospace, letterSpacing = 3.sp)
         Text("The persistence of departure.", modifier = Modifier.align(Alignment.BottomStart).offset(x = 40.dp, y = (-30).dp), color = Color(0xFFF4DEC4), fontSize = 33.sp, fontFamily = FontFamily.Serif, fontStyle = FontStyle.Italic)
     }
+    }
 }
 
 // -------------------------------------------------------------------------------------
@@ -398,12 +400,12 @@ fun ChiricoSkin(
     val timeFormatter = remember { java.text.SimpleDateFormat("h:mm:ss a", java.util.Locale.US) }
     val formattedTime = remember(currentTimeSeconds) { timeFormatter.format(java.util.Date(currentTimeSeconds * 1000L)) }
 
-    Box(
-        modifier = Modifier
-            .fillMaxSize()
-            .background(Brush.verticalGradient(listOf(Color(0xFF0F3A38), Color(0xFF2E6A52), Color(0xFFA8B468))))
-            .clickable { onCycleSkin() }
-    ) {
+    ScaledLayout(onCycleSkin = onCycleSkin) {
+        Box(
+            modifier = Modifier
+                .fillMaxSize()
+                .background(Brush.verticalGradient(listOf(Color(0xFF0F3A38), Color(0xFF2E6A52), Color(0xFFA8B468))))
+        ) {
         // Ground
         Box(
             modifier = Modifier
@@ -504,6 +506,7 @@ fun ChiricoSkin(
 
         Text("L’enigma dell’arrivo.", modifier = Modifier.align(Alignment.BottomStart).offset(x = 40.dp, y = (-26).dp), color = Color(0xFFF6E8C8), fontSize = 32.sp, fontFamily = FontFamily.Serif, fontStyle = FontStyle.Italic)
     }
+    }
 }
 
 // -------------------------------------------------------------------------------------
@@ -521,12 +524,12 @@ fun JellyfishSkin(
     val timeFormatter = remember { java.text.SimpleDateFormat("h:mm:ss a", java.util.Locale.US) }
     val formattedTime = remember(currentTimeSeconds) { timeFormatter.format(java.util.Date(currentTimeSeconds * 1000L)) }
 
-    Box(
-        modifier = Modifier
-            .fillMaxSize()
-            .background(Brush.verticalGradient(listOf(Color(0xFF0E3A4A), Color(0xFF0A2538), Color(0xFF061722))))
-            .clickable { onCycleSkin() }
-    ) {
+    ScaledLayout(onCycleSkin = onCycleSkin) {
+        Box(
+            modifier = Modifier
+                .fillMaxSize()
+                .background(Brush.verticalGradient(listOf(Color(0xFF0E3A4A), Color(0xFF0A2538), Color(0xFF061722))))
+        ) {
         val sway by rememberInfiniteTransition().animateFloat(
             initialValue = 0.35f, targetValue = 0.75f,
             animationSpec = infiniteRepeatable(animation = tween(4500, easing = LinearEasing), repeatMode = RepeatMode.Reverse)
@@ -606,5 +609,6 @@ fun JellyfishSkin(
         }
 
         Text("Every orbit returns to Court Sq.", modifier = Modifier.align(Alignment.BottomStart).padding(40.dp), color = Color(0xFFC9BFE8), fontSize = 30.sp, fontFamily = FontFamily.Serif, fontStyle = FontStyle.Italic)
+    }
     }
 }
