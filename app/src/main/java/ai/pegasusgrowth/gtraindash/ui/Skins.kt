@@ -20,6 +20,12 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.Path
 import androidx.compose.ui.graphics.Shadow
 import androidx.compose.ui.graphics.drawscope.Stroke
+import androidx.compose.ui.graphics.ImageBitmap
+import androidx.compose.ui.graphics.Canvas as ComposeCanvas
+import androidx.compose.ui.graphics.Paint
+import androidx.compose.ui.graphics.ShaderBrush
+import androidx.compose.ui.graphics.ImageShader
+import androidx.compose.ui.graphics.TileMode
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.Font
 import androidx.compose.ui.text.font.FontFamily
@@ -177,7 +183,16 @@ fun DotMatrixSkin(
     val timeFormatter = remember { SimpleDateFormat("h:mm:ss a", Locale.US) }
     val formattedTime = remember(currentTimeSeconds) { timeFormatter.format(Date(currentTimeSeconds * 1000L)) }
 
-    Box(modifier = Modifier.fillMaxSize().background(Color.Black).padding(24.dp).clickable { onCycleSkin() }) {
+    val dotBrush = remember {
+        val bitmap = ImageBitmap(4, 4)
+        val canvas = ComposeCanvas(bitmap)
+        val paint = Paint().apply { color = Color(0xFF6CBE45); isAntiAlias = true }
+        canvas.drawCircle(Offset(2f, 2f), 1.5f, paint)
+        ShaderBrush(ImageShader(bitmap, TileMode.Repeated, TileMode.Repeated))
+    }
+
+    ScaledLayout(onCycleSkin = onCycleSkin) {
+        Box(modifier = Modifier.fillMaxSize().background(Color.Black).padding(24.dp)) {
         Box(modifier = Modifier.fillMaxSize().border(2.dp, Color(0xFF111111), RoundedCornerShape(16.dp)).padding(24.dp)) {
             Column(modifier = Modifier.fillMaxSize()) {
                 // Header
@@ -201,12 +216,12 @@ fun DotMatrixSkin(
                         }
                         Spacer(modifier = Modifier.width(24.dp))
                         Column(modifier = Modifier.weight(1f)) {
-                            Text(dest, color = Color(0xFF55BB33), fontSize = 64.sp, fontFamily = dotMatrixFont, lineHeight = 64.sp)
+                            Text(dest, fontSize = 64.sp, fontFamily = dotMatrixFont, lineHeight = 64.sp, style = TextStyle(brush = dotBrush))
                             Text(dir, color = Color.DarkGray, fontSize = 16.sp, fontFamily = dotMatrixFont, letterSpacing = 2.sp)
                         }
                         Row(verticalAlignment = Alignment.Bottom) {
-                            Text(mins, color = Color(0xFF55BB33), fontSize = 100.sp, fontFamily = dotMatrixFont, style = TextStyle(shadow = Shadow(Color(0xFF55BB33), blurRadius = 15f)))
-                            Text(" MIN", color = Color(0xFF337722), fontSize = 24.sp, fontFamily = dotMatrixFont, modifier = Modifier.padding(bottom = 16.dp))
+                            Text(mins, fontSize = 100.sp, fontFamily = dotMatrixFont, style = TextStyle(brush = dotBrush, shadow = Shadow(Color(0xFF55BB33), blurRadius = 15f)))
+                            Text(" MIN", fontSize = 24.sp, fontFamily = dotMatrixFont, modifier = Modifier.padding(bottom = 16.dp), style = TextStyle(brush = dotBrush))
                         }
                     }
                     Box(modifier = Modifier.fillMaxWidth().height(1.dp).background(Color(0xFF1A1A1A)))
@@ -218,6 +233,7 @@ fun DotMatrixSkin(
                 MatrixRow("4", nbDest, "▲ NORTHBOUND", nbMin2)
             }
         }
+    }
     }
 }
 

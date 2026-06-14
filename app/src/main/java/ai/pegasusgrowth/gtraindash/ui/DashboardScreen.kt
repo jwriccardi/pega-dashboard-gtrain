@@ -260,8 +260,7 @@ fun PremiumDarkSkin(
                                     fontWeight = FontWeight.Bold,
                                     fontFamily = oswaldFontFamily,
                                     modifier = Modifier.weight(1f).padding(end = 16.dp),
-                                    lineHeight = 64.sp,
-                                    maxLines = 2,
+                                    maxLines = 1,
                                     overflow = TextOverflow.Ellipsis
                                 )
                                 Row(horizontalArrangement = Arrangement.spacedBy(32.dp)) {
@@ -312,8 +311,7 @@ fun PremiumDarkSkin(
                                     fontWeight = FontWeight.Bold,
                                     fontFamily = oswaldFontFamily,
                                     modifier = Modifier.weight(1f).padding(end = 16.dp),
-                                    lineHeight = 64.sp,
-                                    maxLines = 2,
+                                    maxLines = 1,
                                     overflow = TextOverflow.Ellipsis
                                 )
                                 Row(horizontalArrangement = Arrangement.spacedBy(32.dp)) {
@@ -449,8 +447,7 @@ fun PremiumDarkSkin(
                                     fontWeight = FontWeight.Bold,
                                     fontFamily = oswaldFontFamily,
                                     modifier = Modifier.weight(1f).padding(end = 8.dp),
-                                    lineHeight = 48.sp,
-                                    maxLines = 2,
+                                    maxLines = 1,
                                     overflow = TextOverflow.Ellipsis
                                 )
                                 Row(horizontalArrangement = Arrangement.spacedBy(16.dp)) {
@@ -501,8 +498,7 @@ fun PremiumDarkSkin(
                                     fontWeight = FontWeight.Bold,
                                     fontFamily = oswaldFontFamily,
                                     modifier = Modifier.weight(1f).padding(end = 8.dp),
-                                    lineHeight = 48.sp,
-                                    maxLines = 2,
+                                    maxLines = 1,
                                     overflow = TextOverflow.Ellipsis
                                 )
                                 Row(horizontalArrangement = Arrangement.spacedBy(16.dp)) {
