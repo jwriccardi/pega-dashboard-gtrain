@@ -53,6 +53,29 @@ import java.text.SimpleDateFormat
 import java.util.*
 
 // -------------------------------------------------------------------------------------
+
+@Composable
+fun ScaledLayout(onCycleSkin: () -> Unit, content: @Composable () -> Unit) {
+    BoxWithConstraints(
+        modifier = Modifier.fillMaxSize().background(Color.Black).clickable { onCycleSkin() },
+        contentAlignment = Alignment.Center
+    ) {
+        val scale = minOf(maxWidth.value / 1180f, maxHeight.value / 664f)
+        Box(
+            modifier = Modifier
+                .requiredSize(1180.dp, 664.dp)
+                .graphicsLayer {
+                    scaleX = scale
+                    scaleY = scale
+                    transformOrigin = androidx.compose.ui.graphics.TransformOrigin(0.5f, 0.5f)
+                }
+                .clipToBounds()
+        ) {
+            content()
+        }
+    }
+}
+
 // SKIN 5: MAGRITTE (Ceci n'est pas un train)
 // -------------------------------------------------------------------------------------
 @Composable
