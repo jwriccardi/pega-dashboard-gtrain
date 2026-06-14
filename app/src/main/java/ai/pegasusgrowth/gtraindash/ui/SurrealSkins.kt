@@ -57,7 +57,7 @@ import java.util.*
 @Composable
 fun ScaledLayout(onCycleSkin: () -> Unit, content: @Composable () -> Unit) {
     BoxWithConstraints(
-        modifier = Modifier.fillMaxSize().background(Color.Black).clickable { onCycleSkin() },
+        modifier = Modifier.fillMaxSize().background(Color.Black),
         contentAlignment = Alignment.Center
     ) {
         val scale = minOf(maxWidth.value / 1180f, maxHeight.value / 664f)

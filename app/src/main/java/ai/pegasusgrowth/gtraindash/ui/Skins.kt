@@ -70,7 +70,7 @@ fun GreenBarSkin(
     val timeFormatter = remember { SimpleDateFormat("h:mm:ss a", Locale.US) }
     val formattedTime = remember(currentTimeSeconds) { timeFormatter.format(Date(currentTimeSeconds * 1000L)) }
 
-    Column(modifier = Modifier.fillMaxSize().background(Color(0xFF0F1110)).clickable { onCycleSkin() }) {
+    Column(modifier = Modifier.fillMaxSize().background(Color(0xFF0F1110))) {
         // TOP GREEN BAR
         Row(
             modifier = Modifier
@@ -269,7 +269,6 @@ fun SpatialSkin(
         modifier = Modifier
             .fillMaxSize()
             .background(Color(0xFF0F1110))
-            .clickable { onCycleSkin() }
             .drawBehind {
                 val gridSize = 100f
                 val stroke = Stroke(width = 1f)
@@ -305,28 +304,28 @@ fun SpatialSkin(
 
         // Giant Numbers
         Box(modifier = Modifier.fillMaxSize()) {
-            Column(modifier = Modifier.align(Alignment.CenterStart).offset(x = 60.dp, y = 40.dp), horizontalAlignment = Alignment.Start) {
+            Column(modifier = Modifier.align(Alignment.CenterStart).offset(x = 60.dp, y = 80.dp), horizontalAlignment = Alignment.Start) {
                 Box(modifier = Modifier.background(Color(0xFF6CBE45), RoundedCornerShape(4.dp)).padding(horizontal = 12.dp, vertical = 4.dp)) {
                     Text("▼ $sbDest · NEXT", color = Color.Black, fontSize = 14.sp, fontFamily = FontFamily.Monospace, fontWeight = FontWeight.Bold)
                 }
                 Text(sbMin1, color = Color(0xFF8CEE5F), fontSize = 280.sp, fontWeight = FontWeight.Bold, fontFamily = oswaldFontFamily, style = TextStyle(shadow = Shadow(Color(0xFF8CEE5F), blurRadius = 40f)), modifier = Modifier.offset(y = (-40).dp))
             }
 
-            Column(modifier = Modifier.align(Alignment.BottomCenter).offset(x = (-100).dp, y = (-40).dp), horizontalAlignment = Alignment.Start) {
+            Column(modifier = Modifier.align(Alignment.BottomCenter).offset(x = (-100).dp, y = 0.dp), horizontalAlignment = Alignment.Start) {
                 Box(modifier = Modifier.border(1.dp, Color(0xFF6CBE45), RoundedCornerShape(4.dp)).padding(horizontal = 12.dp, vertical = 4.dp)) {
                     Text("▼ $sbDest · THEN", color = Color(0xFF6CBE45), fontSize = 12.sp, fontFamily = FontFamily.Monospace)
                 }
                 Text(sbMin2, color = Color.White, fontSize = 140.sp, fontWeight = FontWeight.Bold, fontFamily = oswaldFontFamily, modifier = Modifier.offset(y = (-20).dp))
             }
 
-            Column(modifier = Modifier.align(Alignment.TopCenter).offset(x = 100.dp, y = 140.dp), horizontalAlignment = Alignment.Start) {
+            Column(modifier = Modifier.align(Alignment.TopCenter).offset(x = 100.dp, y = 180.dp), horizontalAlignment = Alignment.Start) {
                 Box(modifier = Modifier.background(Color(0xFF6CBE45), RoundedCornerShape(4.dp)).padding(horizontal = 12.dp, vertical = 4.dp)) {
                     Text("▲ $nbDest · NEXT", color = Color.Black, fontSize = 14.sp, fontFamily = FontFamily.Monospace, fontWeight = FontWeight.Bold)
                 }
                 Text(nbMin1, color = Color(0xFF6CBE45), fontSize = 240.sp, fontWeight = FontWeight.Bold, fontFamily = oswaldFontFamily, modifier = Modifier.offset(y = (-30).dp))
             }
 
-            Column(modifier = Modifier.align(Alignment.BottomEnd).offset(x = (-40).dp, y = (-40).dp), horizontalAlignment = Alignment.Start) {
+            Column(modifier = Modifier.align(Alignment.BottomEnd).offset(x = (-40).dp, y = 0.dp), horizontalAlignment = Alignment.Start) {
                 Box(modifier = Modifier.border(1.dp, Color(0xFF6CBE45), RoundedCornerShape(4.dp)).padding(horizontal = 12.dp, vertical = 4.dp)) {
                     Text("▲ $nbDest · THEN", color = Color(0xFF6CBE45), fontSize = 12.sp, fontFamily = FontFamily.Monospace)
                 }

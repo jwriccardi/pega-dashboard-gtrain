@@ -34,7 +34,12 @@ import ai.pegasusgrowth.gtraindash.data.TrainArrivals
 import ai.pegasusgrowth.gtraindash.ui.theme.*
 import java.text.SimpleDateFormat
 import java.util.*
-
+import androidx.compose.ui.input.pointer.pointerInput
+import androidx.compose.foundation.gestures.detectDragGestures
+import androidx.compose.foundation.gestures.detectTapGestures
+import android.content.Context
+import androidx.compose.ui.platform.LocalContext
+import kotlinx.coroutines.delay
 @Composable
 fun DashboardScreen(
     viewModel: DashboardViewModel,
@@ -95,29 +100,86 @@ fun MainDashboardContent(
     onRefresh: () -> Unit
 ) {
     var currentSkin by remember { mutableStateOf(DashboardSkin.PREMIUM_DARK) }
+    var showSettings by remember { mutableStateOf(false) }
     
-    val cycleSkin = {
-        currentSkin = when (currentSkin) {
-            DashboardSkin.PREMIUM_DARK -> DashboardSkin.GREEN_BAR
-            DashboardSkin.GREEN_BAR -> DashboardSkin.DOT_MATRIX
-            DashboardSkin.DOT_MATRIX -> DashboardSkin.SPATIAL
-            DashboardSkin.SPATIAL -> DashboardSkin.MAGRITTE
-            DashboardSkin.MAGRITTE -> DashboardSkin.DALI
-            DashboardSkin.DALI -> DashboardSkin.CHIRICO
-            DashboardSkin.CHIRICO -> DashboardSkin.JELLYFISH
-            DashboardSkin.JELLYFISH -> DashboardSkin.PREMIUM_DARK
+    val context = LocalContext.current
+    val prefs = remember { context.getSharedPreferences("dashboard_settings", Context.MODE_PRIVATE) }
+    var randomTrigger by remember { mutableStateOf(0) }
+
+    LaunchedEffect(randomTrigger) {
+        val randomSkinEnabled = prefs.getBoolean("random_skin", false)
+        if (randomSkinEnabled) {
+            val minInterval = prefs.getInt("random_min", 5)
+            val maxInterval = prefs.getInt("random_max", 360)
+            val delayMins = if (minInterval <= maxInterval) (minInterval..maxInterval).random() else 5
+            delay(delayMins * 60 * 1000L)
+            
+            val defaultSet = DashboardSkin.values().map { it.name }.toSet()
+            val enabledSkins = prefs.getStringSet("enabled_skins", defaultSet) ?: defaultSet
+            if (enabledSkins.isNotEmpty()) {
+                val nextSkinName = enabledSkins.random()
+                currentSkin = DashboardSkin.valueOf(nextSkinName)
+            }
+            randomTrigger++
         }
     }
 
-    when (currentSkin) {
-        DashboardSkin.PREMIUM_DARK -> PremiumDarkSkin(arrivals, isRefreshing, currentTimeSeconds, cycleSkin)
-        DashboardSkin.GREEN_BAR -> GreenBarSkin(arrivals, currentTimeSeconds, cycleSkin)
-        DashboardSkin.DOT_MATRIX -> DotMatrixSkin(arrivals, currentTimeSeconds, cycleSkin)
-        DashboardSkin.SPATIAL -> SpatialSkin(arrivals, currentTimeSeconds, cycleSkin)
-        DashboardSkin.MAGRITTE -> MagritteSkin(arrivals, currentTimeSeconds, cycleSkin)
-        DashboardSkin.DALI -> DaliSkin(arrivals, currentTimeSeconds, cycleSkin)
-        DashboardSkin.CHIRICO -> ChiricoSkin(arrivals, currentTimeSeconds, cycleSkin)
-        DashboardSkin.JELLYFISH -> JellyfishSkin(arrivals, currentTimeSeconds, cycleSkin)
+    val cycleRight = {
+        val values = DashboardSkin.values()
+        currentSkin = values[(currentSkin.ordinal + 1) % values.size]
+    }
+    
+    val cycleLeft = {
+        val values = DashboardSkin.values()
+        currentSkin = values[(currentSkin.ordinal - 1 + values.size) % values.size]
+    }
+    
+    val cycleSkin = cycleRight // For any remaining manual calls if needed
+    
+    var totalDrag by remember { mutableStateOf(0f) }
+
+    Box(modifier = Modifier
+        .fillMaxSize()
+        .pointerInput(Unit) {
+            detectTapGestures(onDoubleTap = { showSettings = true })
+        }
+        .pointerInput(Unit) {
+            detectDragGestures(
+                onDragEnd = {
+                    if (totalDrag > 50f) cycleLeft() else if (totalDrag < -50f) cycleRight()
+                    totalDrag = 0f
+                }
+            ) { change, dragAmount ->
+                change.consume()
+                totalDrag += dragAmount.x
+            }
+        }
+    ) {
+        when (currentSkin) {
+            DashboardSkin.PREMIUM_DARK -> PremiumDarkSkin(arrivals, isRefreshing, currentTimeSeconds, cycleSkin)
+            DashboardSkin.GREEN_BAR -> GreenBarSkin(arrivals, currentTimeSeconds, cycleSkin)
+            DashboardSkin.DOT_MATRIX -> DotMatrixSkin(arrivals, currentTimeSeconds, cycleSkin)
+            DashboardSkin.SPATIAL -> SpatialSkin(arrivals, currentTimeSeconds, cycleSkin)
+            DashboardSkin.MAGRITTE -> MagritteSkin(arrivals, currentTimeSeconds, cycleSkin)
+            DashboardSkin.DALI -> DaliSkin(arrivals, currentTimeSeconds, cycleSkin)
+            DashboardSkin.CHIRICO -> ChiricoSkin(arrivals, currentTimeSeconds, cycleSkin)
+            DashboardSkin.JELLYFISH -> JellyfishSkin(arrivals, currentTimeSeconds, cycleSkin)
+        }
+        
+        if (showSettings) {
+            SettingsScreen(
+                currentSkin = currentSkin,
+                onSkinSelected = { 
+                    currentSkin = it
+                    showSettings = false
+                    randomTrigger++ 
+                },
+                onClose = { 
+                    showSettings = false
+                    randomTrigger++ 
+                }
+            )
+        }
     }
 }
 
@@ -150,7 +212,7 @@ fun PremiumDarkSkin(
     val sbNeedsSmallerFont = sbMin1.length > 1 || sbMin2.length > 1 || sbDest.split(" ", "-").any { it.length > 6 }
     val nbNeedsSmallerFont = nbMin1.length > 1 || nbMin2.length > 1 || nbDest.split(" ", "-").any { it.length > 6 }
 
-    BoxWithConstraints(modifier = Modifier.fillMaxSize().background(Color(0xFF0A0C0A)).clickable { onCycleSkin() }) {
+    BoxWithConstraints(modifier = Modifier.fillMaxSize().background(Color(0xFF0A0C0A))) {
         val isLandscape = maxWidth > maxHeight
         
         val timeFormatter = remember { java.text.SimpleDateFormat("h:mm:ss a", java.util.Locale.US) }
