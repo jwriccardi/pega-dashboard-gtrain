@@ -129,6 +129,8 @@ fun PremiumDarkSkin(
     onCycleSkin: () -> Unit
 ) {
     val oswaldFontFamily = FontFamily(
+        Font(R.font.oswald_extralight, FontWeight.ExtraLight),
+        Font(R.font.oswald_light, FontWeight.Light),
         Font(R.font.oswald_regular, FontWeight.Normal),
         Font(R.font.oswald_bold, FontWeight.Bold)
     )
@@ -144,6 +146,9 @@ fun PremiumDarkSkin(
 
     val sbDest = arrivals.southbound.firstOrNull()?.destination?.uppercase() ?: "CHURCH AV"
     val nbDest = arrivals.northbound.firstOrNull()?.destination?.uppercase() ?: "COURT SQ"
+
+    val sbNeedsSmallerFont = sbMin1.length > 1 || sbMin2.length > 1 || sbDest.split(" ", "-").any { it.length > 6 }
+    val nbNeedsSmallerFont = nbMin1.length > 1 || nbMin2.length > 1 || nbDest.split(" ", "-").any { it.length > 6 }
 
     BoxWithConstraints(modifier = Modifier.fillMaxSize().background(Color(0xFF0A0C0A)).clickable { onCycleSkin() }) {
         val isLandscape = maxWidth > maxHeight
@@ -256,11 +261,12 @@ fun PremiumDarkSkin(
                                 Text(
                                     text = sbDest,
                                     color = Color.White,
-                                    fontSize = 64.sp,
-                                    fontWeight = FontWeight.Bold,
+                                    fontSize = if (sbNeedsSmallerFont) 48.sp else 64.sp,
+                                    fontWeight = if (sbNeedsSmallerFont) FontWeight.Light else FontWeight.Bold,
                                     fontFamily = oswaldFontFamily,
                                     modifier = Modifier.weight(1f).padding(end = 16.dp),
-                                    maxLines = 1,
+                                    lineHeight = if (sbNeedsSmallerFont) 48.sp else 64.sp,
+                                    maxLines = 2,
                                     overflow = TextOverflow.Ellipsis
                                 )
                                 Row(horizontalArrangement = Arrangement.spacedBy(32.dp)) {
@@ -307,11 +313,12 @@ fun PremiumDarkSkin(
                                 Text(
                                     text = nbDest,
                                     color = Color.White,
-                                    fontSize = 64.sp,
-                                    fontWeight = FontWeight.Bold,
+                                    fontSize = if (nbNeedsSmallerFont) 48.sp else 64.sp,
+                                    fontWeight = if (nbNeedsSmallerFont) FontWeight.Light else FontWeight.Bold,
                                     fontFamily = oswaldFontFamily,
                                     modifier = Modifier.weight(1f).padding(end = 16.dp),
-                                    maxLines = 1,
+                                    lineHeight = if (nbNeedsSmallerFont) 48.sp else 64.sp,
+                                    maxLines = 2,
                                     overflow = TextOverflow.Ellipsis
                                 )
                                 Row(horizontalArrangement = Arrangement.spacedBy(32.dp)) {
@@ -443,11 +450,12 @@ fun PremiumDarkSkin(
                                 Text(
                                     text = sbDest,
                                     color = Color.White,
-                                    fontSize = 48.sp,
-                                    fontWeight = FontWeight.Bold,
+                                    fontSize = if (sbNeedsSmallerFont) 36.sp else 48.sp,
+                                    fontWeight = if (sbNeedsSmallerFont) FontWeight.Light else FontWeight.Bold,
                                     fontFamily = oswaldFontFamily,
                                     modifier = Modifier.weight(1f).padding(end = 8.dp),
-                                    maxLines = 1,
+                                    lineHeight = if (sbNeedsSmallerFont) 36.sp else 48.sp,
+                                    maxLines = 2,
                                     overflow = TextOverflow.Ellipsis
                                 )
                                 Row(horizontalArrangement = Arrangement.spacedBy(16.dp)) {
@@ -494,11 +502,12 @@ fun PremiumDarkSkin(
                                 Text(
                                     text = nbDest,
                                     color = Color.White,
-                                    fontSize = 48.sp,
-                                    fontWeight = FontWeight.Bold,
+                                    fontSize = if (nbNeedsSmallerFont) 36.sp else 48.sp,
+                                    fontWeight = if (nbNeedsSmallerFont) FontWeight.Light else FontWeight.Bold,
                                     fontFamily = oswaldFontFamily,
                                     modifier = Modifier.weight(1f).padding(end = 8.dp),
-                                    maxLines = 1,
+                                    lineHeight = if (nbNeedsSmallerFont) 36.sp else 48.sp,
+                                    maxLines = 2,
                                     overflow = TextOverflow.Ellipsis
                                 )
                                 Row(horizontalArrangement = Arrangement.spacedBy(16.dp)) {
