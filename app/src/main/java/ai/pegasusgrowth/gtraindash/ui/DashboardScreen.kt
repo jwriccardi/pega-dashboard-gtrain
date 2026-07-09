@@ -99,7 +99,7 @@ fun MainDashboardContent(
     currentTimeSeconds: Long,
     onRefresh: () -> Unit
 ) {
-    var currentSkin by remember { mutableStateOf(DashboardSkin.PREMIUM_DARK) }
+    var currentSkin by remember { mutableStateOf(DashboardSkin.MAGRITTE) }
     var showSettings by remember { mutableStateOf(false) }
     
     val context = LocalContext.current
