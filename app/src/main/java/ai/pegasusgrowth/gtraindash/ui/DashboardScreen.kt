@@ -206,8 +206,14 @@ fun PremiumDarkSkin(
     val nbMin1 = northboundTrains.getOrNull(0)?.toString() ?: "--"
     val nbMin2 = northboundTrains.getOrNull(1)?.toString() ?: "--"
 
-    val sbDest = arrivals.southbound.firstOrNull()?.destination?.uppercase() ?: "CHURCH AV"
-    val nbDest = arrivals.northbound.firstOrNull()?.destination?.uppercase() ?: "COURT SQ"
+    val sbTrain1 = arrivals.southbound.firstOrNull()
+    val nbTrain1 = arrivals.northbound.firstOrNull()
+
+    val sbDestRaw = sbTrain1?.destination?.uppercase() ?: (if (arrivals.southbound.isEmpty()) "NO SERVICE AT STATION" else "CHURCH AV")
+    val nbDestRaw = nbTrain1?.destination?.uppercase() ?: (if (arrivals.northbound.isEmpty()) "NO SERVICE AT STATION" else "COURT SQ")
+
+    val sbDest = if (sbTrain1?.isNonStandardDestination() == true) "⚠️ $sbDestRaw" else sbDestRaw
+    val nbDest = if (nbTrain1?.isNonStandardDestination() == true) "⚠️ $nbDestRaw" else nbDestRaw
 
     val sbNeedsSmallerFont = sbMin1.length > 1 || sbMin2.length > 1 || sbDest.split(" ", "-").any { it.length > 6 }
     val nbNeedsSmallerFont = nbMin1.length > 1 || nbMin2.length > 1 || nbDest.split(" ", "-").any { it.length > 6 }
