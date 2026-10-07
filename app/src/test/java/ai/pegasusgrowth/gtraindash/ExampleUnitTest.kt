@@ -1,7 +1,6 @@
 package ai.pegasusgrowth.gtraindash
 
 import org.junit.Test
-
 import org.junit.Assert.*
 
 /**

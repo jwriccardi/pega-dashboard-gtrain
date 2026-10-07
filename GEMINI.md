@@ -20,7 +20,7 @@ The app is built to be a persistent, kiosk-like dashboard:
 ## Key Components
 - `MainActivity`: Entry point, sets up window flags for kiosk mode and sets the Compose content.
 - `DashboardViewModel`: Manages application state (`DashboardUiState`), handles periodic polling of the MTA API, and exposes a `StateFlow` to the UI.
-- `MtaDataService`: Handles network communication with the MTA GTFS-realtime endpoint, parses the protobuf feed, and filters data for the target stop (`G34N`/`G34S`).
+- `MtaDataService`: Handles network communication with the MTA GTFS-realtime endpoint, parses the protobuf feed, and filters data for the target stop (`G32N`/`G32S`).
 - **Python Scripts**: The repository root also contains several Python utility scripts (`fix_fonts.py`, `fix_skew_clip.py`, `scale_fix.py`, `update_skins.py`), likely used for pre-processing assets, designs, or environment maintenance.
 
 ## Development Guidelines

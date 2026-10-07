@@ -60,8 +60,8 @@ class MtaDataService {
     companion object {
         // G-train specific open GTFS-realtime endpoint (keyless)
         private const val FEED_URL = "https://api-endpoint.mta.info/Dataservice/mtagtfsfeeds/nyct%2Fgtfs-g"
-        private const val TARGET_STOP_N = "G34N" // Myrtle-Willoughby Avs Northbound
-        private const val TARGET_STOP_S = "G34S" // Myrtle-Willoughby Avs Southbound
+        private const val TARGET_STOP_N = "G32N" // Myrtle-Willoughby Avs Northbound
+        private const val TARGET_STOP_S = "G32S" // Myrtle-Willoughby Avs Southbound
         private const val TAG = "MtaDataService"
     }
 
@@ -150,7 +150,7 @@ class MtaDataService {
         val cleanLastStopId = lastStopId.take(3)
         return when (cleanLastStopId) {
             "G22" -> "Court Sq"
-            "G32" -> "Bedford-Nostrand"
+            "G33" -> "Bedford-Nostrand"
             "F27" -> "Church Av"
             "F35" -> "Coney Island"
             else -> {
