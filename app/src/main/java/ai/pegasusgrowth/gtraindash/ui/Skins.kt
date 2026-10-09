@@ -64,8 +64,14 @@ fun GreenBarSkin(
     val nbMin1 = northboundTrains.getOrNull(0)?.toString() ?: "--"
     val nbMin2 = northboundTrains.getOrNull(1)?.toString() ?: "--"
 
-    val sbDest = arrivals.southbound.firstOrNull()?.destination?.uppercase() ?: "CHURCH AV"
-    val nbDest = arrivals.northbound.firstOrNull()?.destination?.uppercase() ?: "COURT SQ"
+    val sbTrain1 = arrivals.southbound.firstOrNull()
+    val nbTrain1 = arrivals.northbound.firstOrNull()
+
+    val sbDestRaw = sbTrain1?.destination?.uppercase() ?: (if (arrivals.southbound.isEmpty()) "NO SERVICE AT STATION" else "CHURCH AV")
+    val nbDestRaw = nbTrain1?.destination?.uppercase() ?: (if (arrivals.northbound.isEmpty()) "NO SERVICE AT STATION" else "COURT SQ")
+
+    val sbDest = if (sbTrain1?.isNonStandardDestination() == true) "⚠️ $sbDestRaw" else sbDestRaw
+    val nbDest = if (nbTrain1?.isNonStandardDestination() == true) "⚠️ $nbDestRaw" else nbDestRaw
 
     val timeFormatter = remember { SimpleDateFormat("h:mm:ss a", Locale.US) }
     val formattedTime = remember(currentTimeSeconds) { timeFormatter.format(Date(currentTimeSeconds * 1000L)) }
@@ -177,8 +183,14 @@ fun DotMatrixSkin(
     val nbMin1 = nbTrains.getOrNull(0)?.toString() ?: "--"
     val nbMin2 = nbTrains.getOrNull(1)?.toString() ?: "--"
 
-    val sbDest = arrivals.southbound.firstOrNull()?.destination?.uppercase() ?: "CHURCH AV"
-    val nbDest = arrivals.northbound.firstOrNull()?.destination?.uppercase() ?: "COURT SQ"
+    val sbTrain1 = arrivals.southbound.firstOrNull()
+    val nbTrain1 = arrivals.northbound.firstOrNull()
+
+    val sbDestRaw = sbTrain1?.destination?.uppercase() ?: (if (arrivals.southbound.isEmpty()) "NO SERVICE" else "CHURCH AV")
+    val nbDestRaw = nbTrain1?.destination?.uppercase() ?: (if (arrivals.northbound.isEmpty()) "NO SERVICE" else "COURT SQ")
+
+    val sbDest = if (sbTrain1?.isNonStandardDestination() == true) "⚠️ $sbDestRaw" else sbDestRaw
+    val nbDest = if (nbTrain1?.isNonStandardDestination() == true) "⚠️ $nbDestRaw" else nbDestRaw
 
     val timeFormatter = remember { SimpleDateFormat("h:mm:ss a", Locale.US) }
     val formattedTime = remember(currentTimeSeconds) { timeFormatter.format(Date(currentTimeSeconds * 1000L)) }
@@ -259,8 +271,14 @@ fun SpatialSkin(
     val nbMin1 = nbTrains.getOrNull(0)?.toString() ?: "--"
     val nbMin2 = nbTrains.getOrNull(1)?.toString() ?: "--"
 
-    val sbDest = arrivals.southbound.firstOrNull()?.destination?.uppercase() ?: "CHURCH AV"
-    val nbDest = arrivals.northbound.firstOrNull()?.destination?.uppercase() ?: "COURT SQ"
+    val sbTrain1 = arrivals.southbound.firstOrNull()
+    val nbTrain1 = arrivals.northbound.firstOrNull()
+
+    val sbDestRaw = sbTrain1?.destination?.uppercase() ?: (if (arrivals.southbound.isEmpty()) "NO SERVICE" else "CHURCH AV")
+    val nbDestRaw = nbTrain1?.destination?.uppercase() ?: (if (arrivals.northbound.isEmpty()) "NO SERVICE" else "COURT SQ")
+
+    val sbDest = if (sbTrain1?.isNonStandardDestination() == true) "⚠️ $sbDestRaw" else sbDestRaw
+    val nbDest = if (nbTrain1?.isNonStandardDestination() == true) "⚠️ $nbDestRaw" else nbDestRaw
 
     val timeFormatter = remember { SimpleDateFormat("h:mm:ss a", Locale.US) }
     val formattedTime = remember(currentTimeSeconds) { timeFormatter.format(Date(currentTimeSeconds * 1000L)) }
